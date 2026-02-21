@@ -8,7 +8,11 @@
 		"preview": "astro preview",
 		"astro": "astro",
 		"deploy": "astro build && wrangler pages deploy",
-		"cf-typegen": "wrangler types"
+		"cf-typegen": "wrangler types",
+		"clean": "rm -rf dist .astro node_modules",
+		"lint": "echo 'optional later'",
+		"start": "pnpm dev",
+		"deploy:cf": "pnpm build"
 	},
 	"dependencies": {
 		"astro": "^5.17.1"
