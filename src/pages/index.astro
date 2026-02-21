@@ -1,11 +1,26 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import site from "../../content/site.json";
+import Hero from "../components/sections/Hero.astro";
+import Projects from "../components/sections/Projects.astro";
+import About from "../components/sections/About.astro";
+import Contact from "../components/sections/Contact.astro";
 ---
 
-<Layout>
-	<Welcome />
-</Layout>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>{site.name} — {site.role}</title>
+    <meta name="description" content={site.tagline} />
+  </head>
+
+  <body class="min-h-screen bg-white text-zinc-900">
+    <main class="mx-auto max-w-5xl px-6 py-16">
+      <Hero site={site} />
+      <Projects site={site} />
+      <About site={site} />
+      <Contact site={site} />
+    </main>
+  </body>
+</html>

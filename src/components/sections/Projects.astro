@@ -1,0 +1,20 @@
+---
+const { site } = Astro.props;
+const projects = site.projects ?? [];
+---
+<section class="mb-16">
+  <h2 class="text-xl font-semibold">Projects</h2>
+  <div class="mt-6 grid gap-4 sm:grid-cols-2">
+    {projects.map((p) => (
+      <a href={p.href} class="rounded-2xl border p-5 hover:bg-zinc-50">
+        <div class="text-base font-medium">{p.title}</div>
+        <p class="mt-2 text-sm text-zinc-600">{p.description}</p>
+        <div class="mt-4 flex flex-wrap gap-2">
+          {p.stack?.map((s) => (
+            <span class="rounded-full border px-2.5 py-1 text-xs text-zinc-600">{s}</span>
+          ))}
+        </div>
+      </a>
+    ))}
+  </div>
+</section>

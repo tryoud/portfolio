@@ -1,0 +1,19 @@
+{
+  "name": "Nikolas Maerker",
+  "role": "Web & AI Automation",
+  "location": "Germany",
+  "tagline": "I build fast, high-performance websites and AI-assisted workflows.",
+  "links": {
+    "email": "mailto:YOUR_EMAIL",
+    "github": "https://github.com/tryoud",
+    "linkedin": "https://www.linkedin.com/in/YOUR_HANDLE"
+  },
+  "projects": [
+    {
+      "title": "Project 1",
+      "description": "Short description of what you built and the impact.",
+      "stack": ["Astro", "Cloudflare Pages", "Tailwind"],
+      "href": "https://example.com"
+    }
+  ]
+}
