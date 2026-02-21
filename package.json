@@ -15,7 +15,9 @@
 		"deploy:cf": "pnpm build"
 	},
 	"dependencies": {
-		"astro": "^5.17.1"
+		"@tailwindcss/vite": "^4.2.0",
+		"astro": "^5.17.1",
+		"tailwindcss": "^4.2.0"
 	},
 	"devDependencies": {
 		"@types/node": "^25.3.0"
