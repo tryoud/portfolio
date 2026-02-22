@@ -1,24 +1,68 @@
 ---
+import "../styles/global.css";
 import site from "../../content/site.json";
 import Hero from "../components/sections/Hero.astro";
-import Projects from "../components/sections/Projects.astro";
+import Services from "../components/sections/Services.astro";
+import Work from "../components/sections/Work.astro";
+import Process from "../components/sections/Process.astro";
+import Media from "../components/sections/Media.astro";
 import About from "../components/sections/About.astro";
 import Contact from "../components/sections/Contact.astro";
+
+const siteUrl = (site as { siteUrl?: string }).siteUrl || "https://nikolasmaerker.com";
+const ogImage = (site as { ogImage?: string }).ogImage || "/og.png";
+const twitterHandle = (site as { twitterHandle?: string }).twitterHandle ?? "";
+const canonical = siteUrl ? `${siteUrl.replace(/\/$/, "")}/` : "";
+const ogImageUrl = ogImage ? (ogImage.startsWith("http") ? ogImage : `${canonical.replace(/\/$/, "")}${ogImage.startsWith("/") ? "" : "/"}${ogImage}`) : "";
+const title = `${site.name} — ${site.role}`;
+const description = site.tagline ?? "";
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>{site.name} — {site.role}</title>
-    <meta name="description" content={site.tagline} />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    {canonical ? <link rel="canonical" href={canonical} /> : null}
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    {ogImageUrl ? <meta property="og:image" content={ogImageUrl} /> : null}
+    {canonical ? <meta property="og:url" content={canonical} /> : null}
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    {ogImageUrl ? <meta name="twitter:image" content={ogImageUrl} /> : null}
+    {twitterHandle ? <meta name="twitter:site" content={twitterHandle} /> : null}
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   </head>
 
-  <body class="min-h-screen bg-white text-zinc-900">
-    <main class="mx-auto max-w-5xl px-6 py-16">
+  <body class="min-h-screen bg-[#FDFBF7] text-zinc-900 antialiased">
+    <header class="sticky top-0 z-50 w-full border-b border-zinc-100 bg-white/80 backdrop-blur-md">
+      <nav class="mx-auto flex h-20 max-w-7xl items-center justify-between px-6" aria-label="Main">
+        <a href="#top" class="font-display text-2xl font-semibold italic tracking-tight text-zinc-900 hover:opacity-80 focus:outline-none focus:ring-2 focus:ring-zinc-400 focus:ring-offset-2 rounded">{site.name}.</a>
+        <ul class="hidden items-center gap-8 md:flex text-sm font-medium text-zinc-600">
+          <li><a href="#services" class="hover:text-zinc-900 focus:outline-none focus:ring-2 focus:ring-zinc-400 focus:ring-offset-2 rounded">Services</a></li>
+          <li><a href="#work" class="hover:text-zinc-900 focus:outline-none focus:ring-2 focus:ring-zinc-400 focus:ring-offset-2 rounded">Work</a></li>
+          <li><a href="#process" class="hover:text-zinc-900 focus:outline-none focus:ring-2 focus:ring-zinc-400 focus:ring-offset-2 rounded">Process</a></li>
+          <li><a href="#media" class="hover:text-zinc-900 focus:outline-none focus:ring-2 focus:ring-zinc-400 focus:ring-offset-2 rounded">Media</a></li>
+          <li><a href="#about" class="hover:text-zinc-900 focus:outline-none focus:ring-2 focus:ring-zinc-400 focus:ring-offset-2 rounded">About</a></li>
+        </ul>
+        <a href="#contact" class="inline-flex items-center justify-center rounded-full bg-zinc-900 px-6 py-2.5 text-sm font-medium text-white shadow-sm hover:bg-zinc-800 focus:outline-none focus:ring-2 focus:ring-zinc-400 focus:ring-offset-2">
+          Contact
+        </a>
+      </nav>
+    </header>
+    <main>
       <Hero site={site} />
-      <Projects site={site} />
+      <Services site={site} />
+      <Work site={site} />
+      <Process site={site} />
+      <Media site={site} />
       <About site={site} />
       <Contact site={site} />
     </main>

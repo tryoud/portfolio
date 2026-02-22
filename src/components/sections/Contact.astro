@@ -1,10 +1,50 @@
 ---
 const { site } = Astro.props;
+const contact = site.contact ?? {};
+const headline = contact.headline ?? "Let's build something memorable.";
+const subline = contact.subline ?? "Reach out to discuss how I can help with your project.";
+const email = contact.email ?? site.links?.email ?? "";
+const socials = contact.socials ?? [];
+const bookingUrl = contact.bookingUrl ?? "";
 ---
-<section>
-  <h2 class="text-xl font-semibold">Contact</h2>
-  <p class="mt-4 text-zinc-600">
-    The fastest way to reach me:
-    <a class="underline underline-offset-4" href={site.links.email}>Email</a>.
-  </p>
-</section>
+
+<footer id="contact" class="border-t border-zinc-100 bg-white pt-24 pb-12" aria-labelledby="contact-heading">
+  <div class="mx-auto max-w-7xl px-6">
+    <div class="mb-24">
+      <h2 id="contact-heading" class="font-display mb-8 text-5xl italic text-zinc-900 md:text-6xl">{headline}</h2>
+      {subline ? <p class="mb-8 max-w-md text-lg text-zinc-600">{subline}</p> : null}
+      <a
+        href={email}
+        class="inline-block border-b-2 border-zinc-900 pb-1 text-3xl font-bold text-zinc-900 hover:text-zinc-600 focus:outline-none focus:ring-2 focus:ring-zinc-400 focus:ring-offset-2 rounded transition-colors md:text-4xl"
+      >
+        {email.replace("mailto:", "")}
+      </a>
+    </div>
+    <div class="flex flex-wrap items-center gap-4">
+      {socials.map((s) => (
+        <a
+          href={s.href}
+          class="inline-flex rounded-lg border border-zinc-200 bg-white px-5 py-2.5 text-sm font-medium text-zinc-700 transition-colors hover:bg-zinc-50 focus:outline-none focus:ring-2 focus:ring-zinc-400 focus:ring-offset-2"
+        >
+          {s.label}
+        </a>
+      ))}
+      {bookingUrl ? (
+        <a
+          href={bookingUrl}
+          class="inline-flex rounded-lg border border-zinc-200 bg-white px-5 py-2.5 text-sm font-medium text-zinc-700 transition-colors hover:bg-zinc-50 focus:outline-none focus:ring-2 focus:ring-zinc-400 focus:ring-offset-2"
+        >
+          Book a call
+        </a>
+      ) : null}
+    </div>
+    <div class="mt-12 flex flex-col border-t border-zinc-100 pt-8 text-sm text-zinc-500 md:flex-row md:justify-between md:items-center">
+      <p class="mb-4 md:mb-0">© {new Date().getFullYear()} {site.name}. All rights reserved.</p>
+      <div class="flex gap-6">
+        {socials.map((s) => (
+          <a href={s.href} class="hover:text-zinc-900 focus:outline-none focus:ring-2 focus:ring-zinc-400 focus:ring-offset-2 rounded transition-colors">{s.label}</a>
+        ))}
+      </div>
+    </div>
+  </div>
+</footer>

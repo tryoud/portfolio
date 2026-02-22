@@ -1,19 +1,99 @@
 {
   "name": "Nikolas Maerker",
-  "role": "Web & AI Automation",
-  "location": "Germany",
+  "role": "Web Developer · Photographer & Videographer",
   "tagline": "I build fast, high-performance websites and AI-assisted workflows.",
-  "links": {
-    "email": "mailto:YOUR_EMAIL",
-    "github": "https://github.com/tryoud",
-    "linkedin": "https://www.linkedin.com/in/YOUR_HANDLE"
+  "siteUrl": "https://nikolasmaerker.com",
+  "ogImage": "/og.png",
+  "twitterHandle": "",
+  "hero": {
+    "headline": "Hey, there",
+    "badgeText": "Available for new opportunities",
+    "specialization": "Specialized in Web Design & Development, Photo & Video, and Drone / Aerial.",
+    "portraitSrc": "/hero/Nikolas_Maerker_hero.webp",
+    "primaryCta": { "label": "Let's talk", "href": "#contact" },
+    "secondaryCta": { "label": "View work", "href": "#work" }
   },
-  "projects": [
+  "services": [
     {
-      "title": "Project 1",
-      "description": "Short description of what you built and the impact.",
-      "stack": ["Astro", "Cloudflare Pages", "Tailwind"],
-      "href": "https://example.com"
+      "id": "web-design-dev",
+      "title": "Web Design & Development",
+      "description": "Custom-coded solutions and modern builds that are fast, accessible, and designed to convert.",
+      "bullets": ["User journey design and UX", "SEO and performance", "Landing pages and web apps"]
+    },
+    {
+      "id": "photo-video",
+      "title": "Photo & Video",
+      "description": "Event photography and cinematic video production to elevate your brand's visual storytelling.",
+      "bullets": ["Event and editorial photography", "Video editing and aftermovies", "Consistent look and delivery"]
+    },
+    {
+      "id": "drone-aerial",
+      "title": "Drone Pilot / Aerial",
+      "description": "Professional drone shots and aerial footage for real estate, events, and marketing.",
+      "bullets": ["Licensed aerial footage", "Real estate and events", "Smooth, cinematic delivery"]
     }
-  ]
+  ],
+  "work": [
+    {
+      "title": "Agency Portfolio",
+      "description": "Conversion-focused agency site with case studies and lead capture.",
+      "href": "https://nikolasmaerker.com",
+      "image": "/work/Screenshot 2026-02-22 at 23.22.32.png",
+      "tags": ["Astro", "Tailwind", "Cloudflare"]
+    },
+    {
+      "title": "Project Two",
+      "description": "Web design and development case study.",
+      "href": "https://nikolasmaerker.com",
+      "image": "/work/Screenshot 2026-02-22 at 23.22.51.png",
+      "tags": ["Web Dev", "Design"]
+    },
+    {
+      "title": "Project Three",
+      "description": "Another website build.",
+      "href": "https://nikolasmaerker.com",
+      "image": "/work/Screenshot 2026-02-22 at 23.23.27.png",
+      "tags": ["Development"]
+    }
+  ],
+  "process": {
+    "sectionLabel": "How I work",
+    "heading": "Seamless collaboration.",
+    "steps": [
+      { "title": "Discovery", "description": "I listen to your vision and define the roadmap for success." },
+      { "title": "Strategy", "description": "Researching the market to position you perfectly." },
+      { "title": "Creation", "description": "Designing, building, and refining your digital assets." },
+      { "title": "Launch", "description": "Deploying to the world with full support and optimization." }
+    ]
+  },
+  "media": {
+    "youtubeUrl": "",
+    "embedUrl": "",
+    "instagramProfileUrl": "https://www.instagram.com/",
+    "instagramThumbnails": []
+  },
+  "about": {
+    "sectionLabel": "About",
+    "paragraph": "I'm a student-led creator: fast, focused, and conversion-oriented. I build websites and content that perform.",
+    "bullets": [
+      "High-performance sites and landing pages (Astro, Cloudflare)",
+      "Event photography, drone shots, and video editing",
+      "Clear process and communication from brief to delivery"
+    ]
+  },
+  "contact": {
+    "headline": "Let's build something memorable.",
+    "subline": "Reach out to discuss how I can help with your project.",
+    "email": "mailto:nikolas.maerker@gmail.com",
+    "socials": [
+      { "label": "GitHub", "href": "https://github.com/tryoud" },
+      { "label": "LinkedIn", "href": "https://www.linkedin.com/in/nikolasmaerker/" }
+    ],
+    "bookingUrl": ""
+  },
+  "links": {
+    "email": "mailto:nikolas.maerker@gmail.com",
+    "github": "https://github.com/tryoud",
+    "linkedin": "https://www.linkedin.com/in/nikolasmaerker/"
+  }
 }

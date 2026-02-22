@@ -1,6 +1,25 @@
-<section class="mb-16">
-  <h2 class="text-xl font-semibold">About</h2>
-  <p class="mt-4 max-w-2xl text-zinc-600">
-    I’m focused on building fast, conversion-oriented websites and automation workflows.
-  </p>
+---
+const { site } = Astro.props;
+const about = site.about ?? {};
+const paragraph = about.paragraph ?? "";
+const bullets = about.bullets ?? [];
+const sectionLabel = about.sectionLabel ?? "About";
+---
+
+<section id="about" class="border-t border-zinc-100 bg-white py-24" aria-labelledby="about-heading">
+  <div class="mx-auto max-w-7xl px-6">
+    <span class="mb-2 block text-sm font-semibold uppercase tracking-wider text-zinc-500">{sectionLabel}</span>
+    <h2 id="about-heading" class="font-display mb-8 text-4xl italic text-zinc-900 md:text-5xl">Who I am.</h2>
+    {paragraph ? <p class="max-w-2xl text-base text-zinc-600">{paragraph}</p> : null}
+    {bullets.length > 0 ? (
+      <ul class="mt-6 space-y-3">
+        {bullets.map((b) => (
+          <li class="flex items-start gap-3 text-base text-zinc-600">
+            <span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-zinc-400" aria-hidden="true" />
+            <span>{b}</span>
+          </li>
+        ))}
+      </ul>
+    ) : null}
+  </div>
 </section>

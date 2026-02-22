@@ -1,0 +1,51 @@
+---
+const { site } = Astro.props;
+const services = site.services ?? [];
+const iconMap = {
+  "web-design-dev": "laptop",
+  "photo-video": "camera",
+  "drone-aerial": "drone",
+};
+---
+
+<section id="services" class="border-t border-zinc-100 bg-white py-24" aria-labelledby="services-heading">
+  <div class="mx-auto max-w-7xl px-6">
+    <div class="mb-16 flex flex-col justify-between items-end md:flex-row">
+      <div>
+        <span class="mb-2 block text-sm font-semibold uppercase tracking-wider text-zinc-500">My expertise</span>
+        <h2 id="services-heading" class="font-display text-4xl italic text-zinc-900 md:text-5xl">Crafted for impact.</h2>
+      </div>
+      <p class="mt-4 max-w-sm text-zinc-600 md:mt-0">I combine focused execution with clear communication to deliver high-impact digital work.</p>
+    </div>
+    <div class="grid grid-cols-1 gap-8 md:grid-cols-3">
+      {services.map((s) => (
+        <article
+          class="group rounded-xl border border-zinc-100 bg-[#FDFBF7] p-8 transition-all duration-300 hover:border-zinc-300 hover:shadow-lg focus-within:ring-2 focus-within:ring-zinc-400 focus-within:ring-offset-2"
+          id={s.id ?? undefined}
+        >
+          <div class="mb-6 flex h-12 w-12 items-center justify-center rounded-full bg-white shadow-sm transition-transform group-hover:scale-110">
+            {iconMap[s.id] === "laptop" ? (
+              <svg class="h-6 w-6 text-zinc-900" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
+            ) : iconMap[s.id] === "camera" ? (
+              <svg class="h-6 w-6 text-zinc-900" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 13v7a2 2 0 01-2 2H7a2 2 0 01-2-2v-7" /></svg>
+            ) : (
+              <svg class="h-6 w-6 text-zinc-900" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0h.5a2.5 2.5 0 002.5-2.5V3.935M12 12a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
+            )}
+          </div>
+          <h3 class="mb-3 text-xl font-bold text-zinc-900">{s.title}</h3>
+          <p class="text-sm leading-relaxed text-zinc-600">{s.description}</p>
+          {s.bullets?.length ? (
+            <ul class="mt-4 space-y-2">
+              {s.bullets.map((b) => (
+                <li class="flex items-start gap-2 text-sm text-zinc-600">
+                  <span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-zinc-400" aria-hidden="true" />
+                  <span>{b}</span>
+                </li>
+              ))}
+            </ul>
+          ) : null}
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
