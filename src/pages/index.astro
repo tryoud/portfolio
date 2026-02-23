@@ -111,7 +111,6 @@ const description = site.tagline ?? "";
           btn.addEventListener("click", function () {
             var isDark = document.documentElement.classList.contains("dark");
             applyDark(!isDark);
-            setTimeout(logNavContactStyles, 50);
           });
           var isDark = document.documentElement.classList.contains("dark");
           if (moon) moon.classList.toggle("hidden", isDark);
@@ -125,67 +124,8 @@ btn.setAttribute("aria-label", isDark ? "Enable light mode" : "Enable dark mode"
             window.location.href = a.getAttribute("href");
           });
         });
-        // #region agent log
-        function logNavContactStyles() {
-          var contactBtn = document.querySelector(".nav-contact-btn");
-          var isDark = document.documentElement.classList.contains("dark");
-          if (!contactBtn) return;
-          var s = window.getComputedStyle(contactBtn);
-          fetch("http://127.0.0.1:7463/ingest/3a41d794-790f-4d99-b16f-a5111f089e69", { method: "POST", headers: { "Content-Type": "application/json", "X-Debug-Session-Id": "e0db85" }, body: JSON.stringify({ sessionId: "e0db85", location: "index.astro:nav-contact", message: "nav contact computed styles", data: { isDark: isDark, className: contactBtn.className, color: s.color, backgroundColor: s.backgroundColor, borderColor: s.borderColor, inTop: !!contactBtn.closest("#top") }, hypothesisId: "H1", timestamp: Date.now() }) }).catch(function () {});
-        }
-        if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", function () { setTimeout(logNavContactStyles, 100); });
-        else setTimeout(logNavContactStyles, 100);
-        // #endregion
       })();
     </script>
-    <!-- #region agent log -->
-    <script is:inline>
-      (function () {
-        var endpoint = "http://127.0.0.1:7463/ingest/3a41d794-790f-4d99-b16f-a5111f089e69";
-        var sessionId = "dcbfc2";
-        function send(msg, data) {
-          fetch(endpoint, {
-            method: "POST",
-            headers: { "Content-Type": "application/json", "X-Debug-Session-Id": sessionId },
-            body: JSON.stringify({ sessionId: sessionId, location: "index.astro:logo-scroll", message: msg, data: data || {}, timestamp: Date.now() })
-          }).catch(function () {});
-        }
-        function onLoad() {
-          var topEl = document.getElementById("top");
-          var scrollY = window.scrollY ?? document.documentElement.scrollTop;
-          send("page load", { hypothesisId: "H5", hasTopEl: !!topEl, topTagName: topEl ? topEl.tagName : null, scrollY: scrollY, topOffsetTop: topEl ? topEl.getBoundingClientRect().top + scrollY : null });
-        }
-        function afterScroll() {
-          var scrollY = window.scrollY ?? document.documentElement.scrollTop;
-          send("after scroll", { hypothesisId: "H2", scrollY: scrollY });
-        }
-        if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", onLoad);
-        else onLoad();
-        var logo = document.getElementById("logo-link");
-        if (logo) {
-          logo.addEventListener("click", function (e) {
-            var scrollYBefore = window.scrollY ?? document.documentElement.scrollTop;
-            send("logo clicked", { hypothesisId: "H4", href: logo.getAttribute("href"), scrollYBefore: scrollYBefore, runId: "post-fix" });
-            if (logo.getAttribute("href") === "#top") {
-              e.preventDefault();
-              window.scrollTo({ top: 0, behavior: "smooth" });
-            }
-            setTimeout(function () { requestAnimationFrame(afterScroll); }, 100);
-            setTimeout(function () {
-              requestAnimationFrame(function () {
-                var sy = window.scrollY ?? document.documentElement.scrollTop;
-                send("after scroll", { hypothesisId: "H2", scrollY: sy, runId: "post-fix" });
-              });
-            }, 600);
-          });
-        }
-        window.addEventListener("hashchange", function () {
-          var scrollY = window.scrollY ?? document.documentElement.scrollTop;
-          send("hashchange", { hypothesisId: "H1", hash: location.hash, scrollY: scrollY });
-        });
-      })();
-    </script>
-    <!-- #endregion -->
     <main>
       <Hero site={site} />
       <Services site={site} />
@@ -195,56 +135,5 @@ btn.setAttribute("aria-label", isDark ? "Enable light mode" : "Enable dark mode"
       <About site={site} />
       <Contact site={site} />
     </main>
-    <!-- #region agent log -->
-    <script is:inline>
-      (function () {
-        function send(data) {
-          fetch("http://127.0.0.1:7463/ingest/3a41d794-790f-4d99-b16f-a5111f089e69", {
-            method: "POST",
-            headers: { "Content-Type": "application/json", "X-Debug-Session-Id": "233a97" },
-            body: JSON.stringify({ sessionId: "233a97", location: "index.astro:debug", message: "hero cloud debug", data: data, timestamp: Date.now(), runId: "hero-cloud", hypothesisId: data.hypothesisId || "A" })
-          }).catch(function () {});
-        }
-        function run() {
-          var html = document.documentElement;
-          var isDark = html.classList.contains("dark");
-          send({ hypothesisId: "A", isDark: isDark, htmlClass: html.className });
-          var cloud = document.querySelector(".hero-portrait-cloud");
-          send({ hypothesisId: "D", cloudExists: !!cloud });
-          if (cloud) {
-            var cs = getComputedStyle(cloud);
-            var bg = cs.background || cs.backgroundImage;
-            var hasBlue = String(bg).indexOf("147") !== -1 || String(bg).indexOf("96, 165") !== -1;
-            var hasOrange = String(bg).indexOf("255, 248") !== -1 || String(bg).indexOf("255, 244") !== -1;
-            send({ hypothesisId: "B", computedBackground: bg, hasBlue: hasBlue, hasOrange: hasOrange });
-            var parent = cloud.parentElement;
-            var siblings = parent ? Array.prototype.slice.call(parent.children) : [];
-            var layer0Bg = siblings[0] ? getComputedStyle(siblings[0]).background : null;
-            var layer1Bg = siblings[1] ? getComputedStyle(siblings[1]).background : null;
-            send({ hypothesisId: "C", siblingCount: siblings.length, firstChildBg: layer0Bg ? layer0Bg.substring(0, 80) : null, secondChildBg: layer1Bg ? layer1Bg.substring(0, 120) : null });
-            var heroSection = cloud.closest("section");
-            if (heroSection) {
-              var sectionCs = getComputedStyle(heroSection);
-              send({ hypothesisId: "E", heroSectionId: heroSection.id || "", heroSectionBg: sectionCs.backgroundColor, heroSectionBgImage: (sectionCs.backgroundImage || "").substring(0, 100) });
-            }
-          }
-          if (isDark) {
-            var workSection = document.getElementById("work");
-            if (workSection) {
-              var wCs = getComputedStyle(workSection);
-              send({ hypothesisId: "W1", runId: "work-section", workBg: wCs.backgroundColor, workBgImage: (wCs.backgroundImage || "").substring(0, 120) });
-              var gradientDivs = workSection.querySelectorAll("[class*='bg-gradient']");
-              gradientDivs.forEach(function (el, i) {
-                var gCs = getComputedStyle(el);
-                send({ hypothesisId: "W2", runId: "work-section", index: i, className: (el.className || "").substring(0, 80), bg: (gCs.background || gCs.backgroundImage || "").substring(0, 120) });
-              });
-            }
-          }
-        }
-        if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", run);
-        else run();
-      })();
-    </script>
-    <!-- #endregion -->
   </body>
 </html>
