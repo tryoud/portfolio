@@ -1,89 +1,94 @@
 {
   "name": "Nikolas Maerker",
   "role": "Web Developer · Photographer & Videographer",
-  "tagline": "I build fast, high-performance websites and AI-assisted workflows.",
+  "tagline": "Ich entwickle schnelle, performante Websites und KI-gestützte Workflows.",
   "siteUrl": "https://nikolasmaerker.com",
   "ogImage": "/og.png",
   "twitterHandle": "",
   "hero": {
-    "headline": "Hey, there",
-    "badgeText": "Available for new opportunities",
-    "specialization": "Specialized in Web Design & Development, Photo & Video, and Drone / Aerial.",
+    "headline": "Hey, du",
+    "badgeText": "Offen für neue Projekte",
+    "specialization": "Spezialisiert auf Web Design & Development, Foto & Video sowie Drohne / Luftaufnahmen.",
     "portraitSrc": "/hero/Nikolas_Maerker_hero.webp",
-    "primaryCta": { "label": "Let's talk", "href": "#contact" },
-    "secondaryCta": { "label": "View work", "href": "#work" }
+    "primaryCta": { "label": "Kontakt", "href": "#contact" },
+    "secondaryCta": { "label": "Projekte ansehen", "href": "#work" }
   },
   "services": [
     {
       "id": "web-design-dev",
       "title": "Web Design & Development",
-      "description": "Custom-coded solutions and modern builds that are fast, accessible, and designed to convert.",
-      "bullets": ["User journey design and UX", "SEO and performance", "Landing pages and web apps"]
+      "description": "Individuelle Lösungen und moderne Websites: schnell, barrierefrei und auf Conversion ausgelegt.",
+      "bullets": ["User Journey und UX", "SEO und Performance", "Landing Pages und Web-Apps"]
     },
     {
       "id": "photo-video",
       "title": "Photo & Video",
-      "description": "Event photography and cinematic video production to elevate your brand's visual storytelling.",
-      "bullets": ["Event and editorial photography", "Video editing and aftermovies", "Consistent look and delivery"]
+      "description": "Event-Fotografie und filmische Videos für deine Marken-Story.",
+      "bullets": ["Event- und Redaktionsfotografie", "Videoschnitt und Aftermovies", "Einheitlicher Look und Lieferung"]
     },
     {
       "id": "drone-aerial",
       "title": "Drone Pilot / Aerial",
-      "description": "Professional drone shots and aerial footage for real estate, events, and marketing.",
-      "bullets": ["Licensed aerial footage", "Real estate and events", "Smooth, cinematic delivery"]
+      "description": "Professionelle Drohnenaufnahmen für Immobilien, Events und Marketing.",
+      "bullets": ["Lizenzierte Luftaufnahmen", "Immobilien und Events", "Ruhige, filmische Umsetzung"]
     }
   ],
+  "workSectionLabel": "Ausgewählte Arbeiten",
+  "workHeading": "Aktuelle Projekte.",
   "work": [
     {
       "title": "Agency Portfolio",
-      "description": "Conversion-focused agency site with case studies and lead capture.",
+      "description": "Conversion-orientierte Agency-Website mit Projekten und Lead-Erfassung.",
       "href": "https://nikolasmaerker.com",
       "image": "/work/Screenshot 2026-02-22 at 23.22.32.png",
       "tags": ["Astro", "Tailwind", "Cloudflare"]
     },
     {
-      "title": "Project Two",
-      "description": "Web design and development case study.",
+      "title": "Projekt Zwei",
+      "description": "Case Study Webdesign und -entwicklung.",
       "href": "https://nikolasmaerker.com",
       "image": "/work/Screenshot 2026-02-22 at 23.22.51.png",
       "tags": ["Web Dev", "Design"]
     },
     {
-      "title": "Project Three",
-      "description": "Another website build.",
+      "title": "Projekt Drei",
+      "description": "Weitere Website-Realisation.",
       "href": "https://nikolasmaerker.com",
       "image": "/work/Screenshot 2026-02-22 at 23.23.27.png",
       "tags": ["Development"]
     }
   ],
   "process": {
-    "sectionLabel": "How I work",
-    "heading": "Seamless collaboration.",
+    "sectionLabel": "So arbeite ich",
+    "heading": "Reibungslose Zusammenarbeit.",
     "steps": [
-      { "title": "Discovery", "description": "I listen to your vision and define the roadmap for success." },
-      { "title": "Strategy", "description": "Researching the market to position you perfectly." },
-      { "title": "Creation", "description": "Designing, building, and refining your digital assets." },
-      { "title": "Launch", "description": "Deploying to the world with full support and optimization." }
+      { "title": "Discovery", "description": "Ich höre deiner Vision zu und definiere den Weg zum Erfolg." },
+      { "title": "Strategie", "description": "Markt und Positionierung für dein Projekt." },
+      { "title": "Umsetzung", "description": "Design, Build und Feinschliff deiner digitalen Produkte." },
+      { "title": "Launch", "description": "Go-Live mit Support und Optimierung." }
     ]
   },
   "media": {
+    "youtubeId": "vWi8L-jiYhc",
     "youtubeUrl": "",
     "embedUrl": "",
+    "sectionLabel": "Hinter den Kulissen",
+    "instagramCtaLabel": "Folge mir auf Instagram",
     "instagramProfileUrl": "https://www.instagram.com/",
     "instagramThumbnails": []
   },
   "about": {
-    "sectionLabel": "About",
-    "paragraph": "I'm a student-led creator: fast, focused, and conversion-oriented. I build websites and content that perform.",
+    "sectionLabel": "Über mich",
+    "paragraph": "Ich bin ein zielstrebiger Creator: schnell, fokussiert und conversion-orientiert. Ich baue Websites und Inhalte, die performen.",
     "bullets": [
-      "High-performance sites and landing pages (Astro, Cloudflare)",
-      "Event photography, drone shots, and video editing",
-      "Clear process and communication from brief to delivery"
+      "Performante Sites und Landing Pages (Astro, Cloudflare)",
+      "Event-Fotografie, Drohne und Videoschnitt",
+      "Klarer Prozess und Kommunikation von Briefing bis Abnahme"
     ]
   },
   "contact": {
-    "headline": "Let's build something memorable.",
-    "subline": "Reach out to discuss how I can help with your project.",
+    "headline": "Lass uns etwas Bleibendes bauen.",
+    "subline": "Schreib mir, wie ich dich bei deinem Projekt unterstützen kann.",
     "email": "mailto:nikolas.maerker@gmail.com",
     "socials": [
       { "label": "GitHub", "href": "https://github.com/tryoud" },

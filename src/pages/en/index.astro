@@ -1,19 +1,19 @@
 ---
-import "../styles/global.css";
-import site from "../../content/site.json";
-import Hero from "../components/sections/Hero.astro";
-import Services from "../components/sections/Services.astro";
-import Work from "../components/sections/Work.astro";
-import Process from "../components/sections/Process.astro";
-import Media from "../components/sections/Media.astro";
-import About from "../components/sections/About.astro";
-import Contact from "../components/sections/Contact.astro";
+import "../../styles/global.css";
+import site from "../../../content/site.en.json";
+import Hero from "../../components/sections/Hero.astro";
+import Services from "../../components/sections/Services.astro";
+import Work from "../../components/sections/Work.astro";
+import Process from "../../components/sections/Process.astro";
+import Media from "../../components/sections/Media.astro";
+import About from "../../components/sections/About.astro";
+import Contact from "../../components/sections/Contact.astro";
 
 const siteUrl = (site as { siteUrl?: string }).siteUrl || "https://nikolasmaerker.com";
 const ogImage = (site as { ogImage?: string }).ogImage || "/og.png";
 const twitterHandle = (site as { twitterHandle?: string }).twitterHandle ?? "";
-const canonical = siteUrl ? `${siteUrl.replace(/\/$/, "")}/` : "";
-const ogImageUrl = ogImage ? (ogImage.startsWith("http") ? ogImage : `${canonical.replace(/\/$/, "")}${ogImage.startsWith("/") ? "" : "/"}${ogImage}`) : "";
+const canonical = siteUrl ? `${siteUrl.replace(/\/$/, "")}/en/` : "";
+const ogImageUrl = ogImage ? (ogImage.startsWith("http") ? ogImage : `${siteUrl.replace(/\/$/, "")}${ogImage.startsWith("/") ? "" : "/"}${ogImage}`) : "";
 const title = `${site.name} — ${site.role}`;
 const description = site.tagline ?? "";
 ---
@@ -44,21 +44,21 @@ const description = site.tagline ?? "";
   <body class="min-h-screen bg-[#FDFBF7] text-zinc-900 antialiased">
     <header class="sticky top-0 z-50 w-full border-b border-zinc-100 bg-white/80 backdrop-blur-md">
       <nav class="mx-auto flex h-20 max-w-7xl items-center justify-between px-6" aria-label="Main">
-        <a href="#top" class="font-display text-2xl font-semibold italic tracking-tight text-zinc-900 hover:opacity-80 focus:outline-none focus:ring-2 focus:ring-zinc-400 focus:ring-offset-2 rounded">{site.name}.</a>
+        <a href="/en/#top" class="font-display text-2xl font-semibold italic tracking-tight text-zinc-900 hover:opacity-80 focus:outline-none focus:ring-2 focus:ring-zinc-400 focus:ring-offset-2 rounded">{site.name}.</a>
         <ul class="hidden items-center gap-8 md:flex text-sm font-medium text-zinc-600">
-          <li><a href="#services" class="hover:text-zinc-900 focus:outline-none focus:ring-2 focus:ring-zinc-400 focus:ring-offset-2 rounded">Services</a></li>
-          <li><a href="#work" class="hover:text-zinc-900 focus:outline-none focus:ring-2 focus:ring-zinc-400 focus:ring-offset-2 rounded">Work</a></li>
-          <li><a href="#process" class="hover:text-zinc-900 focus:outline-none focus:ring-2 focus:ring-zinc-400 focus:ring-offset-2 rounded">Process</a></li>
-          <li><a href="#media" class="hover:text-zinc-900 focus:outline-none focus:ring-2 focus:ring-zinc-400 focus:ring-offset-2 rounded">Media</a></li>
-          <li><a href="#about" class="hover:text-zinc-900 focus:outline-none focus:ring-2 focus:ring-zinc-400 focus:ring-offset-2 rounded">About</a></li>
+          <li><a href="/en/#services" class="hover:text-zinc-900 focus:outline-none focus:ring-2 focus:ring-zinc-400 focus:ring-offset-2 rounded">Services</a></li>
+          <li><a href="/en/#work" class="hover:text-zinc-900 focus:outline-none focus:ring-2 focus:ring-zinc-400 focus:ring-offset-2 rounded">Work</a></li>
+          <li><a href="/en/#process" class="hover:text-zinc-900 focus:outline-none focus:ring-2 focus:ring-zinc-400 focus:ring-offset-2 rounded">Process</a></li>
+          <li><a href="/en/#media" class="hover:text-zinc-900 focus:outline-none focus:ring-2 focus:ring-zinc-400 focus:ring-offset-2 rounded">Media</a></li>
+          <li><a href="/en/#about" class="hover:text-zinc-900 focus:outline-none focus:ring-2 focus:ring-zinc-400 focus:ring-offset-2 rounded">About</a></li>
         </ul>
         <div class="flex items-center gap-4">
           <span class="text-sm text-zinc-500" aria-hidden="true">
-            <span aria-current="page">DE</span>
+            <a href="/" class="hover:text-zinc-900 focus:outline-none focus:ring-2 focus:ring-zinc-400 focus:ring-offset-2 rounded">DE</a>
             <span class="mx-1.5 text-zinc-300">|</span>
-            <a href="/en/" class="hover:text-zinc-900 focus:outline-none focus:ring-2 focus:ring-zinc-400 focus:ring-offset-2 rounded">EN</a>
+            <span aria-current="page">EN</span>
           </span>
-          <a href="#contact" class="inline-flex items-center justify-center rounded-full bg-zinc-900 px-6 py-2.5 text-sm font-medium text-white shadow-sm hover:bg-zinc-800 focus:outline-none focus:ring-2 focus:ring-zinc-400 focus:ring-offset-2">
+          <a href="/en/#contact" class="inline-flex items-center justify-center rounded-full bg-zinc-900 px-6 py-2.5 text-sm font-medium text-white shadow-sm hover:bg-zinc-800 focus:outline-none focus:ring-2 focus:ring-zinc-400 focus:ring-offset-2">
             Contact
           </a>
         </div>

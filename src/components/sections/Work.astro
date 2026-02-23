@@ -1,41 +1,81 @@
 ---
 const { site } = Astro.props;
 const work = site.work ?? [];
+const workSectionLabel = site.workSectionLabel ?? "Ausgewählte Arbeiten";
+const workHeading = site.workHeading ?? "Aktuelle Projekte.";
 ---
 
 <section id="work" class="bg-[#FDFBF7] py-24" aria-labelledby="work-heading">
   <div class="mx-auto max-w-7xl px-6">
     <div class="mb-16">
-      <span class="mb-2 block text-sm font-semibold uppercase tracking-wider text-zinc-500">Selected Work</span>
-      <h2 id="work-heading" class="font-display text-4xl italic text-zinc-900 md:text-5xl">Recent case studies.</h2>
+      <span class="mb-2 block text-sm font-semibold uppercase tracking-wider text-zinc-500">{workSectionLabel}</span>
+      <h2 id="work-heading" class="font-display text-4xl italic text-zinc-900 md:text-5xl">{workHeading}</h2>
     </div>
-    <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:gap-12">
-      {work.map((item, i) => (
-        <article class="group">
-          <a href={item.href} class="block focus:outline-none focus:ring-2 focus:ring-zinc-400 focus:ring-offset-2 rounded-xl">
-            <div class="relative mb-6 aspect-[4/3] overflow-hidden rounded-xl">
-              <div class="absolute inset-0 z-10 bg-black/10 transition-colors group-hover:bg-black/0" aria-hidden="true" />
-              <img
-                src={item.image.startsWith("http") ? item.image : encodeURI(item.image)}
-                alt=""
-                class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-                width="800"
-                height="600"
-                loading="lazy"
-              />
+    <div class="-mx-6 overflow-x-auto px-6 snap-x snap-mandatory scroll-smooth md:-mx-8 md:px-8">
+      <div class="flex gap-8 pb-4 md:gap-10 lg:gap-12">
+        {work.map((item, i) => {
+          const imgSrc = item.image.startsWith("http") ? item.image : encodeURI(item.image);
+          return (
+          <article class="group w-[85vw] min-w-[280px] shrink-0 snap-start sm:w-[320px] md:min-w-[360px] md:w-[360px]">
+            <div class="rounded-xl focus-within:ring-2 focus-within:ring-zinc-400 focus-within:ring-offset-2">
+              <button
+                type="button"
+                class="work-preview-trigger relative mb-6 block w-full cursor-pointer rounded-xl text-left focus:outline-none"
+                data-src={imgSrc}
+                aria-label={`Preview full screenshot: ${item.title}`}
+              >
+                <span class="relative block aspect-[16/10] overflow-hidden rounded-xl">
+                  <span class="absolute inset-0 z-10 bg-black/10 transition-colors group-hover:bg-black/0" aria-hidden="true" />
+                  <img
+                    src={imgSrc}
+                    alt=""
+                    class="h-full w-full object-cover object-top transition-transform duration-300 group-hover:scale-[1.03]"
+                    width="800"
+                    height="500"
+                    loading="lazy"
+                  />
+                </span>
+              </button>
+              <a href={item.href} class="block focus:outline-none focus:ring-2 focus:ring-zinc-400 focus:ring-offset-2 rounded-xl">
+                <div class="flex items-start justify-between">
+                  <div>
+                    <h3 class="mb-1 text-2xl font-bold text-zinc-900 decoration-zinc-900 underline-offset-4 group-hover:underline decoration-1">{item.title}</h3>
+                    <p class="text-sm text-zinc-500">{item.tags?.join(", ") ?? ""}</p>
+                  </div>
+                  <span class="text-zinc-400 transition-transform group-hover:translate-x-1" aria-hidden="true">
+                    <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+                  </span>
+                </div>
+              </a>
             </div>
-            <div class="flex items-start justify-between">
-              <div>
-                <h3 class="mb-1 text-2xl font-bold text-zinc-900 decoration-zinc-900 underline-offset-4 group-hover:underline decoration-1">{item.title}</h3>
-                <p class="text-sm text-zinc-500">{item.tags?.join(", ") ?? ""}</p>
-              </div>
-              <span class="text-zinc-400 transition-transform group-hover:translate-x-1" aria-hidden="true">
-                <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
-              </span>
-            </div>
-          </a>
-        </article>
-      ))}
+          </article>
+        );})}
+      </div>
     </div>
   </div>
+  <dialog class="work-preview-dialog w-[95vw] max-w-4xl max-h-[90vh] overflow-hidden rounded-2xl border border-zinc-200/70 bg-zinc-100 p-0 shadow-xl backdrop:bg-black/40 backdrop:backdrop-blur-sm" aria-label="Full screenshot preview">
+    <div class="flex max-h-[90vh] items-center justify-center p-2">
+      <img class="max-h-[85vh] w-full object-contain" src="" alt="Full screenshot" width="1200" height="800" />
+    </div>
+  </dialog>
 </section>
+<script>
+  (function () {
+    const dialog = document.querySelector(".work-preview-dialog");
+    const dialogImg = dialog?.querySelector("img");
+    const triggers = document.querySelectorAll(".work-preview-trigger");
+    if (!dialog || !dialogImg || !triggers.length) return;
+    triggers.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const src = btn.getAttribute("data-src");
+        if (src) {
+          dialogImg.src = src;
+          dialog.showModal();
+        }
+      });
+    });
+    dialog.addEventListener("click", (e) => {
+      if (e.target === dialog) dialog.close();
+    });
+  })();
+</script>

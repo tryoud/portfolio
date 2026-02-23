@@ -1,28 +1,41 @@
 ---
 const { site } = Astro.props;
 const media = site.media ?? {};
-const youtubeUrl = media.youtubeUrl ?? media.embedUrl ?? "";
+const youtubeId = media.youtubeId ?? (media.youtubeEmbedUrl ? (media.youtubeEmbedUrl.match(/(?:embed\/|v=)([\w-]+)/)?.[1] ?? "") : "") ?? "";
 const instagramProfileUrl = media.instagramProfileUrl ?? "";
 const instagramThumbnails = media.instagramThumbnails ?? [];
+const sectionLabel = media.sectionLabel ?? "Hinter den Kulissen";
+const instagramCtaLabel = media.instagramCtaLabel ?? "Folge mir auf Instagram";
+const embedSrc = youtubeId ? `https://www.youtube-nocookie.com/embed/${youtubeId}` : "";
+const thumbSrc = youtubeId ? `https://img.youtube.com/vi/${youtubeId}/hqdefault.jpg` : "";
 ---
 
 <section id="media" class="bg-[#FDFBF7] py-24" aria-labelledby="media-heading">
   <div class="mx-auto max-w-5xl px-6 text-center">
-    <span class="mb-6 block text-sm font-semibold uppercase tracking-wider text-zinc-500">Behind the scenes</span>
-    {youtubeUrl ? (
-      <div class="relative mb-12 overflow-hidden rounded-xl border border-zinc-200 shadow-2xl aspect-video bg-black">
-        <iframe
-          src={youtubeUrl.includes("embed") ? youtubeUrl : `https://www.youtube.com/embed/${youtubeUrl.split("v=")[1]?.split("&")[0] || ""}`}
-          title="YouTube video"
-          class="absolute inset-0 h-full w-full"
-          loading="lazy"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowfullscreen
-        />
+    <span class="mb-6 block text-sm font-semibold uppercase tracking-wider text-zinc-500">{sectionLabel}</span>
+    {youtubeId ? (
+      <div class="youtube-2click relative mb-12 overflow-hidden rounded-xl border border-zinc-200 shadow-2xl aspect-video bg-zinc-900" data-embed-src={embedSrc}>
+        <div class="youtube-2click-placeholder absolute inset-0 flex flex-col items-center justify-center gap-4 p-6">
+          <img src={thumbSrc} alt="" class="absolute inset-0 h-full w-full object-cover opacity-40" width="480" height="360" loading="lazy" />
+          <button type="button" class="youtube-2click-btn relative z-10 inline-flex items-center justify-center gap-2 rounded-full bg-white/95 px-6 py-3 text-sm font-medium text-zinc-900 shadow-lg hover:bg-white focus:outline-none focus:ring-2 focus:ring-zinc-400 focus:ring-offset-2 focus:ring-offset-zinc-900 transition-colors" aria-label="Video laden">
+            <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z" /></svg>
+            Video laden
+          </button>
+          <p class="relative z-10 text-xs text-zinc-400">Erst nach Klick wird das Video von YouTube geladen. Datenschutzfreundlich.</p>
+        </div>
+        <div class="youtube-2click-embed hidden absolute inset-0">
+          <iframe
+            class="h-full w-full"
+            title="YouTube video"
+            loading="lazy"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+          />
+        </div>
       </div>
     ) : (
       <div class="mb-12 aspect-video overflow-hidden rounded-xl border border-zinc-200 bg-zinc-100 flex items-center justify-center">
-        <p class="text-sm text-zinc-500">Add a YouTube URL in site.json (media.youtubeUrl or media.embedUrl)</p>
+        <p class="text-sm text-zinc-500">Add media.youtubeId or media.youtubeEmbedUrl in site.json</p>
       </div>
     )}
     <div class="grid grid-cols-1 gap-6 md:grid-cols-3">
@@ -46,10 +59,29 @@ const instagramThumbnails = media.instagramThumbnails ?? [];
     {instagramProfileUrl ? (
       <p class="mt-6 text-center">
         <a href={instagramProfileUrl} class="inline-flex items-center text-sm font-semibold text-zinc-900 hover:opacity-70 focus:outline-none focus:ring-2 focus:ring-zinc-400 focus:ring-offset-2 rounded transition-opacity">
-          Follow on Instagram
+          {instagramCtaLabel}
           <svg class="ml-1 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
         </a>
       </p>
     ) : null}
   </div>
 </section>
+{youtubeId ? (
+  <script>
+    (function () {
+      const btn = document.querySelector(".youtube-2click-btn");
+      const container = document.querySelector(".youtube-2click");
+      if (!btn || !container) return;
+      btn.addEventListener("click", () => {
+        const src = container.getAttribute("data-embed-src");
+        const placeholder = container.querySelector(".youtube-2click-placeholder");
+        const embedWrap = container.querySelector(".youtube-2click-embed");
+        const iframe = embedWrap?.querySelector("iframe");
+        if (!src || !iframe) return;
+        iframe.src = src;
+        placeholder?.classList.add("hidden");
+        embedWrap?.classList.remove("hidden");
+      });
+    })();
+  </script>
+) : null}

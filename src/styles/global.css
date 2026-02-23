@@ -18,7 +18,15 @@
 .gradient-mesh {
   background-color: #fdfbf7;
   background-image:
-    radial-gradient(at 40% 20%, hsla(28, 100%, 74%, 0.1) 0px, transparent 50%),
-    radial-gradient(at 80% 0%, hsla(189, 100%, 56%, 0.05) 0px, transparent 50%),
-    radial-gradient(at 0% 50%, hsla(340, 100%, 76%, 0.05) 0px, transparent 50%);
+    radial-gradient(at 40% 20%, hsla(28, 100%, 74%, 0.12) 0px, transparent 50%),
+    radial-gradient(at 80% 0%, hsla(189, 100%, 56%, 0.06) 0px, transparent 50%),
+    radial-gradient(at 0% 50%, hsla(340, 100%, 76%, 0.06) 0px, transparent 50%);
+}
+
+.hero-portrait-glow {
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.06),
+    0 25px 50px -12px rgba(0, 0, 0, 0.15),
+    0 0 80px -10px hsla(28, 60%, 70%, 0.25),
+    0 0 120px -20px hsla(28, 50%, 85%, 0.15);
 }
