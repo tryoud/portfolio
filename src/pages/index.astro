@@ -50,6 +50,20 @@ const description = site.tagline ?? "";
   </head>
 
   <body class="min-h-screen overflow-x-hidden bg-[var(--bg)] text-[var(--text)] antialiased">
+    <script is:inline>
+      (function () {
+        var y = sessionStorage.getItem("langSwitchScroll");
+        if (y !== null) {
+          sessionStorage.removeItem("langSwitchScroll");
+          y = parseInt(y, 10);
+          if (!isNaN(y)) {
+            function restore() { window.scrollTo(0, y); }
+            if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", restore);
+            else restore();
+          }
+        }
+      })();
+    </script>
     <header id="top" class="sticky top-0 z-50 w-full border-b border-[var(--border)] bg-[var(--surface)]/80 backdrop-blur-md">
       <nav class="mx-auto flex h-20 max-w-7xl items-center justify-between px-4 sm:px-6" aria-label="Main">
         <a href="#top" id="logo-link" class="font-display text-2xl font-semibold italic tracking-tight text-[var(--text)] hover:opacity-80 focus:outline-none focus:ring-2 focus:ring-[var(--ring)] focus:ring-offset-2 focus:ring-offset-[var(--ring-offset)] rounded">{site.name}.</a>
@@ -64,7 +78,7 @@ const description = site.tagline ?? "";
           <span class="inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap text-sm text-[var(--muted)]" aria-hidden="true">
             <span aria-current="page">DE</span>
             <span class="text-[var(--border-strong)]" aria-hidden="true">|</span>
-            <a href="/en/" class="hover:text-[var(--text)] focus:outline-none focus:ring-2 focus:ring-[var(--ring)] focus:ring-offset-2 focus:ring-offset-[var(--ring-offset)] rounded">EN</a>
+            <a href="/en/" class="lang-switch hover:text-[var(--text)] focus:outline-none focus:ring-2 focus:ring-[var(--ring)] focus:ring-offset-2 focus:ring-offset-[var(--ring-offset)] rounded">EN</a>
           </span>
           <button
             type="button"
@@ -104,6 +118,13 @@ const description = site.tagline ?? "";
           if (sun) sun.classList.toggle("hidden", !isDark);
 btn.setAttribute("aria-label", isDark ? "Enable light mode" : "Enable dark mode");
         }
+        document.querySelectorAll("a.lang-switch").forEach(function (a) {
+          a.addEventListener("click", function (e) {
+            e.preventDefault();
+            sessionStorage.setItem("langSwitchScroll", String(window.scrollY || 0));
+            window.location.href = a.getAttribute("href");
+          });
+        });
         // #region agent log
         function logNavContactStyles() {
           var contactBtn = document.querySelector(".nav-contact-btn");
@@ -205,6 +226,18 @@ btn.setAttribute("aria-label", isDark ? "Enable light mode" : "Enable dark mode"
             if (heroSection) {
               var sectionCs = getComputedStyle(heroSection);
               send({ hypothesisId: "E", heroSectionId: heroSection.id || "", heroSectionBg: sectionCs.backgroundColor, heroSectionBgImage: (sectionCs.backgroundImage || "").substring(0, 100) });
+            }
+          }
+          if (isDark) {
+            var workSection = document.getElementById("work");
+            if (workSection) {
+              var wCs = getComputedStyle(workSection);
+              send({ hypothesisId: "W1", runId: "work-section", workBg: wCs.backgroundColor, workBgImage: (wCs.backgroundImage || "").substring(0, 120) });
+              var gradientDivs = workSection.querySelectorAll("[class*='bg-gradient']");
+              gradientDivs.forEach(function (el, i) {
+                var gCs = getComputedStyle(el);
+                send({ hypothesisId: "W2", runId: "work-section", index: i, className: (el.className || "").substring(0, 80), bg: (gCs.background || gCs.backgroundImage || "").substring(0, 120) });
+              });
             }
           }
         }

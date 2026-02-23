@@ -50,6 +50,20 @@ const description = site.tagline ?? "";
   </head>
 
   <body class="min-h-screen overflow-x-hidden bg-[var(--bg)] text-[var(--text)] antialiased">
+    <script is:inline>
+      (function () {
+        var y = sessionStorage.getItem("langSwitchScroll");
+        if (y !== null) {
+          sessionStorage.removeItem("langSwitchScroll");
+          y = parseInt(y, 10);
+          if (!isNaN(y)) {
+            function restore() { window.scrollTo(0, y); }
+            if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", restore);
+            else restore();
+          }
+        }
+      })();
+    </script>
     <header id="top" class="sticky top-0 z-50 w-full border-b border-[var(--border)] bg-[var(--surface)]/80 backdrop-blur-md">
       <nav class="mx-auto flex h-20 max-w-7xl items-center justify-between px-6" aria-label="Main">
         <a href="/en/#top" id="logo-link" class="font-display text-2xl font-semibold italic tracking-tight text-[var(--text)] hover:opacity-80 focus:outline-none focus:ring-2 focus:ring-[var(--ring)] focus:ring-offset-2 focus:ring-offset-[var(--ring-offset)] rounded">{site.name}.</a>
@@ -62,7 +76,7 @@ const description = site.tagline ?? "";
         </ul>
         <div class="flex items-center gap-3">
           <span class="inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap text-sm text-[var(--muted)]" aria-hidden="true">
-            <a href="/" class="hover:text-[var(--text)] focus:outline-none focus:ring-2 focus:ring-[var(--ring)] focus:ring-offset-2 focus:ring-offset-[var(--ring-offset)] rounded">DE</a>
+            <a href="/" class="lang-switch hover:text-[var(--text)] focus:outline-none focus:ring-2 focus:ring-[var(--ring)] focus:ring-offset-2 focus:ring-offset-[var(--ring-offset)] rounded">DE</a>
             <span class="text-[var(--border-strong)]" aria-hidden="true">|</span>
             <span aria-current="page">EN</span>
           </span>
@@ -117,6 +131,17 @@ const description = site.tagline ?? "";
             }
           });
         }
+      })();
+    </script>
+    <script is:inline>
+      (function () {
+        document.querySelectorAll("a.lang-switch").forEach(function (a) {
+          a.addEventListener("click", function (e) {
+            e.preventDefault();
+            sessionStorage.setItem("langSwitchScroll", String(window.scrollY || 0));
+            window.location.href = a.getAttribute("href");
+          });
+        });
       })();
     </script>
     <main>

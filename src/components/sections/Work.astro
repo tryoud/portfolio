@@ -13,13 +13,13 @@ const workHeading = site.workHeading ?? "Aktuelle Projekte.";
     </div>
     <div class="relative md:static">
       <p class="mb-3 text-xs font-medium text-zinc-400 sm:hidden" aria-hidden="true">Wischen zum Entdecken →</p>
-      <div class="relative -mx-6 overflow-x-auto px-6 snap-x snap-mandatory scroll-smooth md:-mx-8 md:px-8">
+      <div class="relative -mx-6 overflow-x-auto px-6 snap-x snap-mandatory scroll-smooth md:overflow-visible md:mx-0 md:px-0">
         <div class="pointer-events-none absolute right-0 top-0 z-10 h-full w-16 bg-gradient-to-l from-[#FDFBF7] to-transparent sm:hidden" aria-hidden="true" />
-        <div class="flex gap-6 pb-4 md:gap-8 lg:gap-10">
+        <div class="flex gap-6 pb-4 md:gap-8 lg:gap-10 md:justify-center md:flex-wrap">
         {work.map((item) => {
           const imgSrc = (item.image && String(item.image).trim()) || "";
           return (
-          <article class="group w-[88vw] min-w-[300px] shrink-0 snap-start md:w-[420px] lg:w-[380px]">
+          <article class="group w-[88vw] min-w-[300px] shrink-0 snap-start md:w-[340px] md:shrink-0 lg:w-[340px]">
             <div class="rounded-2xl focus-within:ring-2 focus-within:ring-zinc-400 focus-within:ring-offset-2">
               <div class="relative mb-5">
                 <div
@@ -31,7 +31,6 @@ const workHeading = site.workHeading ?? "Aktuelle Projekte.";
                     <img
                       src={imgSrc}
                       alt={`Screenshot: ${item.title}`}
-                      class="w-full h-auto block"
                       width="800"
                       loading="lazy"
                       decoding="async"

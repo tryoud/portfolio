@@ -269,23 +269,65 @@
   color: var(--muted) !important;
 }
 
-/* Work: section + scroll/card overlays (no white field in dark) */
+/* Work: hide image overlays in light mode */
+#work [class*="bg-gradient-to-b"],
+#work [class*="bg-gradient-to-t"] {
+  display: none;
+}
+.dark #work [class*="bg-gradient-to-b"],
+.dark #work [class*="bg-gradient-to-t"] {
+  display: block;
+}
+
+/* Work: section + scroll/card overlays (no white boxes in dark) */
+.dark section[id="work"],
 .dark section#work,
-.dark section#work.bg-\[\#FDFBF7\] {
+.dark #work {
+  background: var(--bg) !important;
   background-color: var(--bg) !important;
   background-image: none !important;
 }
 
-.dark [id="work"] [class*="bg-gradient-to-l"][class*="from-"] {
-  background-image: linear-gradient(to left, var(--bg), transparent) !important;
+.dark #work [class*="bg-gradient-to-l"] {
+  background: linear-gradient(to left, var(--bg), transparent) !important;
 }
 
-.dark [id="work"] [class*="bg-gradient-to-b"][class*="from-"] {
-  background-image: linear-gradient(to bottom, rgba(28, 25, 23, 0.9), transparent) !important;
+.dark #work [class*="bg-gradient-to-b"] {
+  background: linear-gradient(to bottom, rgba(28, 25, 23, 0.9), transparent) !important;
 }
 
-.dark [id="work"] [class*="bg-gradient-to-t"][class*="from-"] {
-  background-image: linear-gradient(to top, rgba(28, 25, 23, 0.9), transparent) !important;
+.dark #work [class*="bg-gradient-to-t"] {
+  background: linear-gradient(to top, rgba(28, 25, 23, 0.9), transparent) !important;
+}
+
+/* Card container and screenshot area: force dark so no light frame shows */
+.dark #work article > div[class*="rounded-2xl"] {
+  background-color: var(--surface-alt) !important;
+}
+.dark #work [class*="aspect-"] {
+  background-color: var(--bg) !important;
+}
+
+/* Desktop: inner wrapper and scroll container (overflow area) so no light strip on wide viewports */
+.dark #work > div,
+.dark #work [class*="overflow-x-auto"] {
+  background-color: var(--bg) !important;
+}
+
+/* Project preview: full width, natural height so box scrolls; top-aligned (no vertical center) */
+#work [class*="aspect-"] img {
+  display: block;
+  width: 100%;
+  height: auto;
+  min-height: 100%;
+}
+
+/* Dark + desktop: hide browser frame in project screenshots, keep rounded corners */
+@media (min-width: 768px) {
+  .dark #work [class*="aspect-"] {
+    clip-path: inset(24px 16px 24px 16px round 16px);
+    -webkit-clip-path: inset(24px 16px 24px 16px round 16px);
+  }
 }
 
 /* Focus rings: ensure visible in both themes */
