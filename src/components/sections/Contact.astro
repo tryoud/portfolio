@@ -20,27 +20,20 @@ const bookingUrl = contact.bookingUrl ?? "";
         {email.replace("mailto:", "")}
       </a>
     </div>
-    <div class="flex flex-wrap items-center gap-4">
-      {socials.map((s) => (
-        <a
-          href={s.href}
-          class="inline-flex rounded-lg border border-zinc-200 bg-white px-5 py-2.5 text-sm font-medium text-zinc-700 transition-colors hover:bg-zinc-50 focus:outline-none focus:ring-2 focus:ring-zinc-400 focus:ring-offset-2"
-        >
-          {s.label}
-        </a>
-      ))}
-      {bookingUrl ? (
+    {bookingUrl ? (
+      <div class="flex flex-wrap items-center gap-4">
         <a
           href={bookingUrl}
           class="inline-flex rounded-lg border border-zinc-200 bg-white px-5 py-2.5 text-sm font-medium text-zinc-700 transition-colors hover:bg-zinc-50 focus:outline-none focus:ring-2 focus:ring-zinc-400 focus:ring-offset-2"
         >
           Book a call
         </a>
-      ) : null}
-    </div>
+      </div>
+    ) : null}
     <div class="mt-12 flex flex-col border-t border-zinc-100 pt-8 text-sm text-zinc-500 md:flex-row md:justify-between md:items-center">
       <p class="mb-4 md:mb-0">© {new Date().getFullYear()} {site.name}. All rights reserved.</p>
       <div class="flex gap-6">
+        <a href={(site.media?.instagramProfileUrl ?? "https://www.instagram.com/nikolasmaerker/").replace(/\/?$/, "")} target="_blank" rel="noreferrer noopener" class="hover:text-zinc-900 focus:outline-none focus:ring-2 focus:ring-zinc-400 focus:ring-offset-2 rounded transition-colors">Instagram</a>
         {socials.map((s) => (
           <a href={s.href} class="hover:text-zinc-900 focus:outline-none focus:ring-2 focus:ring-zinc-400 focus:ring-offset-2 rounded transition-colors">{s.label}</a>
         ))}

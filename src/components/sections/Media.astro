@@ -2,10 +2,7 @@
 const { site } = Astro.props;
 const media = site.media ?? {};
 const youtubeId = media.youtubeId ?? (media.youtubeEmbedUrl ? (media.youtubeEmbedUrl.match(/(?:embed\/|v=)([\w-]+)/)?.[1] ?? "") : "") ?? "";
-const instagramProfileUrl = media.instagramProfileUrl ?? "";
-const instagramThumbnails = media.instagramThumbnails ?? [];
 const sectionLabel = media.sectionLabel ?? "Hinter den Kulissen";
-const instagramCtaLabel = media.instagramCtaLabel ?? "Folge mir auf Instagram";
 const embedSrc = youtubeId ? `https://www.youtube-nocookie.com/embed/${youtubeId}` : "";
 const thumbSrc = youtubeId ? `https://img.youtube.com/vi/${youtubeId}/hqdefault.jpg` : "";
 ---
@@ -38,32 +35,6 @@ const thumbSrc = youtubeId ? `https://img.youtube.com/vi/${youtubeId}/hqdefault.
         <p class="text-sm text-zinc-500">Add media.youtubeId or media.youtubeEmbedUrl in site.json</p>
       </div>
     )}
-    <div class="grid grid-cols-1 gap-6 md:grid-cols-3">
-      {instagramThumbnails.length > 0 ? (
-        instagramThumbnails.slice(0, 3).map((src) => (
-          <a href={instagramProfileUrl} class="block aspect-square overflow-hidden rounded-xl relative group focus:outline-none focus:ring-2 focus:ring-zinc-400 focus:ring-offset-2">
-            <img src={src} alt="" class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110" width="400" height="400" loading="lazy" />
-            <div class="absolute inset-0 flex items-center justify-center bg-black/50 opacity-0 transition-opacity group-hover:opacity-100" aria-hidden="true">
-              <svg class="h-8 w-8 text-white" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 9V5a3 3 0 00-3-3l-4 9v11h11.28a2 2 0 002-2v-8a2 2 0 00-2-2h-5z" /></svg>
-            </div>
-          </a>
-        ))
-      ) : (
-        <>
-          <div class="aspect-square rounded-xl bg-zinc-200/70 flex items-center justify-center text-xs text-zinc-500">Placeholder</div>
-          <div class="aspect-square rounded-xl bg-zinc-200/70 flex items-center justify-center text-xs text-zinc-500">Placeholder</div>
-          <div class="aspect-square rounded-xl bg-zinc-200/70 flex items-center justify-center text-xs text-zinc-500">Placeholder</div>
-        </>
-      )}
-    </div>
-    {instagramProfileUrl ? (
-      <p class="mt-6 text-center">
-        <a href={instagramProfileUrl} class="inline-flex items-center text-sm font-semibold text-zinc-900 hover:opacity-70 focus:outline-none focus:ring-2 focus:ring-zinc-400 focus:ring-offset-2 rounded transition-opacity">
-          {instagramCtaLabel}
-          <svg class="ml-1 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
-        </a>
-      </p>
-    ) : null}
   </div>
 </section>
 {youtubeId ? (
