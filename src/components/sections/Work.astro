@@ -14,16 +14,17 @@ const workSwipeHint = site.workSwipeHint ?? "Wischen zum Entdecken →";
     </div>
     <div class="relative md:static">
       <p class="mb-3 text-xs font-medium text-zinc-400 sm:hidden" aria-hidden="true">{workSwipeHint}</p>
-      <div class="relative -mx-6 overflow-x-auto px-6 snap-x snap-mandatory scroll-smooth touch-pan-y md:overflow-visible md:mx-0 md:px-0">
+      <div class="relative -mx-6 overflow-x-auto px-6 snap-x snap-mandatory scroll-smooth touch-pan-y md:overflow-visible md:mx-0 md:px-0" data-work-scroller>
         <div class="flex gap-6 pb-4 md:gap-8 lg:gap-10 md:justify-center md:flex-wrap">
         {work.map((item) => {
           const imgSrc = (item.image && String(item.image).trim()) || "";
           return (
-          <article class="group w-[88vw] min-w-[300px] shrink-0 snap-start md:w-[340px] md:shrink-0 lg:w-[340px]">
+          <article class="group w-[88vw] min-w-[300px] shrink-0 snap-start md:w-[340px] md:shrink-0 lg:w-[340px]" data-work-card>
             <div class="rounded-2xl focus-within:ring-2 focus-within:ring-zinc-400 focus-within:ring-offset-2">
               <div class="relative mb-5">
                 <div
-                  class="work-preview-scroll aspect-[16/10] max-sm:overflow-hidden sm:overflow-y-auto overflow-x-hidden rounded-2xl overscroll-contain scroll-smooth [scrollbar-gutter:stable] focus:outline-none focus:ring-2 focus:ring-zinc-400 focus:ring-offset-2"
+                  class="work-preview-scroll aspect-[16/10] overflow-y-auto overflow-x-hidden rounded-2xl overscroll-contain scroll-smooth [scrollbar-gutter:stable] focus:outline-none focus:ring-2 focus:ring-zinc-400 focus:ring-offset-2"
+                  data-work-image-scroll
                   tabindex="0"
                   aria-label={`Project screenshot preview: ${item.title}`}
                 >
@@ -61,12 +62,147 @@ const workSwipeHint = site.workSwipeHint ?? "Wischen zum Entdecken →";
   </div>
 </section>
 
+<script>
+  (function () {
+    const isMobile = window.matchMedia("(max-width: 640px)").matches;
+    // #region agent log
+    fetch('http://127.0.0.1:7463/ingest/3a41d794-790f-4d99-b16f-a5111f089e69',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'0c34ab'},body:JSON.stringify({sessionId:'0c34ab',location:'Work.astro:script',message:'work script run',data:{isMobile,innerWidth:window.innerWidth,readyState:document.readyState},timestamp:Date.now(),hypothesisId:'A'})}).catch(()=>{});
+    // #endregion
+    if (!isMobile) return;
+
+    function init() {
+      const scroller = document.querySelector("[data-work-scroller]");
+      const container = scroller?.firstElementChild;
+      const cards = container ? container.querySelectorAll("[data-work-card]") : [];
+      const imageScrollEls = document.querySelectorAll("[data-work-image-scroll]");
+      // #region agent log
+      fetch('http://127.0.0.1:7463/ingest/3a41d794-790f-4d99-b16f-a5111f089e69',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'0c34ab'},body:JSON.stringify({sessionId:'0c34ab',location:'Work.astro:init',message:'init',data:{hasScroller:!!scroller,hasContainer:!!container,cardsLen:cards.length,imageScrollLen:imageScrollEls.length},timestamp:Date.now(),hypothesisId:'D'})}).catch(()=>{});
+      // #endregion
+      if (!scroller || !container || !cards.length) return;
+
+      function snapCarousel() {
+        const gap = parseFloat(getComputedStyle(container).gap) || 24;
+        const step = cards[0].getBoundingClientRect().width + gap;
+        const idx = Math.round(scroller.scrollLeft / step);
+        const clamped = Math.max(0, Math.min(idx, cards.length - 1));
+        scroller.scrollTo({ left: clamped * step, behavior: "smooth" });
+      }
+
+      let mouseGesture = null;
+
+      function onMouseMove(e) {
+        if (!mouseGesture) return;
+        const x = e.clientX;
+        const y = e.clientY;
+        if (mouseGesture.intent === null) {
+          const dx = x - mouseGesture.startX;
+          const dy = y - mouseGesture.startY;
+          if (Math.abs(dx) > 10 || Math.abs(dy) > 10) {
+            mouseGesture.intent = Math.abs(dx) > Math.abs(dy) ? "horizontal" : "vertical";
+            // #region agent log
+            fetch('http://127.0.0.1:7463/ingest/3a41d794-790f-4d99-b16f-a5111f089e69',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'0c34ab'},body:JSON.stringify({sessionId:'0c34ab',location:'Work.astro:mouse intent',message:'mouse intent set',data:{intent:mouseGesture.intent,dx,dy},timestamp:Date.now(),hypothesisId:'G'})}).catch(()=>{});
+            // #endregion
+          }
+        }
+        if (mouseGesture.intent === "horizontal") {
+          e.preventDefault();
+          const delta = x - mouseGesture.lastX;
+          scroller.scrollBy({ left: -delta, behavior: "auto" });
+          mouseGesture.lastX = x;
+        }
+      }
+
+      function onMouseUp() {
+        if (mouseGesture && mouseGesture.intent === "horizontal") snapCarousel();
+        mouseGesture = null;
+        document.removeEventListener("mousemove", onMouseMove);
+        document.removeEventListener("mouseup", onMouseUp);
+      }
+
+      imageScrollEls.forEach(function (el) {
+        let startX = 0, startY = 0, lastX = 0, intent = null;
+
+        el.addEventListener("touchstart", function (e) {
+          if (e.touches.length !== 1) return;
+          startX = e.touches[0].clientX;
+          startY = e.touches[0].clientY;
+          lastX = startX;
+          intent = null;
+          // #region agent log
+          fetch('http://127.0.0.1:7463/ingest/3a41d794-790f-4d99-b16f-a5111f089e69',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'0c34ab'},body:JSON.stringify({sessionId:'0c34ab',location:'Work.astro:touchstart',message:'touchstart on image',data:{startX,startY},timestamp:Date.now(),hypothesisId:'B'})}).catch(()=>{});
+          // #endregion
+        }, { passive: true, capture: true });
+
+        el.addEventListener("touchmove", function (e) {
+          if (e.touches.length !== 1) return;
+          const x = e.touches[0].clientX;
+          const y = e.touches[0].clientY;
+          const dx = x - startX;
+          const dy = y - startY;
+
+          if (intent === null && (Math.abs(dx) > 10 || Math.abs(dy) > 10)) {
+            intent = Math.abs(dx) > Math.abs(dy) ? "horizontal" : "vertical";
+            // #region agent log
+            fetch('http://127.0.0.1:7463/ingest/3a41d794-790f-4d99-b16f-a5111f089e69',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'0c34ab'},body:JSON.stringify({sessionId:'0c34ab',location:'Work.astro:touchmove',message:'intent set',data:{intent,dx,dy,absDx:Math.abs(dx),absDy:Math.abs(dy)},timestamp:Date.now(),hypothesisId:'C'})}).catch(()=>{});
+            // #endregion
+          }
+
+          if (intent === "horizontal") {
+            e.preventDefault();
+            const prevLeft = scroller.scrollLeft;
+            const delta = x - lastX;
+            scroller.scrollBy({ left: -delta, behavior: "auto" });
+            lastX = x;
+            // #region agent log
+            fetch('http://127.0.0.1:7463/ingest/3a41d794-790f-4d99-b16f-a5111f089e69',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'0c34ab'},body:JSON.stringify({sessionId:'0c34ab',location:'Work.astro:touchmove horizontal',message:'scroll carousel',data:{prevLeft,newLeft:scroller.scrollLeft,delta},timestamp:Date.now(),hypothesisId:'E'})}).catch(()=>{});
+            // #endregion
+          }
+        }, { passive: false, capture: true });
+
+        el.addEventListener("touchend", function () {
+          if (intent === "horizontal") {
+            snapCarousel();
+            // #region agent log
+            fetch('http://127.0.0.1:7463/ingest/3a41d794-790f-4d99-b16f-a5111f089e69',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'0c34ab'},body:JSON.stringify({sessionId:'0c34ab',location:'Work.astro:touchend',message:'snap',data:{step:0,idx:0,clamped:0,scrollLeft:scroller.scrollLeft,cardsLen:cards.length},timestamp:Date.now(),hypothesisId:'D'})}).catch(()=>{});
+            // #endregion
+          }
+          intent = null;
+        }, { passive: true, capture: true });
+
+        el.addEventListener("mousedown", function (e) {
+          if (e.button !== 0) return;
+          if (e.target?.tagName === "IMG") e.preventDefault();
+          // #region agent log
+          fetch('http://127.0.0.1:7463/ingest/3a41d794-790f-4d99-b16f-a5111f089e69',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'0c34ab'},body:JSON.stringify({sessionId:'0c34ab',location:'Work.astro:mousedown',message:'mousedown image area',data:{targetTagName:e.target?.tagName,isImg:e.target?.tagName==='IMG'},timestamp:Date.now(),hypothesisId:'F'})}).catch(()=>{});
+          // #endregion
+          mouseGesture = { startX: e.clientX, startY: e.clientY, lastX: e.clientX, intent: null };
+          document.addEventListener("mousemove", onMouseMove);
+          document.addEventListener("mouseup", onMouseUp);
+        }, { passive: false });
+      });
+    }
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", init);
+    } else {
+      init();
+    }
+  })();
+</script>
+
 <style>
   /* Internal scroll: natural image height inside fixed aspect box (override global #work aspect img) */
   :global(#work) .work-preview-scroll img {
     height: auto !important;
     object-fit: unset;
     object-position: unset;
+  }
+
+  /* Mobile: momentum scrolling inside image viewport */
+  @media (max-width: 640px) {
+    :global(#work) .work-preview-scroll {
+      -webkit-overflow-scrolling: touch;
+    }
   }
 
   /* Match light mode viewport in dark mode: global.css applies inset clip-path to .dark #work [class*="aspect-"], which shrinks the visible area; reset so only colors differ */
