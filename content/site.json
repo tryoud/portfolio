@@ -6,9 +6,11 @@
   "ogImage": "/og.png",
   "twitterHandle": "",
   "hero": {
-    "headline": "Hey, du",
+    "headline": "Hey, there",
     "badgeText": "Offen für neue Projekte",
     "specialization": "Spezialisiert auf Web Design & Development, Foto & Video sowie Drohne / Luftaufnahmen.",
+    "roleLines": ["WEB DESIGNER", "& DEVELOPER"],
+    "roleSubline": "PHOTO / VIDEO / DRONE",
     "portraitSrc": "/hero/Nikolas_Maerker_hero.webp",
     "primaryCta": { "label": "Kontakt", "href": "#contact" },
     "secondaryCta": { "label": "Projekte ansehen", "href": "#work" }
@@ -39,23 +41,23 @@
     {
       "title": "Wiro",
       "description": "Conversion-orientierte Agency-Website mit Projekten und Lead-Erfassung.",
-      "href": "https://nikolasmaerker.com",
+      "href": "https://www.wiro-alumni.de/",
       "image": "/work/wiro.webp",
-      "tags": ["Astro", "Tailwind", "Cloudflare"]
-    },
-    {
-      "title": "Cantero",
-      "description": "Case Study Webdesign und -entwicklung.",
-      "href": "https://nikolasmaerker.com",
-      "image": "/work/cantero.webp",
-      "tags": ["Web Dev", "Design"]
+      "tags": ["Wordpress"]
     },
     {
       "title": "Tum",
       "description": "Weitere Website-Realisation.",
-      "href": "https://nikolasmaerker.com",
+      "href": "https://tum-management-alumni.de/",
       "image": "/work/tum.webp",
-      "tags": ["Development"]
+      "tags": ["Wordpress", "php"]
+    },
+    {
+      "title": "Cantero",
+      "description": "Case Study Webdesign und -entwicklung.",
+      "href": "https://www.cantero-consulting.de/",
+      "image": "/work/cantero.webp",
+      "tags": ["Figma", "Framer"]
     }
   ],
   "process": {

@@ -40,21 +40,21 @@
       "title": "Agency Portfolio",
       "description": "Conversion-focused agency site with case studies and lead capture.",
       "href": "https://nikolasmaerker.com",
-      "image": "/work/Screenshot 2026-02-22 at 23.22.32.png",
+      "image": "/work/wiro.webp",
       "tags": ["Astro", "Tailwind", "Cloudflare"]
     },
     {
       "title": "Project Two",
       "description": "Web design and development case study.",
       "href": "https://nikolasmaerker.com",
-      "image": "/work/Screenshot 2026-02-22 at 23.22.51.png",
+      "image": "/work/cantero.webp",
       "tags": ["Web Dev", "Design"]
     },
     {
       "title": "Project Three",
       "description": "Another website build.",
       "href": "https://nikolasmaerker.com",
-      "image": "/work/Screenshot 2026-02-22 at 23.23.27.png",
+      "image": "/work/tum.webp",
       "tags": ["Development"]
     }
   ],
