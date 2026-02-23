@@ -37,27 +37,28 @@
   ],
   "workSectionLabel": "Selected Work",
   "workHeading": "Recent case studies.",
+  "workSwipeHint": "Swipe to discover →",
   "work": [
     {
-      "title": "Agency Portfolio",
+      "title": "Wiro",
       "description": "Conversion-focused agency site with case studies and lead capture.",
-      "href": "https://nikolasmaerker.com",
+      "href": "https://www.wiro-alumni.de/",
       "image": "/work/wiro.webp",
-      "tags": ["Astro", "Tailwind", "Cloudflare"]
+      "tags": ["Wordpress"]
     },
     {
-      "title": "Project Two",
-      "description": "Web design and development case study.",
-      "href": "https://nikolasmaerker.com",
-      "image": "/work/cantero.webp",
-      "tags": ["Web Dev", "Design"]
-    },
-    {
-      "title": "Project Three",
+      "title": "Tum",
       "description": "Another website build.",
-      "href": "https://nikolasmaerker.com",
+      "href": "https://tum-management-alumni.de/",
       "image": "/work/tum.webp",
-      "tags": ["Development"]
+      "tags": ["Wordpress", "php"]
+    },
+    {
+      "title": "Cantero",
+      "description": "Web design and development case study.",
+      "href": "https://www.cantero-consulting.de/",
+      "image": "/work/cantero.webp",
+      "tags": ["Figma", "Framer"]
     }
   ],
   "process": {

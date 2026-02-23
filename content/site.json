@@ -40,6 +40,7 @@
   ],
   "workSectionLabel": "Ausgewählte Arbeiten",
   "workHeading": "Aktuelle Projekte.",
+  "workSwipeHint": "Wischen zum Entdecken →",
   "work": [
     {
       "title": "Wiro",
