@@ -15,6 +15,9 @@
     "primaryCta": { "label": "Kontakt", "href": "#contact" },
     "secondaryCta": { "label": "Projekte ansehen", "href": "#work" }
   },
+  "servicesSectionLabel": "Meine Expertise",
+  "servicesHeading": "Gestaltet für Wirkung.",
+  "servicesLead": "Ich verbinde zielgerichtete Umsetzung mit klarer Kommunikation für wirkungsvolle digitale Arbeit.",
   "services": [
     {
       "id": "web-design-dev",
@@ -76,7 +79,7 @@
     "embedUrl": "",
     "sectionLabel": "Hinter den Kulissen",
     "instagramCtaLabel": "Folge mir auf Instagram",
-    "instagramProfileUrl": "https://www.instagram.com/",
+    "instagramProfileUrl": "https://www.instagram.com/nikolasmaerker/",
     "instagramThumbnails": []
   },
   "about": {
@@ -101,6 +104,7 @@
   "links": {
     "email": "mailto:nikolas.maerker@gmail.com",
     "github": "https://github.com/tryoud",
-    "linkedin": "https://www.linkedin.com/in/nikolasmaerker/"
+    "linkedin": "https://www.linkedin.com/in/nikolasmaerker/",
+    "instagram": "https://www.instagram.com/nikolasmaerker/"
   }
 }

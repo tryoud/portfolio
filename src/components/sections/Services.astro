@@ -1,6 +1,9 @@
 ---
 const { site } = Astro.props;
 const services = site.services ?? [];
+const sectionLabel = site.servicesSectionLabel ?? "Meine Expertise";
+const heading = site.servicesHeading ?? "Gestaltet für Wirkung.";
+const lead = site.servicesLead ?? "Ich verbinde zielgerichtete Umsetzung mit klarer Kommunikation für wirkungsvolle digitale Arbeit.";
 const iconMap = {
   "web-design-dev": "laptop",
   "photo-video": "camera",
@@ -12,10 +15,10 @@ const iconMap = {
   <div class="mx-auto max-w-7xl px-6">
     <div class="mb-16 flex flex-col justify-between items-end md:flex-row">
       <div>
-        <span class="mb-2 block text-sm font-semibold uppercase tracking-wider text-zinc-500">My expertise</span>
-        <h2 id="services-heading" class="font-display text-4xl italic text-zinc-900 md:text-5xl">Crafted for impact.</h2>
+        <span class="mb-2 block text-sm font-semibold uppercase tracking-wider text-zinc-500">{sectionLabel}</span>
+        <h2 id="services-heading" class="font-display text-4xl italic text-zinc-900 md:text-5xl">{heading}</h2>
       </div>
-      <p class="mt-4 max-w-sm text-zinc-600 md:mt-0">I combine focused execution with clear communication to deliver high-impact digital work.</p>
+      <p class="mt-4 max-w-sm text-zinc-600 md:mt-0">{lead}</p>
     </div>
     <div class="grid grid-cols-1 gap-8 md:grid-cols-3">
       {services.map((s) => (

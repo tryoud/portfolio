@@ -27,10 +27,13 @@ const greetingLeft = greetingParts[0] ? `${greetingParts[0]},` : "Hey,";
 const greetingRight = greetingParts[1] ?? "there";
 ---
 
-<section id="top" class="relative flex min-h-0 max-h-[800px] flex-col overflow-hidden pt-[clamp(1.5rem,4vw,2.5rem)] pb-[clamp(0.75rem,2vw,1.5rem)] gradient-mesh md:min-h-[calc(100svh-5rem)] md:pt-8 md:pb-[clamp(0.5rem,1.5vw,1rem)]" aria-labelledby="hero-heading">
+<section id="top" class="relative flex min-h-0 max-h-[800px] flex-col overflow-hidden pt-[clamp(1.5rem,4vw,2.5rem)] pb-[clamp(0.75rem,2vw,1.5rem)] md:min-h-[calc(100svh-5rem)] md:pt-8 md:pb-[clamp(0.5rem,1.5vw,1rem)]" aria-labelledby="hero-heading">
   <div class="pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
-    <div class="absolute inset-0 bg-gradient-to-b from-white via-amber-50/40 to-zinc-100/80" />
-    <div class="absolute left-1/2 top-[55%] h-[70%] w-[50%] min-w-[280px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-amber-200/25 blur-3xl" />
+    <div class="absolute inset-0 bg-[var(--color-background-light)]" />
+    <div
+      class="absolute inset-0 opacity-100"
+      style="background: radial-gradient(ellipse 65% 55% at 50% 38%, rgb(255, 248, 228) 0%, rgb(255, 244, 218) 30%, rgba(255, 242, 225, 0.4) 55%, transparent 72%);"
+    />
   </div>
 
   <!-- Single centered container: max-w-7xl, no drift on ultra-wide -->
@@ -58,7 +61,7 @@ const greetingRight = greetingParts[1] ?? "there";
 
     <!-- Portrait: centered, no offset; bottom fade preserved -->
     <div class="relative z-10 flex min-h-0 flex-1 flex-col items-center justify-center py-[clamp(0.25rem,1vw,0.5rem)] md:py-0">
-      <div class="mx-auto w-64 shrink-0 translate-x-[20px] translate-y-[60px] scale-[1.2] sm:w-80 md:w-[28rem] lg:w-[34rem] xl:w-[min(440px,90vw)] [filter:drop-shadow(0_25px_50px_-12px_rgba(0,0,0,0.15))_drop-shadow(0_0_40px_-8px_rgba(0,0,0,0.08))]">
+      <div class="mx-auto w-64 shrink-0 translate-x-[40px] translate-y-[60px] scale-[1.2] sm:w-80 md:w-[28rem] lg:w-[34rem] xl:w-[min(440px,90vw)] [filter:drop-shadow(0_25px_50px_-12px_rgba(0,0,0,0.15))_drop-shadow(0_0_40px_-8px_rgba(0,0,0,0.08))]">
         <img
           src={portraitSrc}
           alt=""

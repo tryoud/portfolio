@@ -11,7 +11,9 @@
     "specialization": "Specialized in Web Design & Development, Photo & Video, and Drone / Aerial.",
     "portraitSrc": "/hero/Nikolas_Maerker_hero.webp",
     "primaryCta": { "label": "Contact", "href": "#contact" },
-    "secondaryCta": { "label": "View work", "href": "#work" }
+    "secondaryCta": { "label": "View work", "href": "#work" },
+    "roleLines": ["WEB DESIGNER", "& DEVELOPER"],
+    "roleSubline": "PHOTO / VIDEO / DRONE"
   },
   "services": [
     {
