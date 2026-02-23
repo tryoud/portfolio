@@ -331,3 +331,6 @@
 {"sessionId":"dcbfc2","location":"index.astro:logo-scroll","message":"page load","data":{"hypothesisId":"H5","hasTopEl":true,"topTagName":"HEADER","scrollY":0,"topOffsetTop":0},"timestamp":1771853716815}
 {"sessionId":"dcbfc2","location":"index.astro:logo-scroll","message":"page load","data":{"hypothesisId":"H5","hasTopEl":true,"topTagName":"HEADER","scrollY":0,"topOffsetTop":0},"timestamp":1771853773703}
 {"sessionId":"dcbfc2","location":"index.astro:logo-scroll","message":"page load","data":{"hypothesisId":"H5","hasTopEl":true,"topTagName":"HEADER","scrollY":0,"topOffsetTop":0},"timestamp":1771856562964}
+{"sessionId":"dcbfc2","location":"index.astro:logo-scroll","message":"page load","data":{"hypothesisId":"H5","hasTopEl":true,"topTagName":"HEADER","scrollY":0,"topOffsetTop":0},"timestamp":1771862473024}
+{"sessionId":"dcbfc2","location":"index.astro:logo-scroll","message":"page load","data":{"hypothesisId":"H5","hasTopEl":true,"topTagName":"HEADER","scrollY":126.5,"topOffsetTop":126.5},"timestamp":1771862588757}
+{"sessionId":"dcbfc2","location":"index.astro:logo-scroll","message":"page load","data":{"hypothesisId":"H5","hasTopEl":true,"topTagName":"HEADER","scrollY":0.5,"topOffsetTop":0.5},"timestamp":1771862611568}
