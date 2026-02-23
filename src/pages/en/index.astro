@@ -23,6 +23,14 @@ const description = site.tagline ?? "";
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <script is:inline>
+      (function () {
+        const stored = localStorage.getItem("theme");
+        const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+        const dark = stored === "dark" || (stored !== "light" && prefersDark);
+        document.documentElement.classList.toggle("dark", dark);
+      })();
+    </script>
     <title>{title}</title>
     <meta name="description" content={description} />
     {canonical ? <link rel="canonical" href={canonical} /> : null}
@@ -41,29 +49,76 @@ const description = site.tagline ?? "";
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   </head>
 
-  <body class="min-h-screen bg-[#FDFBF7] text-zinc-900 antialiased">
-    <header class="sticky top-0 z-50 w-full border-b border-zinc-100 bg-white/80 backdrop-blur-md">
+  <body class="min-h-screen overflow-x-hidden bg-[var(--bg)] text-[var(--text)] antialiased">
+    <header id="top" class="sticky top-0 z-50 w-full border-b border-[var(--border)] bg-[var(--surface)]/80 backdrop-blur-md">
       <nav class="mx-auto flex h-20 max-w-7xl items-center justify-between px-6" aria-label="Main">
-        <a href="/en/#top" class="font-display text-2xl font-semibold italic tracking-tight text-zinc-900 hover:opacity-80 focus:outline-none focus:ring-2 focus:ring-zinc-400 focus:ring-offset-2 rounded">{site.name}.</a>
-        <ul class="hidden items-center gap-8 md:flex text-sm font-medium text-zinc-600">
-          <li><a href="/en/#services" class="hover:text-zinc-900 focus:outline-none focus:ring-2 focus:ring-zinc-400 focus:ring-offset-2 rounded">Services</a></li>
-          <li><a href="/en/#work" class="hover:text-zinc-900 focus:outline-none focus:ring-2 focus:ring-zinc-400 focus:ring-offset-2 rounded">Work</a></li>
-          <li><a href="/en/#process" class="hover:text-zinc-900 focus:outline-none focus:ring-2 focus:ring-zinc-400 focus:ring-offset-2 rounded">Process</a></li>
-          <li><a href="/en/#media" class="hover:text-zinc-900 focus:outline-none focus:ring-2 focus:ring-zinc-400 focus:ring-offset-2 rounded">Media</a></li>
-          <li><a href="/en/#about" class="hover:text-zinc-900 focus:outline-none focus:ring-2 focus:ring-zinc-400 focus:ring-offset-2 rounded">About</a></li>
+        <a href="/en/#top" id="logo-link" class="font-display text-2xl font-semibold italic tracking-tight text-[var(--text)] hover:opacity-80 focus:outline-none focus:ring-2 focus:ring-[var(--ring)] focus:ring-offset-2 focus:ring-offset-[var(--ring-offset)] rounded">{site.name}.</a>
+        <ul class="hidden items-center gap-8 md:flex text-sm font-medium text-[var(--muted)]">
+          <li><a href="/en/#services" class="hover:text-[var(--text)] focus:outline-none focus:ring-2 focus:ring-[var(--ring)] focus:ring-offset-2 focus:ring-offset-[var(--ring-offset)] rounded">Services</a></li>
+          <li><a href="/en/#work" class="hover:text-[var(--text)] focus:outline-none focus:ring-2 focus:ring-[var(--ring)] focus:ring-offset-2 focus:ring-offset-[var(--ring-offset)] rounded">Work</a></li>
+          <li><a href="/en/#process" class="hover:text-[var(--text)] focus:outline-none focus:ring-2 focus:ring-[var(--ring)] focus:ring-offset-2 focus:ring-offset-[var(--ring-offset)] rounded">Process</a></li>
+          <li><a href="/en/#media" class="hover:text-[var(--text)] focus:outline-none focus:ring-2 focus:ring-[var(--ring)] focus:ring-offset-2 focus:ring-offset-[var(--ring-offset)] rounded">Media</a></li>
+          <li><a href="/en/#about" class="hover:text-[var(--text)] focus:outline-none focus:ring-2 focus:ring-[var(--ring)] focus:ring-offset-2 focus:ring-offset-[var(--ring-offset)] rounded">About</a></li>
         </ul>
-        <div class="flex items-center gap-4">
-          <span class="text-sm text-zinc-500" aria-hidden="true">
-            <a href="/" class="hover:text-zinc-900 focus:outline-none focus:ring-2 focus:ring-zinc-400 focus:ring-offset-2 rounded">DE</a>
-            <span class="mx-1.5 text-zinc-300">|</span>
+        <div class="flex items-center gap-3">
+          <span class="inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap text-sm text-[var(--muted)]" aria-hidden="true">
+            <a href="/" class="hover:text-[var(--text)] focus:outline-none focus:ring-2 focus:ring-[var(--ring)] focus:ring-offset-2 focus:ring-offset-[var(--ring-offset)] rounded">DE</a>
+            <span class="text-[var(--border-strong)]" aria-hidden="true">|</span>
             <span aria-current="page">EN</span>
           </span>
-          <a href="/en/#contact" class="inline-flex items-center justify-center rounded-full bg-zinc-900 px-6 py-2.5 text-sm font-medium text-white shadow-sm hover:bg-zinc-800 focus:outline-none focus:ring-2 focus:ring-zinc-400 focus:ring-offset-2">
+          <button
+            type="button"
+            id="theme-toggle"
+            aria-label="Enable dark mode"
+            class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-[var(--border)] bg-[var(--surface)] shadow-sm transition-colors hover:border-[var(--border-strong)] focus:outline-none focus:ring-2 focus:ring-[var(--ring)] focus:ring-offset-2 focus:ring-offset-[var(--ring-offset)]"
+          >
+            <svg class="theme-icon-moon h-5 w-5 text-[var(--text)]" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" /></svg>
+            <svg class="theme-icon-sun hidden h-5 w-5 text-[var(--text)]" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
+          </button>
+          <a href="/en/#contact" class="nav-contact-btn inline-flex items-center justify-center rounded-full bg-[var(--accent)] px-6 py-2.5 text-sm font-medium text-[var(--accent-foreground)] shadow-sm hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-[var(--ring)] focus:ring-offset-2 focus:ring-offset-[var(--ring-offset)]">
             Contact
           </a>
         </div>
       </nav>
     </header>
+    <script is:inline>
+      (function () {
+        var btn = document.getElementById("theme-toggle");
+        var moon = btn && btn.querySelector(".theme-icon-moon");
+        var sun = btn && btn.querySelector(".theme-icon-sun");
+        function applyDark(dark) {
+          document.documentElement.classList.toggle("dark", dark);
+          localStorage.setItem("theme", dark ? "dark" : "light");
+          if (moon) moon.classList.toggle("hidden", dark);
+          if (sun) sun.classList.toggle("hidden", !dark);
+          if (btn) btn.setAttribute("aria-label", dark ? "Enable light mode" : "Enable dark mode");
+        }
+        if (btn) {
+          btn.addEventListener("click", function () {
+            var isDark = document.documentElement.classList.contains("dark");
+            applyDark(!isDark);
+          });
+          var isDark = document.documentElement.classList.contains("dark");
+          if (moon) moon.classList.toggle("hidden", isDark);
+          if (sun) sun.classList.toggle("hidden", !isDark);
+          btn.setAttribute("aria-label", isDark ? "Enable light mode" : "Enable dark mode");
+        }
+      })();
+    </script>
+    <script is:inline>
+      (function () {
+        var logo = document.getElementById("logo-link");
+        if (logo) {
+          logo.addEventListener("click", function (e) {
+            var h = logo.getAttribute("href");
+            if (h === "#top" || h === "/en/#top") {
+              e.preventDefault();
+              window.scrollTo({ top: 0, behavior: "smooth" });
+            }
+          });
+        }
+      })();
+    </script>
     <main>
       <Hero site={site} />
       <Services site={site} />

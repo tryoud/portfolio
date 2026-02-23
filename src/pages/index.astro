@@ -23,6 +23,14 @@ const description = site.tagline ?? "";
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <script is:inline>
+      (function () {
+        const stored = localStorage.getItem("theme");
+        const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+        const dark = stored === "dark" || (stored !== "light" && prefersDark);
+        document.documentElement.classList.toggle("dark", dark);
+      })();
+    </script>
     <title>{title}</title>
     <meta name="description" content={description} />
     {canonical ? <link rel="canonical" href={canonical} /> : null}
@@ -41,29 +49,122 @@ const description = site.tagline ?? "";
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   </head>
 
-  <body class="min-h-screen overflow-x-hidden bg-[#FDFBF7] text-zinc-900 antialiased">
-    <header class="sticky top-0 z-50 w-full border-b border-zinc-100 bg-white/80 backdrop-blur-md">
+  <body class="min-h-screen overflow-x-hidden bg-[var(--bg)] text-[var(--text)] antialiased">
+    <header id="top" class="sticky top-0 z-50 w-full border-b border-[var(--border)] bg-[var(--surface)]/80 backdrop-blur-md">
       <nav class="mx-auto flex h-20 max-w-7xl items-center justify-between px-4 sm:px-6" aria-label="Main">
-        <a href="#top" class="font-display text-2xl font-semibold italic tracking-tight text-zinc-900 hover:opacity-80 focus:outline-none focus:ring-2 focus:ring-zinc-400 focus:ring-offset-2 rounded">{site.name}.</a>
-        <ul class="hidden items-center gap-8 md:flex text-sm font-medium text-zinc-600">
-          <li><a href="#services" class="hover:text-zinc-900 focus:outline-none focus:ring-2 focus:ring-zinc-400 focus:ring-offset-2 rounded">Services</a></li>
-          <li><a href="#work" class="hover:text-zinc-900 focus:outline-none focus:ring-2 focus:ring-zinc-400 focus:ring-offset-2 rounded">Work</a></li>
-          <li><a href="#process" class="hover:text-zinc-900 focus:outline-none focus:ring-2 focus:ring-zinc-400 focus:ring-offset-2 rounded">Process</a></li>
-          <li><a href="#media" class="hover:text-zinc-900 focus:outline-none focus:ring-2 focus:ring-zinc-400 focus:ring-offset-2 rounded">Media</a></li>
-          <li><a href="#about" class="hover:text-zinc-900 focus:outline-none focus:ring-2 focus:ring-zinc-400 focus:ring-offset-2 rounded">About</a></li>
+        <a href="#top" id="logo-link" class="font-display text-2xl font-semibold italic tracking-tight text-[var(--text)] hover:opacity-80 focus:outline-none focus:ring-2 focus:ring-[var(--ring)] focus:ring-offset-2 focus:ring-offset-[var(--ring-offset)] rounded">{site.name}.</a>
+        <ul class="hidden items-center gap-8 md:flex text-sm font-medium text-[var(--muted)]">
+          <li><a href="#services" class="hover:text-[var(--text)] focus:outline-none focus:ring-2 focus:ring-[var(--ring)] focus:ring-offset-2 focus:ring-offset-[var(--ring-offset)] rounded">Services</a></li>
+          <li><a href="#work" class="hover:text-[var(--text)] focus:outline-none focus:ring-2 focus:ring-[var(--ring)] focus:ring-offset-2 focus:ring-offset-[var(--ring-offset)] rounded">Work</a></li>
+          <li><a href="#process" class="hover:text-[var(--text)] focus:outline-none focus:ring-2 focus:ring-[var(--ring)] focus:ring-offset-2 focus:ring-offset-[var(--ring-offset)] rounded">Process</a></li>
+          <li><a href="#media" class="hover:text-[var(--text)] focus:outline-none focus:ring-2 focus:ring-[var(--ring)] focus:ring-offset-2 focus:ring-offset-[var(--ring-offset)] rounded">Media</a></li>
+          <li><a href="#about" class="hover:text-[var(--text)] focus:outline-none focus:ring-2 focus:ring-[var(--ring)] focus:ring-offset-2 focus:ring-offset-[var(--ring-offset)] rounded">About</a></li>
         </ul>
-        <div class="flex items-center gap-4">
-          <span class="text-sm text-zinc-500" aria-hidden="true">
+        <div class="flex items-center gap-3">
+          <span class="inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap text-sm text-[var(--muted)]" aria-hidden="true">
             <span aria-current="page">DE</span>
-            <span class="mx-1.5 text-zinc-300">|</span>
-            <a href="/en/" class="hover:text-zinc-900 focus:outline-none focus:ring-2 focus:ring-zinc-400 focus:ring-offset-2 rounded">EN</a>
+            <span class="text-[var(--border-strong)]" aria-hidden="true">|</span>
+            <a href="/en/" class="hover:text-[var(--text)] focus:outline-none focus:ring-2 focus:ring-[var(--ring)] focus:ring-offset-2 focus:ring-offset-[var(--ring-offset)] rounded">EN</a>
           </span>
-          <a href="#contact" class="inline-flex items-center justify-center rounded-full bg-zinc-900 px-6 py-2.5 text-sm font-medium text-white shadow-sm hover:bg-zinc-800 focus:outline-none focus:ring-2 focus:ring-zinc-400 focus:ring-offset-2">
+          <button
+            type="button"
+            id="theme-toggle"
+            aria-label="Enable dark mode"
+            class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-[var(--border)] bg-[var(--surface)] shadow-sm transition-colors hover:border-[var(--border-strong)] focus:outline-none focus:ring-2 focus:ring-[var(--ring)] focus:ring-offset-2 focus:ring-offset-[var(--ring-offset)]"
+          >
+            <svg class="theme-icon-moon h-5 w-5 text-[var(--text)]" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" /></svg>
+            <svg class="theme-icon-sun hidden h-5 w-5 text-[var(--text)]" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
+          </button>
+          <a href="#contact" class="nav-contact-btn inline-flex items-center justify-center rounded-full bg-[var(--accent)] px-6 py-2.5 text-sm font-medium text-[var(--accent-foreground)] shadow-sm hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-[var(--ring)] focus:ring-offset-2 focus:ring-offset-[var(--ring-offset)]">
             Contact
           </a>
         </div>
       </nav>
     </header>
+    <script is:inline>
+      (function () {
+        var btn = document.getElementById("theme-toggle");
+        var moon = btn && btn.querySelector(".theme-icon-moon");
+        var sun = btn && btn.querySelector(".theme-icon-sun");
+        function applyDark(dark) {
+          document.documentElement.classList.toggle("dark", dark);
+          localStorage.setItem("theme", dark ? "dark" : "light");
+          if (moon) moon.classList.toggle("hidden", dark);
+          if (sun) sun.classList.toggle("hidden", !dark);
+          if (btn) btn.setAttribute("aria-label", dark ? "Enable light mode" : "Enable dark mode");
+        }
+        if (btn) {
+          btn.addEventListener("click", function () {
+            var isDark = document.documentElement.classList.contains("dark");
+            applyDark(!isDark);
+            setTimeout(logNavContactStyles, 50);
+          });
+          var isDark = document.documentElement.classList.contains("dark");
+          if (moon) moon.classList.toggle("hidden", isDark);
+          if (sun) sun.classList.toggle("hidden", !isDark);
+btn.setAttribute("aria-label", isDark ? "Enable light mode" : "Enable dark mode");
+        }
+        // #region agent log
+        function logNavContactStyles() {
+          var contactBtn = document.querySelector(".nav-contact-btn");
+          var isDark = document.documentElement.classList.contains("dark");
+          if (!contactBtn) return;
+          var s = window.getComputedStyle(contactBtn);
+          fetch("http://127.0.0.1:7463/ingest/3a41d794-790f-4d99-b16f-a5111f089e69", { method: "POST", headers: { "Content-Type": "application/json", "X-Debug-Session-Id": "e0db85" }, body: JSON.stringify({ sessionId: "e0db85", location: "index.astro:nav-contact", message: "nav contact computed styles", data: { isDark: isDark, className: contactBtn.className, color: s.color, backgroundColor: s.backgroundColor, borderColor: s.borderColor, inTop: !!contactBtn.closest("#top") }, hypothesisId: "H1", timestamp: Date.now() }) }).catch(function () {});
+        }
+        if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", function () { setTimeout(logNavContactStyles, 100); });
+        else setTimeout(logNavContactStyles, 100);
+        // #endregion
+      })();
+    </script>
+    <!-- #region agent log -->
+    <script is:inline>
+      (function () {
+        var endpoint = "http://127.0.0.1:7463/ingest/3a41d794-790f-4d99-b16f-a5111f089e69";
+        var sessionId = "dcbfc2";
+        function send(msg, data) {
+          fetch(endpoint, {
+            method: "POST",
+            headers: { "Content-Type": "application/json", "X-Debug-Session-Id": sessionId },
+            body: JSON.stringify({ sessionId: sessionId, location: "index.astro:logo-scroll", message: msg, data: data || {}, timestamp: Date.now() })
+          }).catch(function () {});
+        }
+        function onLoad() {
+          var topEl = document.getElementById("top");
+          var scrollY = window.scrollY ?? document.documentElement.scrollTop;
+          send("page load", { hypothesisId: "H5", hasTopEl: !!topEl, topTagName: topEl ? topEl.tagName : null, scrollY: scrollY, topOffsetTop: topEl ? topEl.getBoundingClientRect().top + scrollY : null });
+        }
+        function afterScroll() {
+          var scrollY = window.scrollY ?? document.documentElement.scrollTop;
+          send("after scroll", { hypothesisId: "H2", scrollY: scrollY });
+        }
+        if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", onLoad);
+        else onLoad();
+        var logo = document.getElementById("logo-link");
+        if (logo) {
+          logo.addEventListener("click", function (e) {
+            var scrollYBefore = window.scrollY ?? document.documentElement.scrollTop;
+            send("logo clicked", { hypothesisId: "H4", href: logo.getAttribute("href"), scrollYBefore: scrollYBefore, runId: "post-fix" });
+            if (logo.getAttribute("href") === "#top") {
+              e.preventDefault();
+              window.scrollTo({ top: 0, behavior: "smooth" });
+            }
+            setTimeout(function () { requestAnimationFrame(afterScroll); }, 100);
+            setTimeout(function () {
+              requestAnimationFrame(function () {
+                var sy = window.scrollY ?? document.documentElement.scrollTop;
+                send("after scroll", { hypothesisId: "H2", scrollY: sy, runId: "post-fix" });
+              });
+            }, 600);
+          });
+        }
+        window.addEventListener("hashchange", function () {
+          var scrollY = window.scrollY ?? document.documentElement.scrollTop;
+          send("hashchange", { hypothesisId: "H1", hash: location.hash, scrollY: scrollY });
+        });
+      })();
+    </script>
+    <!-- #endregion -->
     <main>
       <Hero site={site} />
       <Services site={site} />
@@ -73,5 +174,44 @@ const description = site.tagline ?? "";
       <About site={site} />
       <Contact site={site} />
     </main>
+    <!-- #region agent log -->
+    <script is:inline>
+      (function () {
+        function send(data) {
+          fetch("http://127.0.0.1:7463/ingest/3a41d794-790f-4d99-b16f-a5111f089e69", {
+            method: "POST",
+            headers: { "Content-Type": "application/json", "X-Debug-Session-Id": "233a97" },
+            body: JSON.stringify({ sessionId: "233a97", location: "index.astro:debug", message: "hero cloud debug", data: data, timestamp: Date.now(), runId: "hero-cloud", hypothesisId: data.hypothesisId || "A" })
+          }).catch(function () {});
+        }
+        function run() {
+          var html = document.documentElement;
+          var isDark = html.classList.contains("dark");
+          send({ hypothesisId: "A", isDark: isDark, htmlClass: html.className });
+          var cloud = document.querySelector(".hero-portrait-cloud");
+          send({ hypothesisId: "D", cloudExists: !!cloud });
+          if (cloud) {
+            var cs = getComputedStyle(cloud);
+            var bg = cs.background || cs.backgroundImage;
+            var hasBlue = String(bg).indexOf("147") !== -1 || String(bg).indexOf("96, 165") !== -1;
+            var hasOrange = String(bg).indexOf("255, 248") !== -1 || String(bg).indexOf("255, 244") !== -1;
+            send({ hypothesisId: "B", computedBackground: bg, hasBlue: hasBlue, hasOrange: hasOrange });
+            var parent = cloud.parentElement;
+            var siblings = parent ? Array.prototype.slice.call(parent.children) : [];
+            var layer0Bg = siblings[0] ? getComputedStyle(siblings[0]).background : null;
+            var layer1Bg = siblings[1] ? getComputedStyle(siblings[1]).background : null;
+            send({ hypothesisId: "C", siblingCount: siblings.length, firstChildBg: layer0Bg ? layer0Bg.substring(0, 80) : null, secondChildBg: layer1Bg ? layer1Bg.substring(0, 120) : null });
+            var heroSection = cloud.closest("section");
+            if (heroSection) {
+              var sectionCs = getComputedStyle(heroSection);
+              send({ hypothesisId: "E", heroSectionId: heroSection.id || "", heroSectionBg: sectionCs.backgroundColor, heroSectionBgImage: (sectionCs.backgroundImage || "").substring(0, 100) });
+            }
+          }
+        }
+        if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", run);
+        else run();
+      })();
+    </script>
+    <!-- #endregion -->
   </body>
 </html>

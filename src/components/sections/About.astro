@@ -94,4 +94,10 @@ const blobImageSrc = about.blobImage ?? "/who_am_i/DSC_7577.avif";
     mix-blend-mode: normal;
     opacity: 1;
   }
+  :global(.dark) .about-blob-text {
+    fill: var(--muted);
+  }
+  :global(.dark) .about-blob-svg:hover .about-blob-text {
+    fill: var(--text);
+  }
 </style>
