@@ -21,6 +21,11 @@ const greetingRight = greetingParts[1] ?? "there";
 ---
 
 <section id="top" class="relative flex min-h-screen flex-col overflow-hidden pt-32 pb-20 gradient-mesh" aria-labelledby="hero-heading">
+  <div class="pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
+    <div class="absolute inset-0 bg-gradient-to-b from-white via-amber-50/40 to-zinc-100/80" />
+    <div class="absolute left-1/2 top-[55%] h-[70%] w-[50%] min-w-[280px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-amber-200/25 blur-3xl" />
+    <div class="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-b from-transparent to-white" />
+  </div>
   <div class="relative z-10 mx-auto flex max-w-6xl flex-col items-center px-6">
     {badgeText ? (
       <div class="mb-8 inline-flex items-center gap-2 rounded-full border border-zinc-200/70 bg-white px-4 py-1.5 shadow-sm">
@@ -34,23 +39,24 @@ const greetingRight = greetingParts[1] ?? "there";
 
     <div class="relative flex w-full min-h-[380px] flex-col items-center justify-center md:min-h-[500px] lg:min-h-[560px]">
       <h1 id="hero-heading" class="sr-only">{headline} — {nameLine}, {roleLine}</h1>
-      <div class="pointer-events-none absolute inset-0 z-0 flex items-center justify-between px-4 md:px-10 lg:px-16" aria-hidden="true">
-        <span class="font-display text-4xl font-medium italic leading-tight text-zinc-900/30 md:text-7xl md:text-zinc-900/40 lg:text-8xl xl:text-9xl">{greetingLeft}</span>
-        <span class="font-display text-4xl font-medium italic leading-tight text-zinc-900/30 md:text-7xl md:text-zinc-900/40 lg:text-8xl xl:text-9xl">{greetingRight}</span>
+      <div class="pointer-events-none absolute left-1/2 top-[32%] z-0 flex -translate-x-1/2 items-center gap-2 md:top-[34%] md:gap-3" aria-hidden="true">
+        <span class="font-display text-[clamp(2.25rem,9vw,9rem)] font-medium italic leading-none text-zinc-900/25 md:text-zinc-900/35">{greetingLeft}</span>
+        <span class="hidden font-display text-[clamp(2.25rem,9vw,9rem)] font-medium italic leading-none text-zinc-900/25 md:inline md:text-zinc-900/35">{greetingRight}</span>
       </div>
-      <div class="relative z-10 mx-auto w-52 shrink-0 overflow-hidden rounded-t-[100px] rounded-b-[100px] border-4 border-white aspect-[3/4] bg-zinc-100 shadow-2xl shadow-zinc-900/15 md:w-72 md:shadow-[0_25px_50px_-12px_rgba(0,0,0,0.2),0_0_60px_-10px_rgba(0,0,0,0.08)] lg:w-80 xl:w-[420px]">
+      <div class="relative z-10 mx-auto w-52 shrink-0 md:w-72 lg:w-80 xl:w-[420px] [filter:drop-shadow(0_25px_50px_-12px_rgba(0,0,0,0.15))_drop-shadow(0_0_40px_-8px_rgba(0,0,0,0.08))]">
         <img
           src={portraitSrc}
           alt=""
-          class="h-full w-full object-cover object-center"
+          class="h-auto w-full object-contain object-center"
           width="420"
           height="560"
           loading="eager"
           decoding="async"
           fetchpriority="high"
+          style="-webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 75%, rgba(0,0,0,0) 100%); mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 75%, rgba(0,0,0,0) 100%); -webkit-mask-size: cover; mask-size: cover;"
         />
       </div>
-      <div class="relative z-20 mt-8 flex flex-col items-center gap-4 sm:flex-row sm:gap-5">
+      <div class="relative z-20 mt-10 flex flex-col items-center gap-4 sm:flex-row sm:gap-5">
         <a
           href={primaryHref}
           class="inline-flex items-center justify-center rounded-xl bg-zinc-900 px-6 py-3 text-sm font-medium text-white shadow-md hover:bg-zinc-800 focus:outline-none focus:ring-2 focus:ring-zinc-400 focus:ring-offset-2 transition-colors"
@@ -66,18 +72,16 @@ const greetingRight = greetingParts[1] ?? "there";
       </div>
     </div>
 
-    <div class="relative z-30 mx-auto mt-12 flex w-full max-w-6xl flex-col gap-8 px-6 md:flex-row md:items-end md:justify-between">
-      <div class="flex flex-col gap-1">
-        <span class="block select-none text-4xl font-bold uppercase tracking-tight text-zinc-200 md:text-6xl lg:text-7xl" aria-hidden="true">I AM</span>
-        <span class="-mt-2 block text-4xl font-bold uppercase tracking-tight text-zinc-900 md:-mt-3 md:text-6xl lg:text-7xl" aria-hidden="true">{nameUpper}</span>
+    <div class="relative z-30 mx-auto mt-14 grid w-full max-w-6xl grid-cols-1 items-end gap-10 px-6 md:mt-16 md:grid-cols-2 md:gap-12">
+      <div class="flex flex-col gap-0.5">
+        <span class="block select-none text-3xl font-bold uppercase tracking-tight text-zinc-200 md:text-5xl lg:text-6xl" aria-hidden="true">I AM</span>
+        <span class="block text-3xl font-bold uppercase tracking-tight text-zinc-900 md:text-5xl lg:text-6xl" aria-hidden="true">{nameUpper}</span>
       </div>
-      <div class="flex flex-col gap-4 md:items-end">
-        <div class="flex flex-col gap-1 text-left md:text-right">
-          <span class="block text-xl font-bold tracking-tight leading-snug text-zinc-900 md:text-3xl lg:text-4xl" aria-hidden="true">{roleUpper}</span>
-          {specialization ? (
-            <p class="mt-2 max-w-sm text-sm leading-relaxed text-zinc-600 md:text-base">{specialization}</p>
-          ) : null}
-        </div>
+      <div class="flex flex-col items-start gap-3 md:items-end md:gap-4 md:text-right">
+        <span class="block text-lg font-bold tracking-tight leading-snug text-zinc-900 md:text-2xl lg:text-3xl" aria-hidden="true">{roleUpper}</span>
+        {specialization ? (
+          <p class="max-w-sm text-sm leading-relaxed text-zinc-600 md:text-base">{specialization}</p>
+        ) : null}
       </div>
     </div>
   </div>

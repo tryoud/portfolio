@@ -37,24 +37,24 @@
   "workHeading": "Aktuelle Projekte.",
   "work": [
     {
-      "title": "Agency Portfolio",
+      "title": "Wiro",
       "description": "Conversion-orientierte Agency-Website mit Projekten und Lead-Erfassung.",
       "href": "https://nikolasmaerker.com",
-      "image": "/work/Screenshot 2026-02-22 at 23.22.32.png",
+      "image": "/work/wiro.webp",
       "tags": ["Astro", "Tailwind", "Cloudflare"]
     },
     {
-      "title": "Projekt Zwei",
+      "title": "Cantero",
       "description": "Case Study Webdesign und -entwicklung.",
       "href": "https://nikolasmaerker.com",
-      "image": "/work/Screenshot 2026-02-22 at 23.22.51.png",
+      "image": "/work/cantero.webp",
       "tags": ["Web Dev", "Design"]
     },
     {
-      "title": "Projekt Drei",
+      "title": "Tum",
       "description": "Weitere Website-Realisation.",
       "href": "https://nikolasmaerker.com",
-      "image": "/work/Screenshot 2026-02-22 at 23.23.27.png",
+      "image": "/work/tum.webp",
       "tags": ["Development"]
     }
   ],
