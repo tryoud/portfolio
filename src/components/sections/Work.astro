@@ -137,11 +137,11 @@ const workSwipeHint = site.workSwipeHint ?? "Wischen zum Entdecken →";
     object-position: unset;
   }
 
-  /* Mobile: momentum scrolling inside image viewport; pan-y so vertical scrolls inner, horizontal goes to carousel */
+  /* Mobile: don't make image area a scroll container so horizontal swipes on the image scroll the carousel */
   @media (max-width: 640px) {
     :global(#work) .work-preview-scroll {
-      -webkit-overflow-scrolling: touch;
-      touch-action: pan-y;
+      overflow: hidden;
+      touch-action: pan-x;
     }
     /* Hide horizontal scrollbar so only padding is visible, no grey bar before end of carousel */
     :global(#work) [data-work-scroller] {
