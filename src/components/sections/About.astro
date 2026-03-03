@@ -7,57 +7,224 @@ const sectionLabel = about.sectionLabel ?? "About";
 const blobImageSrc = about.blobImage ?? "/who_am_i/DSC_7577.avif";
 ---
 
-<section id="about" class="border-t border-zinc-100 bg-white py-24" aria-labelledby="about-heading">
+<section
+  id="about"
+  class="border-t border-zinc-100 bg-white py-24"
+  aria-labelledby="about-heading"
+>
   <div class="mx-auto max-w-7xl px-6">
     <div class="grid gap-12 lg:grid-cols-2 lg:gap-16 lg:items-center">
       <div>
-        <span class="mb-2 block text-sm font-semibold uppercase tracking-wider text-zinc-500">{sectionLabel}</span>
-        <h2 id="about-heading" class="font-display mb-8 text-4xl italic text-zinc-900 md:text-5xl">Who I am.</h2>
-        {paragraph ? <p class="max-w-2xl text-base text-zinc-600">{paragraph}</p> : null}
-        {bullets.length > 0 ? (
-          <ul class="mt-6 space-y-3">
-            {bullets.map((b) => (
-              <li class="flex items-start gap-3 text-base text-zinc-600">
-                <span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-zinc-400" aria-hidden="true" />
-                <span>{b}</span>
-              </li>
-            ))}
-          </ul>
-        ) : null}
+        <span
+          class="mb-2 block text-sm font-semibold uppercase tracking-wider text-zinc-500"
+          >{sectionLabel}</span
+        >
+        <h2
+          id="about-heading"
+          class="font-display mb-8 text-4xl italic text-zinc-900 md:text-5xl"
+        >
+          Who I am.
+        </h2>
+        {
+          paragraph ? (
+            <p class="max-w-2xl text-base text-zinc-600">{paragraph}</p>
+          ) : null
+        }
+        {
+          bullets.length > 0 ? (
+            <ul class="mt-6 space-y-3">
+              {bullets.map((b) => (
+                <li class="flex items-start gap-3 text-base text-zinc-600">
+                  <span
+                    class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-zinc-400"
+                    aria-hidden="true"
+                  />
+                  <span>{b}</span>
+                </li>
+              ))}
+            </ul>
+          ) : null
+        }
       </div>
 
       <div class="about-blob-widget flex justify-center lg:justify-end">
-        <svg class="about-blob-svg w-full max-w-[420px] aspect-square" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <svg
+          class="about-blob-svg w-full max-w-[420px] aspect-square"
+          viewBox="-8 -8 216 216"
+          xmlns="http://www.w3.org/2000/svg"
+          aria-hidden="true"
+        >
           <defs>
             <clipPath id="aboutBlobClip">
-              <path d="M43.1,-68.5C56.2,-58.6,67.5,-47.3,72.3,-33.9C77.2,-20.5,75.5,-4.9,74.2,11.3C72.9,27.6,71.9,44.5,63.8,57.2C55.7,69.8,40.6,78.2,25.5,79.2C10.4,80.1,-4.7,73.6,-20.9,69.6C-37.1,65.5,-54.5,63.9,-66,54.8C-77.5,45.8,-83.2,29.3,-85.7,12.3C-88.3,-4.8,-87.7,-22.3,-79.6,-34.8C-71.5,-47.3,-55.8,-54.9,-41.3,-64.2C-26.7,-73.6,-13.4,-84.7,0.8,-86C15,-87.2,29.9,-78.5,43.1,-68.5Z" transform="translate(100 100)" />
+              <path
+                d="M43.1,-68.5C56.2,-58.6,67.5,-47.3,72.3,-33.9C77.2,-20.5,75.5,-4.9,74.2,11.3C72.9,27.6,71.9,44.5,63.8,57.2C55.7,69.8,40.6,78.2,25.5,79.2C10.4,80.1,-4.7,73.6,-20.9,69.6C-37.1,65.5,-54.5,63.9,-66,54.8C-77.5,45.8,-83.2,29.3,-85.7,12.3C-88.3,-4.8,-87.7,-22.3,-79.6,-34.8C-71.5,-47.3,-55.8,-54.9,-41.3,-64.2C-26.7,-73.6,-13.4,-84.7,0.8,-86C15,-87.2,29.9,-78.5,43.1,-68.5Z"
+                transform="translate(100 100)"></path>
             </clipPath>
           </defs>
-          <image
-            href={blobImageSrc}
-            x="-15"
-            y="-45"
-            width="230"
-            height="230"
-            preserveAspectRatio="xMidYMin slice"
-            clip-path="url(#aboutBlobClip)"
-          />
+          <g class="about-blob-img-group">
+            <image
+              href={blobImageSrc}
+              x="-15"
+              y="-45"
+              width="230"
+              height="230"
+              preserveAspectRatio="xMidYMin slice"
+              clip-path="url(#aboutBlobClip)"
+            />
+          </g>
           <path
             id="aboutBlobTextPath"
             d="M43.1,-68.5C56.2,-58.6,67.5,-47.3,72.3,-33.9C77.2,-20.5,75.5,-4.9,74.2,11.3C72.9,27.6,71.9,44.5,63.8,57.2C55.7,69.8,40.6,78.2,25.5,79.2C10.4,80.1,-4.7,73.6,-20.9,69.6C-37.1,65.5,-54.5,63.9,-66,54.8C-77.5,45.8,-83.2,29.3,-85.7,12.3C-88.3,-4.8,-87.7,-22.3,-79.6,-34.8C-71.5,-47.3,-55.8,-54.9,-41.3,-64.2C-26.7,-73.6,-13.4,-84.7,0.8,-86C15,-87.2,29.9,-78.5,43.1,-68.5Z"
             transform="translate(100 100)"
             fill="none"
             stroke="none"
-            pathLength="100"
-          />
-          <text class="about-blob-text">
-            <textPath href="#aboutBlobTextPath" startOffset="0%">❤ MADE WITH LOVE ❤ MADE WITH LOVE ❤ MADE WITH LOVE ❤ MADE WITH LOVE      
-              <animate attributeName="startOffset" from="0%" to="100%" dur="60s" repeatCount="indefinite" />
-            </textPath>
-            <textPath href="#aboutBlobTextPath" startOffset="100%">❤ MADE WITH LOVE ❤ MADE WITH LOVE ❤ MADE WITH LOVE ❤ MADE WITH LOVE    
-              <animate attributeName="startOffset" from="-100%" to="0%" dur="60s" repeatCount="indefinite" />
-            </textPath>
-          </text>
+            pathLength="100"></path>
+          <g class="about-blob-text-wrapper">
+            <g transform="translate(100 100)">
+              <g class="about-blob-icon">
+                <svg
+                  x="-8"
+                  y="-11.5"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path
+                    d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                  ></path>
+                </svg>
+                <animateMotion
+                  dur="60s"
+                  repeatCount="indefinite"
+                  rotate="auto"
+                  begin="0s"
+                >
+                  <mpath href="#aboutBlobTextPath"></mpath>
+                </animateMotion>
+              </g>
+              <g class="about-blob-icon">
+                <svg
+                  x="-8"
+                  y="-11.5"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path
+                    d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"
+                  ></path>
+                  <path d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                  <path d="M19 13v7a2 2 0 01-2 2H7a2 2 0 01-2-2v-7"></path>
+                </svg>
+                <animateMotion
+                  dur="60s"
+                  repeatCount="indefinite"
+                  rotate="auto"
+                  begin="-20s"
+                >
+                  <mpath href="#aboutBlobTextPath"></mpath>
+                </animateMotion>
+              </g>
+              <g class="about-blob-icon">
+                <svg
+                  x="-8"
+                  y="-11.5"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path
+                    d="M12 12L7 7M12 12L17 7M12 12L7 17M12 12L7 17M12 12L17 17"
+                  ></path>
+                  <circle cx="12" cy="12" r="2"></circle>
+                  <circle cx="7" cy="7" r="1.5"></circle>
+                  <circle cx="17" cy="7" r="1.5"></circle>
+                  <circle cx="7" cy="17" r="1.5"></circle>
+                  <circle cx="17" cy="17" r="1.5"></circle>
+                </svg>
+                <animateMotion
+                  dur="60s"
+                  repeatCount="indefinite"
+                  rotate="auto"
+                  begin="-40s"
+                >
+                  <mpath href="#aboutBlobTextPath"></mpath>
+                </animateMotion>
+              </g>
+            </g>
+
+            <text class="about-blob-text" dominant-baseline="middle">
+              <textPath href="#aboutBlobTextPath" text-anchor="middle">
+                MADE WITH PASSION
+                <animate
+                  attributeName="startOffset"
+                  from="16.666667%"
+                  to="116.666667%"
+                  dur="60s"
+                  repeatCount="indefinite"></animate>
+              </textPath>
+              <textPath href="#aboutBlobTextPath" text-anchor="middle">
+                MADE WITH PASSION
+                <animate
+                  attributeName="startOffset"
+                  from="-83.333333%"
+                  to="16.666667%"
+                  dur="60s"
+                  repeatCount="indefinite"></animate>
+              </textPath>
+              <textPath href="#aboutBlobTextPath" text-anchor="middle">
+                MADE WITH PASSION
+                <animate
+                  attributeName="startOffset"
+                  from="50%"
+                  to="150%"
+                  dur="60s"
+                  repeatCount="indefinite"></animate>
+              </textPath>
+              <textPath href="#aboutBlobTextPath" text-anchor="middle">
+                MADE WITH PASSION
+                <animate
+                  attributeName="startOffset"
+                  from="-50%"
+                  to="50%"
+                  dur="60s"
+                  repeatCount="indefinite"></animate>
+              </textPath>
+              <textPath href="#aboutBlobTextPath" text-anchor="middle">
+                MADE WITH PASSION
+                <animate
+                  attributeName="startOffset"
+                  from="83.333333%"
+                  to="183.333333%"
+                  dur="60s"
+                  repeatCount="indefinite"></animate>
+              </textPath>
+              <textPath href="#aboutBlobTextPath" text-anchor="middle">
+                MADE WITH PASSION
+                <animate
+                  attributeName="startOffset"
+                  from="-16.666667%"
+                  to="83.333333%"
+                  dur="60s"
+                  repeatCount="indefinite"></animate>
+              </textPath>
+            </text>
+          </g>
         </svg>
       </div>
     </div>
@@ -71,18 +238,24 @@ const blobImageSrc = about.blobImage ?? "/who_am_i/DSC_7577.avif";
   .about-blob-svg {
     transition: transform 0.4s ease-out;
   }
-  .about-blob-svg:hover {
-    transform: scale(1.08);
+  .about-blob-text-wrapper {
+    transform-origin: 100px 100px;
+    transform-box: view-box;
+    transform: scale(1.05); /* Pushes text outside the native image */
   }
-  .about-blob-svg:hover #aboutBlobClip {
-    transform: scale(1.15) translate(0%, 0%);
+  #aboutBlobClip,
+  .about-blob-img-group {
+    transform-origin: 100px 100px;
+    transform-box: view-box;
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
   }
-  #aboutBlobClip {
-    transform-origin: center;
-    transition: transform 0.4s ease-out;
+  .about-blob-svg:hover #aboutBlobClip,
+  .about-blob-svg:hover .about-blob-img-group {
+    transform: scale(1.1); /* Pushes image past the 1.05x text limit */
   }
   .about-blob-text {
-    font: 700 10px/1.2 system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    font: 700 10px/1.2 system-ui, -apple-system, Segoe UI, Roboto, Arial,
+      sans-serif;
     letter-spacing: 1.5px;
     text-transform: uppercase;
     fill: black;
@@ -94,10 +267,23 @@ const blobImageSrc = about.blobImage ?? "/who_am_i/DSC_7577.avif";
     mix-blend-mode: normal;
     opacity: 1;
   }
+  .about-blob-icon {
+    color: black;
+    transition: color 0.5s ease;
+  }
+  .about-blob-svg:hover .about-blob-icon {
+    color: white;
+  }
   :global(.dark) .about-blob-text {
     fill: var(--muted);
   }
+  :global(.dark) .about-blob-icon {
+    color: var(--muted);
+  }
   :global(.dark) .about-blob-svg:hover .about-blob-text {
     fill: var(--text);
+  }
+  :global(.dark) .about-blob-svg:hover .about-blob-icon {
+    color: var(--text);
   }
 </style>
