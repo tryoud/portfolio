@@ -33,7 +33,7 @@ const blobImageSrc = about.blobImage ?? "/who_am_i/DSC_7577.avif";
         {
           bullets.length > 0 ? (
             <ul class="mt-6 space-y-3">
-              {bullets.map((b) => (
+              {bullets.map((b: string) => (
                 <li class="flex items-start gap-3 text-base text-zinc-600">
                   <span
                     class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-zinc-400"
@@ -243,15 +243,13 @@ const blobImageSrc = about.blobImage ?? "/who_am_i/DSC_7577.avif";
     transform-box: view-box;
     transform: scale(1.05); /* Pushes text outside the native image */
   }
-  #aboutBlobClip,
   .about-blob-img-group {
     transform-origin: 100px 100px;
     transform-box: view-box;
     transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
   }
-  .about-blob-svg:hover #aboutBlobClip,
   .about-blob-svg:hover .about-blob-img-group {
-    transform: scale(1.1); /* Pushes image past the 1.05x text limit */
+    transform: scale(1.18); /* Pushes image past the 1.05x text limit */
   }
   .about-blob-text {
     font: 700 10px/1.2 system-ui, -apple-system, Segoe UI, Roboto, Arial,
