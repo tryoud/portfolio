@@ -258,6 +258,11 @@
   background-color: var(--surface-alt) !important;
 }
 
+.dark footer#contact form,
+.dark footer#contact .bg-\[\#FDFBF7\] {
+  background-color: var(--surface-alt) !important;
+}
+
 /* Hero: background and badge (exclude nav contact button so it keeps light pill + outline in dark) */
 .dark [id="top"] [class*="bg-\[var\("]:not(.nav-contact-btn) {
   background-color: var(--bg) !important;

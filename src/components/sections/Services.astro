@@ -11,8 +11,8 @@ const iconMap = {
 };
 ---
 
-<section id="services" class="border-t border-zinc-100 bg-white py-24" aria-labelledby="services-heading">
-  <div class="mx-auto max-w-7xl px-6">
+<section id="services" class="border-t border-zinc-100 bg-white py-16 md:py-20" aria-labelledby="services-heading">
+  <div class="mx-auto max-w-6xl px-6">
     <div class="mb-16 flex flex-col justify-between items-start md:flex-row md:items-end">
       <div>
         <span class="mb-2 block text-sm font-semibold uppercase tracking-wider text-zinc-500">{sectionLabel}</span>
@@ -23,7 +23,7 @@ const iconMap = {
     <div class="grid grid-cols-1 gap-8 md:grid-cols-3">
       {services.map((s) => (
         <article
-          class="group rounded-xl border border-zinc-100 bg-[#FDFBF7] p-8 transition-all duration-300 hover:border-zinc-300 hover:shadow-lg focus-within:ring-2 focus-within:ring-zinc-400 focus-within:ring-offset-2"
+          class="group rounded-2xl border border-zinc-200/70 bg-[#FDFBF7] p-8 transition-all duration-300 hover:border-zinc-300 hover:shadow-md focus-within:ring-2 focus-within:ring-zinc-400 focus-within:ring-offset-2"
           id={s.id ?? undefined}
         >
           <div class="mb-6 flex h-12 w-12 items-center justify-center rounded-full bg-white shadow-sm transition-transform group-hover:scale-110">
@@ -40,7 +40,7 @@ const iconMap = {
           <h3 class="mb-3 text-xl font-bold text-zinc-900">{s.title}</h3>
           <p class="text-sm leading-relaxed text-zinc-600">{s.description}</p>
           {s.bullets?.length ? (
-            <ul class="mt-4 space-y-2">
+            <ul class="mt-5 space-y-2 border-t border-zinc-200/70 pt-4">
               {s.bullets.map((b) => (
                 <li class="flex items-start gap-2 text-sm text-zinc-600">
                   <span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-zinc-400" aria-hidden="true" />
