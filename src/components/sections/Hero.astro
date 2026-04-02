@@ -19,11 +19,9 @@ const roleSegments = roleUpper.split(/\s*·\s*/).filter(Boolean);
 const roleDisplayLinesFallback = roleSegments.flatMap((seg) => seg.split(/\s+&\s+/).map((s) => s.trim()).filter(Boolean));
 const roleLines = Array.isArray(hero.roleLines) && hero.roleLines.length ? hero.roleLines.map((l) => String(l).toUpperCase()) : roleDisplayLinesFallback;
 const roleSubline = (hero.roleSubline && String(hero.roleSubline).trim()) || "";
-const roleBadge = hero.roleBadge ?? "";
 const nameParts = nameLine.trim().split(/\s+/);
 const firstNameUpper = nameParts[0] ? nameParts[0].toUpperCase() : nameUpper;
 const lastNameUpper = nameParts.length > 1 ? nameParts.slice(1).join(" ").toUpperCase() : "";
-const identityLine = [nameLine, roleSubline].filter(Boolean).join(" / ");
 const greetingParts = (headline || "Hey, there").split(/,\s*/);
 const greetingLeft = greetingParts[0] ? `${greetingParts[0]},` : "Hey,";
 const greetingRight = greetingParts[1] ?? "there";
@@ -84,38 +82,16 @@ const greetingRight = greetingParts[1] ?? "there";
       </div>
     ) : null}
 
-    <div class="relative z-20 mx-auto mt-4 w-full max-w-xl rounded-2xl border border-zinc-200/70 bg-white/90 px-5 py-5 text-center shadow-sm backdrop-blur md:hidden">
-      {identityLine ? <p class="text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-zinc-400">{identityLine}</p> : null}
-      {roleBadge ? <p class="mt-3 text-sm text-zinc-500">{roleBadge}</p> : null}
-      {specialization ? <p class="mt-3 text-sm leading-relaxed text-zinc-600">{specialization}</p> : null}
-      <div class="mt-5 flex flex-col gap-3 sm:flex-row sm:justify-center">
-        <a
-          href={primaryHref}
-          class="hero-primary-cta inline-flex min-h-[48px] items-center justify-center rounded-xl bg-[var(--accent)] px-6 py-3 text-sm font-medium text-[var(--accent-foreground)] shadow-md hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-[var(--ring)] focus:ring-offset-2 focus:ring-offset-[var(--ring-offset)] transition-colors"
-        >
-          {primaryLabel}
-        </a>
-        <a
-          href={secondaryHref}
-          class="inline-flex min-h-[48px] items-center justify-center rounded-xl border-2 border-zinc-900 px-6 py-3 text-sm font-medium text-zinc-900 hover:bg-zinc-50 focus:outline-none focus:ring-2 focus:ring-zinc-400 focus:ring-offset-2 transition-colors"
-        >
-          {secondaryLabel}
-        </a>
-      </div>
-    </div>
-
     <!-- Bottom band: 3-col grid, same baseline, within container -->
-    <div class="relative z-20 hidden shrink-0 px-0 pt-[clamp(0.5rem,1.5vw,1rem)] pb-[clamp(0.5rem,1.5vw,1rem)] sm:px-0 md:block">
-      <div class="grid w-full grid-cols-3 items-end gap-4">
+    <div class="relative z-20 shrink-0 px-0 pt-[clamp(0.5rem,1.5vw,1rem)] pb-[clamp(0.5rem,1.5vw,1rem)] sm:px-0">
+      <div class="grid w-full grid-cols-2 items-end gap-3 md:grid-cols-3 md:gap-4">
         <div class="flex min-w-0 flex-col items-start gap-0.5">
           <span class="block select-none text-sm font-bold uppercase tracking-tight text-zinc-400 sm:text-lg md:text-xl lg:text-2xl xl:text-3xl" aria-hidden="true">I AM</span>
           <span class="block text-lg font-bold uppercase tracking-tight text-zinc-900 sm:text-2xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-6xl" aria-hidden="true">{firstNameUpper}</span>
           {lastNameUpper ? <span class="block text-lg font-bold uppercase tracking-tight text-zinc-900 sm:text-2xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-6xl" aria-hidden="true">{lastNameUpper}</span> : null}
         </div>
-        <div class="flex items-end justify-self-center md:flex-col">
-          <div class="flex flex-col items-center gap-3">
-            {roleBadge ? <p class="text-center text-sm text-zinc-500">{roleBadge}</p> : null}
-            <div class="flex flex-row justify-center gap-3 lg:gap-5">
+        <div class="hidden items-end justify-self-center md:flex md:flex-col">
+          <div class="flex flex-row justify-center gap-3 lg:gap-5">
             <a
               href={primaryHref}
               class="hero-primary-cta inline-flex min-h-[48px] items-center justify-center rounded-xl bg-[var(--accent)] px-6 py-3 text-sm font-medium text-[var(--accent-foreground)] shadow-md hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-[var(--ring)] focus:ring-offset-2 focus:ring-offset-[var(--ring-offset)] transition-colors"
@@ -128,7 +104,6 @@ const greetingRight = greetingParts[1] ?? "there";
             >
               {secondaryLabel}
             </a>
-            </div>
           </div>
         </div>
         <div class="flex min-w-0 flex-col items-end gap-0.5 text-right">

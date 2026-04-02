@@ -3,98 +3,38 @@ const { site } = Astro.props;
 const media = site.media ?? {};
 const youtubeId = media.youtubeId ?? (media.youtubeEmbedUrl ? (media.youtubeEmbedUrl.match(/(?:embed\/|v=)([\w-]+)/)?.[1] ?? "") : "") ?? "";
 const sectionLabel = media.sectionLabel ?? "Hinter den Kulissen";
-const heading = media.heading ?? "Content";
 const embedSrc = youtubeId ? `https://www.youtube-nocookie.com/embed/${youtubeId}` : "";
 const thumbSrc = youtubeId ? `https://img.youtube.com/vi/${youtubeId}/hqdefault.jpg` : "";
-const youtubeHeading = media.youtubeHeading ?? "Featured video";
-const youtubeButtonLabel = media.youtubeButtonLabel ?? "Load video";
-const youtubeFrameTitle = media.youtubeFrameTitle ?? "YouTube video";
-const youtubeEmptyText = media.youtubeEmptyText ?? "Add media.youtubeId or media.youtubeEmbedUrl in site.json";
-const youtubePrivacyNote = media.youtubePrivacyNote ?? "The video is only loaded after you click.";
-const instagramHeading = media.instagramHeading ?? "Instagram";
-const instagramDescription = media.instagramDescription ?? "";
-const instagramCtaLabel = media.instagramCtaLabel ?? "View Instagram";
-const instagramProfileUrl = media.instagramProfileUrl ?? "";
-const instagramThumbnails = Array.isArray(media.instagramThumbnails) ? media.instagramThumbnails : [];
 ---
 
-<section id="media" class="bg-[#FDFBF7] py-16 md:py-20" aria-labelledby="media-heading">
-  <div class="mx-auto max-w-6xl px-6">
-    <div class="mb-10 text-center md:mb-14">
-      <span class="mb-3 block text-sm font-semibold uppercase tracking-wider text-zinc-500">{sectionLabel}</span>
-      <h2 id="media-heading" class="font-display text-4xl italic text-zinc-900 md:text-5xl">{heading}</h2>
-    </div>
-    <div class="grid gap-8 lg:grid-cols-[1.35fr_0.95fr]">
-      <div class="rounded-2xl border border-zinc-200/70 bg-white p-5 shadow-sm md:p-6">
-        <div class="mb-5 flex items-end justify-between gap-4">
-          <div>
-            <h3 class="text-xl font-semibold text-zinc-900 md:text-2xl">{youtubeHeading}</h3>
-            <p class="mt-2 max-w-2xl text-sm text-zinc-600">{youtubePrivacyNote}</p>
-          </div>
+<section id="media" class="bg-[#FDFBF7] py-24" aria-labelledby="media-heading">
+  <div class="mx-auto max-w-5xl px-6 text-center">
+    <span class="mb-6 block text-sm font-semibold uppercase tracking-wider text-zinc-500">{sectionLabel}</span>
+    {youtubeId ? (
+      <div class="youtube-2click relative mb-12 overflow-hidden rounded-xl border border-zinc-200 shadow-2xl aspect-video bg-zinc-900" data-embed-src={embedSrc}>
+        <div class="youtube-2click-placeholder absolute inset-0 flex flex-col items-center justify-center gap-4 p-6">
+          <img src={thumbSrc} alt="" class="absolute inset-0 h-full w-full object-cover opacity-40" width="480" height="360" loading="lazy" />
+          <button type="button" class="youtube-2click-btn relative z-10 inline-flex items-center justify-center gap-2 rounded-full bg-white/95 px-6 py-3 text-sm font-medium text-zinc-900 shadow-lg hover:bg-white focus:outline-none focus:ring-2 focus:ring-zinc-400 focus:ring-offset-2 focus:ring-offset-zinc-900 transition-colors" aria-label="Video laden">
+            <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z" /></svg>
+            Video laden
+          </button>
+          <p class="relative z-10 text-xs text-zinc-400">Erst nach Klick wird das Video von YouTube geladen. Datenschutzfreundlich.</p>
         </div>
-        {youtubeId ? (
-          <div class="youtube-2click relative overflow-hidden rounded-2xl border border-zinc-200 shadow-md aspect-video bg-zinc-900" data-embed-src={embedSrc}>
-            <div class="youtube-2click-placeholder absolute inset-0 flex flex-col items-center justify-center gap-4 p-6 text-center">
-              <img src={thumbSrc} alt="" class="absolute inset-0 h-full w-full object-cover opacity-40" width="480" height="360" loading="lazy" />
-              <button type="button" class="youtube-2click-btn relative z-10 inline-flex items-center justify-center gap-2 rounded-full bg-white/95 px-6 py-3 text-sm font-medium text-zinc-900 shadow-lg hover:bg-white focus:outline-none focus:ring-2 focus:ring-zinc-400 focus:ring-offset-2 focus:ring-offset-zinc-900 transition-colors" aria-label={youtubeButtonLabel}>
-                <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z" /></svg>
-                {youtubeButtonLabel}
-              </button>
-              <p class="relative z-10 max-w-sm text-xs text-zinc-300">{youtubePrivacyNote}</p>
-            </div>
-            <div class="youtube-2click-embed hidden absolute inset-0">
-              <iframe
-                class="h-full w-full"
-                title={youtubeFrameTitle}
-                loading="lazy"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowfullscreen
-              />
-            </div>
-          </div>
-        ) : (
-          <div class="aspect-video overflow-hidden rounded-2xl border border-zinc-200 bg-zinc-100 flex items-center justify-center">
-            <p class="text-sm text-zinc-500">{youtubeEmptyText}</p>
-          </div>
-        )}
+        <div class="youtube-2click-embed hidden absolute inset-0">
+          <iframe
+            class="h-full w-full"
+            title="YouTube video"
+            loading="lazy"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+          />
+        </div>
       </div>
-      <aside class="rounded-2xl border border-zinc-200/70 bg-white p-5 shadow-sm md:p-6">
-        <div class="mb-5">
-          <h3 class="text-xl font-semibold text-zinc-900 md:text-2xl">{instagramHeading}</h3>
-          {instagramDescription ? <p class="mt-2 text-sm leading-relaxed text-zinc-600">{instagramDescription}</p> : null}
-        </div>
-        {instagramThumbnails.length ? (
-          <div class="grid grid-cols-3 gap-3">
-            {instagramThumbnails.map((item) => (
-              <a
-                href={item.href || instagramProfileUrl}
-                target="_blank"
-                rel="noreferrer noopener"
-                class="group overflow-hidden rounded-2xl border border-zinc-200/70 bg-zinc-100 focus:outline-none focus:ring-2 focus:ring-zinc-400 focus:ring-offset-2"
-              >
-                <img
-                  src={item.src}
-                  alt={item.alt || "Instagram preview"}
-                  loading="lazy"
-                  decoding="async"
-                  class="aspect-square h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
-                />
-              </a>
-            ))}
-          </div>
-        ) : null}
-        {instagramProfileUrl ? (
-          <a
-            href={instagramProfileUrl}
-            target="_blank"
-            rel="noreferrer noopener"
-            class="mt-5 inline-flex min-h-[48px] items-center justify-center rounded-xl border border-zinc-200/70 bg-[#FDFBF7] px-5 py-3 text-sm font-medium text-zinc-900 transition-colors hover:border-zinc-300 hover:bg-white focus:outline-none focus:ring-2 focus:ring-zinc-400 focus:ring-offset-2"
-          >
-            {instagramCtaLabel}
-          </a>
-        ) : null}
-      </aside>
-    </div>
+    ) : (
+      <div class="mb-12 aspect-video overflow-hidden rounded-xl border border-zinc-200 bg-zinc-100 flex items-center justify-center">
+        <p class="text-sm text-zinc-500">Add media.youtubeId or media.youtubeEmbedUrl in site.json</p>
+      </div>
+    )}
   </div>
 </section>
 {youtubeId ? (

@@ -1,15 +1,14 @@
 {
   "name": "Nikolas Maerker",
   "role": "Web Developer · Photographer & Videographer",
-  "tagline": "Ich entwickle Websites sowie Foto- und Videocontent für Dienstleister, Unternehmen und Marken, die professioneller auftreten und mehr qualifizierte Anfragen gewinnen wollen.",
+  "tagline": "Ich entwickle schnelle, performante Websites und KI-gestützte Workflows.",
   "siteUrl": "https://nikolasmaerker.com",
   "ogImage": "/og.png",
   "twitterHandle": "",
   "hero": {
-    "headline": "Websites und Content für Dienstleister, Unternehmen und Marken",
+    "headline": "Hey, there",
     "badgeText": "Offen für neue Projekte",
-    "specialization": "Für Dienstleister, Unternehmen und persönliche Marken, die klarer kommunizieren, hochwertiger auftreten und digital mehr Vertrauen aufbauen wollen.",
-    "roleBadge": "Strategie, Gestaltung und Umsetzung in einer Person.",
+    "specialization": "Spezialisiert auf Web Design & Development, Foto & Video sowie Drohne / Luftaufnahmen.",
     "roleLines": ["WEB DESIGNER", "& DEVELOPER"],
     "roleSubline": "PHOTO / VIDEO / DRONE",
     "portraitSrc": "/hero/Nikolas_Maerker_hero.webp",
@@ -17,26 +16,26 @@
     "secondaryCta": { "label": "Projekte ansehen", "href": "#work" }
   },
   "servicesSectionLabel": "Meine Expertise",
-  "servicesHeading": "Leistungen, die Sichtbarkeit in Anfragen verwandeln.",
-  "servicesLead": "Ich kombiniere Strategie, Gestaltung und Umsetzung, damit dein Auftritt nicht nur gut aussieht, sondern klar verkauft, Vertrauen aufbaut und im Alltag funktioniert.",
+  "servicesHeading": "Gestaltet für Wirkung.",
+  "servicesLead": "Ich verbinde zielgerichtete Umsetzung mit klarer Kommunikation für wirkungsvolle digitale Arbeit.",
   "services": [
     {
       "id": "web-design-dev",
       "title": "Web Design & Development",
-      "description": "Websites und Landing Pages für Marken, Dienstleister und Organisationen, die professionell wirken und mehr Anfragen generieren sollen.",
-      "bullets": ["Positionierung, Struktur und User Journey", "SEO, Performance und saubere technische Umsetzung", "Landing Pages, Relaunches und individuelle Web-Erlebnisse"]
+      "description": "Individuelle Lösungen und moderne Websites: schnell, barrierefrei und auf Conversion ausgelegt.",
+      "bullets": ["User Journey und UX", "SEO und Performance", "Landing Pages und Web-Apps"]
     },
     {
       "id": "photo-video",
       "title": "Photo & Video",
-      "description": "Foto- und Videocontent für Events, Unternehmen und persönliche Marken, die hochwertiger auftreten und wiedererkennbar kommunizieren wollen.",
-      "bullets": ["Event-, Portrait- und Brand-Fotografie", "Reels, Aftermovies und editierte Kurzformate", "Konsistenter Look von Aufnahme bis Ausspielung"]
+      "description": "Event-Fotografie und filmische Videos für deine Marken-Story.",
+      "bullets": ["Event- und Redaktionsfotografie", "Videoschnitt und Aftermovies", "Einheitlicher Look und Lieferung"]
     },
     {
       "id": "drone-aerial",
       "title": "Drone Pilot / Aerial",
-      "description": "Luftaufnahmen für Immobilien, Events und Markenkommunikation, wenn Perspektive und Produktionswert den Unterschied machen.",
-      "bullets": ["Lizenzierte Luftaufnahmen mit sauberer Planung", "Immobilien, Locations, Events und Kampagnen", "Ruhige, filmische Shots für Web und Social"]
+      "description": "Professionelle Drohnenaufnahmen für Immobilien, Events und Marketing.",
+      "bullets": ["Lizenzierte Luftaufnahmen", "Immobilien und Events", "Ruhige, filmische Umsetzung"]
     }
   ],
   "workSectionLabel": "Ausgewählte Arbeiten",
@@ -45,27 +44,24 @@
   "work": [
     {
       "title": "Wiro",
-      "description": "Neuer Webauftritt für ein Alumni-Netzwerk mit klarerer Struktur, vertrauensbildenden Inhalten und einem direkteren Weg zur Kontaktaufnahme.",
+      "description": "Conversion-orientierte Agency-Website mit Projekten und Lead-Erfassung.",
       "href": "https://www.wiro-alumni.de/",
       "image": "/work/wiro.webp",
-      "tags": ["Wordpress"],
-      "resultsBullets": ["Die Positionierung ist auf den ersten Blick verständlicher", "Inhalte lassen sich schneller erfassen und einordnen", "Kontaktpunkte führen Besucher direkter zur Anfrage"]
+      "tags": ["Wordpress"]
     },
     {
       "title": "Tum",
-      "description": "Website-Realisation für ein Alumni-Umfeld mit Fokus auf Übersicht, Glaubwürdigkeit und einer Struktur, die sich im Alltag leicht pflegen lässt.",
+      "description": "Weitere Website-Realisation.",
       "href": "https://tum-management-alumni.de/",
       "image": "/work/tum.webp",
-      "tags": ["Wordpress", "PHP"],
-      "resultsBullets": ["Der Auftritt wirkt moderner und seriöser", "Mitglieder und Interessenten finden Inhalte schneller", "Die technische Basis ist stabil für spätere Erweiterungen"]
+      "tags": ["Wordpress", "php"]
     },
     {
       "title": "Cantero",
-      "description": "Konzept und Umsetzung für einen Beratungsauftritt mit hochwertiger Anmutung, klarer Angebotsstruktur und stärkerem Vertrauensaufbau.",
+      "description": "Case Study Webdesign und -entwicklung.",
       "href": "https://www.cantero-consulting.de/",
       "image": "/work/cantero.webp",
-      "tags": ["Figma", "Framer"],
-      "resultsBullets": ["Der Markenauftritt wirkt hochwertiger und fokussierter", "Leistungen und Nutzen werden schneller verstanden", "Die visuelle Richtung ist konsistenter über den gesamten Auftritt"]
+      "tags": ["Figma", "Framer"]
     }
   ],
   "process": {
@@ -83,27 +79,12 @@
     "youtubeUrl": "",
     "embedUrl": "",
     "sectionLabel": "Hinter den Kulissen",
-    "heading": "Content, der die Arbeit sichtbar macht.",
-    "youtubeHeading": "Ein Blick in meine Arbeit",
-    "youtubeButtonLabel": "Video laden",
-    "youtubeFrameTitle": "YouTube-Video",
-    "youtubeEmptyText": "Füge media.youtubeId oder media.youtubeEmbedUrl in site.json hinzu.",
-    "youtubePrivacyNote": "Erst nach Klick wird das Video von YouTube geladen. Datenschutzfreundlich.",
-    "instagramHeading": "Mehr Einblicke auf Instagram",
-    "instagramDescription": "Aktuelle Projekte, Behind-the-Scenes-Momente und visuelle Ausschnitte aus Web, Foto, Video und Drohne.",
     "instagramCtaLabel": "Folge mir auf Instagram",
     "instagramProfileUrl": "https://www.instagram.com/nikolasmaerker/",
-    "instagramThumbnails": [
-      { "src": "/who_am_i/DSC_7577.avif", "alt": "Portrait von Nikolas Maerker", "href": "https://www.instagram.com/nikolasmaerker/" },
-      { "src": "/work/wiro.webp", "alt": "Projektvorschau Wiro", "href": "https://www.instagram.com/nikolasmaerker/" },
-      { "src": "/work/cantero.webp", "alt": "Projektvorschau Cantero", "href": "https://www.instagram.com/nikolasmaerker/" }
-    ]
+    "instagramThumbnails": []
   },
   "about": {
     "sectionLabel": "Über mich",
-    "heading": "Wer ich bin.",
-    "blobImage": "/who_am_i/DSC_7577.avif",
-    "orbitWords": ["GESTALTET", "MIT", "ANSPRUCH"],
     "paragraph": "Ich bin ein zielstrebiger Creator: schnell, fokussiert und conversion-orientiert. Ich baue Websites und Inhalte, die performen.",
     "bullets": [
       "Performante Sites und Landing Pages (Astro, Cloudflare)",
@@ -113,27 +94,8 @@
   },
   "contact": {
     "headline": "Lass uns etwas Bleibendes bauen.",
-    "subline": "Am schnellsten geht es per Mail. Wenn du magst, kannst du mir unten schon kurz Projekt, Ziel und Zeitrahmen schicken.",
+    "subline": "Schreib mir, wie ich dich bei deinem Projekt unterstützen kann.",
     "email": "mailto:nikolas.maerker@gmail.com",
-    "emailCtaText": "Direkt per E-Mail schreiben",
-    "emailDisplay": "nikolas.maerker@gmail.com",
-    "eyebrow": "Kontakt",
-    "formIntro": "Oder nutze das Formular, wenn du mir direkt ein paar Eckdaten mitgeben möchtest.",
-    "formAction": "https://formspree.io/f/mzdakanj",
-    "bookingLabel": "Call buchen",
-    "footerEmailLabel": "E-Mail",
-    "form": {
-      "nameLabel": "Name",
-      "namePlaceholder": "Dein Name",
-      "emailLabel": "E-Mail",
-      "emailPlaceholder": "deine@email.de",
-      "subjectLabel": "Betreff",
-      "subjectPlaceholder": "Worum geht's?",
-      "messageLabel": "Nachricht",
-      "messagePlaceholder": "Deine Nachricht …",
-      "submitLabel": "Nachricht senden",
-      "privacyNote": "Mit dem Absenden willigst du ein, dass deine Angaben zur Beantwortung deiner Anfrage genutzt werden."
-    },
     "socials": [
       { "label": "GitHub", "href": "https://github.com/tryoud" },
       { "label": "LinkedIn", "href": "https://www.linkedin.com/in/nikolasmaerker/" }

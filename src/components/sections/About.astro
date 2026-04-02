@@ -4,24 +4,15 @@ const about = site.about ?? {};
 const paragraph = about.paragraph ?? "";
 const bullets = about.bullets ?? [];
 const sectionLabel = about.sectionLabel ?? "About";
-const heading = about.heading ?? "About";
 const blobImageSrc = about.blobImage ?? "/who_am_i/DSC_7577.avif";
-const orbitWords = Array.isArray(about.orbitWords) && about.orbitWords.length ? about.orbitWords : ["MADE", "WITH", "PASSION"];
-const orbitWordGroups = Array.from({ length: 3 }, (_, groupIndex) =>
-  orbitWords.map((word, wordIndex) => ({
-    key: `${groupIndex}-${wordIndex}-${word}`,
-    word: String(word).toUpperCase(),
-    startOffset: 7.3 + groupIndex * 33.333333 + wordIndex * (wordIndex === 0 ? 0 : wordIndex === 1 ? 8.5 : 17.9),
-  })),
-).flat();
 ---
 
 <section
   id="about"
-  class="border-t border-zinc-100 bg-white py-16 md:py-20"
+  class="border-t border-zinc-100 bg-white py-24"
   aria-labelledby="about-heading"
 >
-  <div class="mx-auto max-w-6xl px-6">
+  <div class="mx-auto max-w-7xl px-6">
     <div class="grid gap-12 lg:grid-cols-2 lg:gap-16 lg:items-center">
       <div>
         <span
@@ -32,7 +23,7 @@ const orbitWordGroups = Array.from({ length: 3 }, (_, groupIndex) =>
           id="about-heading"
           class="font-display mb-8 text-4xl italic text-zinc-900 md:text-5xl"
         >
-          {heading}
+          Who I am.
         </h2>
         {
           paragraph ? (
@@ -185,12 +176,20 @@ const orbitWordGroups = Array.from({ length: 3 }, (_, groupIndex) =>
             </g>
 
             <text class="about-blob-text" dominant-baseline="middle">
-              {orbitWordGroups.map(({ key, word, startOffset }) => (
-                <textPath href="#aboutBlobTextPath" text-anchor="middle" key={key}>
-                  {word}
-                  <animate attributeName="startOffset" from={String(startOffset)} to={String(startOffset + 100)} dur="60s" repeatCount="indefinite"></animate>
-                </textPath>
-              ))}
+              <!-- Group 1 -->
+              <textPath href="#aboutBlobTextPath" text-anchor="middle">MADE<animate attributeName="startOffset" from="7.3" to="107.3" dur="60s" repeatCount="indefinite"></animate></textPath>
+              <textPath href="#aboutBlobTextPath" text-anchor="middle">WITH<animate attributeName="startOffset" from="15.8" to="115.8" dur="60s" repeatCount="indefinite"></animate></textPath>
+              <textPath href="#aboutBlobTextPath" text-anchor="middle">PASSION<animate attributeName="startOffset" from="25.2" to="125.2" dur="60s" repeatCount="indefinite"></animate></textPath>
+
+              <!-- Group 2 -->
+              <textPath href="#aboutBlobTextPath" text-anchor="middle">MADE<animate attributeName="startOffset" from="40.633333" to="140.633333" dur="60s" repeatCount="indefinite"></animate></textPath>
+              <textPath href="#aboutBlobTextPath" text-anchor="middle">WITH<animate attributeName="startOffset" from="49.133333" to="149.133333" dur="60s" repeatCount="indefinite"></animate></textPath>
+              <textPath href="#aboutBlobTextPath" text-anchor="middle">PASSION<animate attributeName="startOffset" from="58.533333" to="158.533333" dur="60s" repeatCount="indefinite"></animate></textPath>
+
+              <!-- Group 3 -->
+              <textPath href="#aboutBlobTextPath" text-anchor="middle">MADE<animate attributeName="startOffset" from="73.966667" to="173.966667" dur="60s" repeatCount="indefinite"></animate></textPath>
+              <textPath href="#aboutBlobTextPath" text-anchor="middle">WITH<animate attributeName="startOffset" from="82.466667" to="182.466667" dur="60s" repeatCount="indefinite"></animate></textPath>
+              <textPath href="#aboutBlobTextPath" text-anchor="middle">PASSION<animate attributeName="startOffset" from="91.866667" to="191.866667" dur="60s" repeatCount="indefinite"></animate></textPath>
             </text>
           </g>
         </svg>
