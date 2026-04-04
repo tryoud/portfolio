@@ -6,24 +6,25 @@ const workHeading = site.workHeading ?? "Aktuelle Projekte.";
 const workSwipeHint = site.workSwipeHint ?? "Wischen zum Entdecken →";
 ---
 
-<section id="work" class="bg-[#FDFBF7] py-24" aria-labelledby="work-heading">
-  <div class="mx-auto max-w-7xl px-6">
-    <div class="mb-16">
-      <span class="mb-2 block text-sm font-semibold uppercase tracking-wider text-zinc-500">{workSectionLabel}</span>
-      <h2 id="work-heading" class="font-display text-4xl italic text-zinc-900 md:text-5xl">{workHeading}</h2>
+<section id="work" class="bg-[#FDFBF7] py-16 md:py-20" aria-labelledby="work-heading" data-reveal-group>
+  <div class="mx-auto max-w-6xl px-6">
+    <div class="scroll-reveal mb-12 md:mb-14" data-reveal="fade">
+      <span class="mb-2 block text-sm font-semibold uppercase tracking-[0.18em] text-zinc-500">{workSectionLabel}</span>
+      <h2 id="work-heading" class="font-display text-4xl italic text-zinc-900 md:text-[3.25rem]">{workHeading}</h2>
     </div>
     <div class="relative md:static">
       <p class="mb-3 text-xs font-medium text-zinc-400 sm:hidden" aria-hidden="true">{workSwipeHint}</p>
       <div class="relative -mx-[10px] overflow-x-auto snap-x snap-mandatory scroll-smooth touch-pan-x px-[10px] scroll-pl-[10px] scroll-pr-[10px] md:mx-0 md:overflow-visible md:px-0" data-work-scroller>
-        <div class="flex gap-6 pb-4 pr-0 md:pr-0 md:gap-8 lg:gap-10 md:justify-center md:flex-wrap">
-        {work.map((item) => {
+        <div class="flex gap-6 pb-4 pr-0 md:flex-wrap md:justify-center md:gap-7 md:pr-0 lg:gap-8">
+        {work.map((item, index) => {
           const imgSrc = (item.image && String(item.image).trim()) || "";
+          const tags = Array.isArray(item.tags) ? item.tags : [];
           return (
-          <article class="group w-[88vw] min-w-[300px] shrink-0 snap-start md:w-[340px] md:shrink-0 lg:w-[340px]" data-work-card>
-            <div class="rounded-2xl focus-within:ring-2 focus-within:ring-zinc-400 focus-within:ring-offset-2">
-              <div class="relative mb-5">
+          <article class="scroll-reveal group w-[88vw] min-w-[300px] shrink-0 snap-start md:w-[340px] md:shrink-0 lg:w-[340px]" data-work-card data-reveal="card" style={`--reveal-delay: ${Math.min(index * 120, 280)}ms;`}>
+            <div class="rounded-2xl border border-zinc-200/70 bg-white p-4 shadow-sm transition-all duration-300 group-hover:-translate-y-2 group-hover:border-zinc-300 group-hover:shadow-[0_18px_45px_-22px_rgba(24,24,27,0.35)] focus-within:ring-2 focus-within:ring-zinc-400 focus-within:ring-offset-2 md:p-5">
+              <div class="relative mb-4">
                 <div
-                  class="work-preview-scroll aspect-[16/10] min-h-0 overflow-x-hidden overflow-y-auto rounded-2xl overscroll-contain scroll-smooth [scrollbar-gutter:stable] [-webkit-overflow-scrolling:touch] focus:outline-none focus:ring-2 focus:ring-zinc-400 focus:ring-offset-2"
+                  class="work-preview-scroll aspect-[16/10] min-h-0 overflow-x-hidden overflow-y-auto rounded-2xl border border-zinc-200/70 overscroll-contain scroll-smooth transition-transform duration-500 group-hover:scale-[1.015] [scrollbar-gutter:stable] [-webkit-overflow-scrolling:touch] focus:outline-none focus:ring-2 focus:ring-zinc-400 focus:ring-offset-2"
                   data-work-image-scroll
                   tabindex="0"
                   aria-label={`Project screenshot preview: ${item.title}`}
@@ -42,13 +43,24 @@ const workSwipeHint = site.workSwipeHint ?? "Wischen zum Entdecken →";
                   )}
                 </div>
               </div>
-              <a href={item.href} class="block focus:outline-none focus:ring-2 focus:ring-zinc-400 focus:ring-offset-2 rounded-2xl">
-                <div class="flex items-start justify-between">
-                  <div>
-                    <h3 class="mb-1 text-2xl font-bold text-zinc-900 decoration-zinc-900 underline-offset-4 group-hover:underline decoration-1">{item.title}</h3>
-                    <p class="text-sm text-zinc-500">{item.tags?.join(", ") ?? ""}</p>
+              <a href={item.href} class="block rounded-2xl focus:outline-none focus:ring-2 focus:ring-zinc-400 focus:ring-offset-2">
+                <div class="flex items-start justify-between gap-4">
+                  <div class="min-w-0">
+                    <h3 class="mb-2 text-2xl font-bold text-zinc-900 decoration-zinc-900 underline-offset-4 group-hover:underline decoration-1">{item.title}</h3>
+                    {item.description ? (
+                      <p class="text-sm leading-relaxed text-zinc-600">{item.description}</p>
+                    ) : null}
+                    {tags.length ? (
+                      <div class="mt-4 flex flex-wrap gap-2">
+                        {tags.map((tag) => (
+                          <span class="rounded-full border border-zinc-200/70 bg-zinc-50 px-3 py-1 text-[0.7rem] font-medium uppercase tracking-[0.12em] text-zinc-500 transition-colors duration-300 group-hover:border-zinc-300 group-hover:bg-zinc-100 group-hover:text-zinc-700">
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+                    ) : null}
                   </div>
-                  <span class="text-zinc-400 transition-transform group-hover:translate-x-1" aria-hidden="true">
+                  <span class="mt-1 text-zinc-400 transition-all duration-300 group-hover:translate-x-1.5 group-hover:text-zinc-700" aria-hidden="true">
                     <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
                   </span>
                 </div>
@@ -65,6 +77,22 @@ const workSwipeHint = site.workSwipeHint ?? "Wischen zum Entdecken →";
 
 <script>
   (function () {
+    const section = document.querySelector("#work[data-reveal-group]");
+    if (section && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      const revealItems = section.querySelectorAll(".scroll-reveal");
+      if (revealItems.length) {
+        const revealObserver = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("is-visible");
+              revealObserver.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.14, rootMargin: "0px 0px -8% 0px" });
+        revealItems.forEach((item) => revealObserver.observe(item));
+      }
+    }
+
     const mediaQuery = window.matchMedia("(max-width: 640px)");
     let initialized = false;
 

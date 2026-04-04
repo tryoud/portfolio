@@ -11,22 +11,24 @@ const iconMap = {
 };
 ---
 
-<section id="services" class="border-t border-zinc-100 bg-white py-24" aria-labelledby="services-heading">
-  <div class="mx-auto max-w-7xl px-6">
-    <div class="mb-16 flex flex-col justify-between items-start md:flex-row md:items-end">
+<section id="services" class="border-t border-zinc-100 bg-white py-16 md:py-20" aria-labelledby="services-heading" data-reveal-group>
+  <div class="mx-auto max-w-6xl px-6">
+    <div class="scroll-reveal mb-12 flex flex-col items-start justify-between md:mb-14 md:flex-row md:items-end" data-reveal="fade">
       <div>
-        <span class="mb-2 block text-sm font-semibold uppercase tracking-wider text-zinc-500">{sectionLabel}</span>
-        <h2 id="services-heading" class="font-display text-4xl italic text-zinc-900 md:text-5xl">{heading}</h2>
+        <span class="mb-2 block text-sm font-semibold uppercase tracking-[0.18em] text-zinc-500">{sectionLabel}</span>
+        <h2 id="services-heading" class="font-display text-4xl italic text-zinc-900 md:text-[3.25rem]">{heading}</h2>
       </div>
-      <p class="mt-4 max-w-sm text-zinc-600 md:mt-0">{lead}</p>
+      <p class="mt-4 max-w-sm text-sm leading-relaxed text-zinc-600 md:mt-0">{lead}</p>
     </div>
-    <div class="grid grid-cols-1 gap-8 md:grid-cols-3">
-      {services.map((s) => (
+    <div class="grid grid-cols-1 gap-6 md:grid-cols-3 md:gap-7">
+      {services.map((s, index) => (
         <article
-          class="group rounded-xl border border-zinc-100 bg-[#FDFBF7] p-8 transition-all duration-300 hover:border-zinc-300 hover:shadow-lg focus-within:ring-2 focus-within:ring-zinc-400 focus-within:ring-offset-2"
+          class="scroll-reveal group rounded-2xl border border-zinc-200/70 bg-[#FDFBF7] p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-zinc-300 hover:shadow-md focus-within:ring-2 focus-within:ring-zinc-400 focus-within:ring-offset-2 md:p-7"
+          data-reveal="card"
+          style={`--reveal-delay: ${Math.min(index * 110, 260)}ms;`}
           id={s.id ?? undefined}
         >
-          <div class="mb-6 flex h-12 w-12 items-center justify-center rounded-full bg-white shadow-sm transition-transform group-hover:scale-110">
+          <div class="mb-5 flex h-12 w-12 items-center justify-center rounded-full border border-zinc-200/70 bg-white shadow-sm transition-transform group-hover:scale-105">
             {iconMap[s.id] === "laptop" ? (
               <svg class="h-6 w-6 text-zinc-900" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
             ) : iconMap[s.id] === "camera" ? (
@@ -37,10 +39,10 @@ const iconMap = {
               <svg class="h-6 w-6 text-zinc-900" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0h.5a2.5 2.5 0 002.5-2.5V3.935M12 12a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
             )}
           </div>
-          <h3 class="mb-3 text-xl font-bold text-zinc-900">{s.title}</h3>
+          <h3 class="mb-3 text-xl font-bold text-zinc-900 md:text-[1.35rem]">{s.title}</h3>
           <p class="text-sm leading-relaxed text-zinc-600">{s.description}</p>
           {s.bullets?.length ? (
-            <ul class="mt-4 space-y-2">
+            <ul class="mt-5 space-y-2.5 border-t border-zinc-200/70 pt-4">
               {s.bullets.map((b) => (
                 <li class="flex items-start gap-2 text-sm text-zinc-600">
                   <span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-zinc-400" aria-hidden="true" />
@@ -54,3 +56,24 @@ const iconMap = {
     </div>
   </div>
 </section>
+
+<script>
+  (function () {
+    const section = document.querySelector("#services[data-reveal-group]");
+    if (!section || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    const items = section.querySelectorAll(".scroll-reveal");
+    if (!items.length) return;
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.14, rootMargin: "0px 0px -8% 0px" });
+
+    items.forEach((item) => observer.observe(item));
+  })();
+</script>

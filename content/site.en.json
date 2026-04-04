@@ -1,38 +1,53 @@
 {
   "name": "Nikolas Maerker",
   "role": "Web Developer · Photographer & Videographer",
-  "tagline": "I build fast, high-performance websites and AI-assisted workflows.",
+  "tagline": "I create websites, photo, and video content for service businesses, companies, and brands that want a stronger presence, more trust, and more qualified inbound leads.",
   "siteUrl": "https://nikolasmaerker.com",
   "ogImage": "/og.png",
   "twitterHandle": "",
   "hero": {
-    "headline": "Hey, there",
+    "headline": "Websites and content for service businesses, companies, and brands",
+    "decorativeHeadline": "Hey, there",
+    "headlineLines": [
+      "Websites and content",
+      "for service businesses,",
+      "companies,",
+      "and brands"
+    ],
     "badgeText": "Available for new projects",
-    "specialization": "Specialized in Web Design & Development, Photo & Video, and Drone / Aerial.",
+    "specialization": "For service businesses, companies, and personal brands that want to communicate more clearly, look more credible, and convert attention into real inquiries.",
+    "specializationLines": [
+      "For service businesses, companies, and personal brands that want",
+      "that want to communicate more clearly, look more credible,",
+      "and convert attention into real inquiries."
+    ],
     "portraitSrc": "/hero/Nikolas_Maerker_hero.webp",
     "primaryCta": { "label": "Contact", "href": "#contact" },
     "secondaryCta": { "label": "View work", "href": "#work" },
     "roleLines": ["WEB DESIGNER", "& DEVELOPER"],
     "roleSubline": "PHOTO / VIDEO / DRONE"
   },
+  "servicesSectionLabel": "What I do",
+  "servicesHeading": "Services built to move the brand forward.",
+  "servicesLead": "I combine strategy, design, and execution so your presence does more than look polished. It should communicate clearly, build trust, and support conversions.",
   "services": [
     {
       "id": "web-design-dev",
       "title": "Web Design & Development",
-      "description": "Custom-coded solutions and modern builds that are fast, accessible, and designed to convert.",
-      "bullets": ["User journey design and UX", "SEO and performance", "Landing pages and web apps"]
+      "description": "Websites and landing pages that make your offer easier to understand, feel more credible, and turn visits into inquiries.",
+      "bullets": ["Positioning, structure, and UX", "SEO, performance, and clean implementation", "Landing pages, websites, and custom builds"]
     },
     {
       "id": "photo-video",
       "title": "Photo & Video",
-      "description": "Event photography and cinematic video production to elevate your brand's visual storytelling.",
-      "bullets": ["Event and editorial photography", "Video editing and aftermovies", "Consistent look and delivery"]
+      "description": "Photo and video content that presents your brand at a higher level and gives you stronger assets for web, social, and campaigns.",
+      "bullets": ["Event, portrait, and editorial photography", "Video production, editing, and aftermovies", "A consistent visual language across channels"]
     },
     {
       "id": "drone-aerial",
       "title": "Drone Pilot / Aerial",
-      "description": "Professional drone shots and aerial footage for real estate, events, and marketing.",
-      "bullets": ["Licensed aerial footage", "Real estate and events", "Smooth, cinematic delivery"]
+      "description": "Drone footage that adds perspective, energy, and production value to real estate, events, and branded content.",
+      "bullets": ["Licensed aerial capture", "Real estate, events, and brand content", "Smooth cinematic shots that integrate cleanly"]
     }
   ],
   "workSectionLabel": "Selected Work",
@@ -58,7 +73,7 @@
       "description": "Web design and development case study.",
       "href": "https://www.cantero-consulting.de/",
       "image": "/work/cantero.webp",
-      "tags": ["Figma", "Framer"]
+      "tags": ["Figma", "Astro"]
     }
   ],
   "process": {

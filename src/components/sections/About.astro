@@ -9,30 +9,30 @@ const blobImageSrc = about.blobImage ?? "/who_am_i/DSC_7577.avif";
 
 <section
   id="about"
-  class="border-t border-zinc-100 bg-white py-24"
+  class="border-t border-zinc-100 bg-white py-16 md:py-20"
   aria-labelledby="about-heading"
 >
-  <div class="mx-auto max-w-7xl px-6">
-    <div class="grid gap-12 lg:grid-cols-2 lg:gap-16 lg:items-center">
+  <div class="mx-auto max-w-6xl px-6">
+    <div class="grid gap-10 lg:grid-cols-2 lg:items-center lg:gap-14">
       <div>
         <span
-          class="mb-2 block text-sm font-semibold uppercase tracking-wider text-zinc-500"
+          class="mb-2 block text-sm font-semibold uppercase tracking-[0.18em] text-zinc-500"
           >{sectionLabel}</span
         >
         <h2
           id="about-heading"
-          class="font-display mb-8 text-4xl italic text-zinc-900 md:text-5xl"
+          class="font-display mb-6 text-4xl italic text-zinc-900 md:text-[3.25rem]"
         >
           Who I am.
         </h2>
         {
           paragraph ? (
-            <p class="max-w-2xl text-base text-zinc-600">{paragraph}</p>
+            <p class="max-w-2xl text-base leading-relaxed text-zinc-600">{paragraph}</p>
           ) : null
         }
         {
           bullets.length > 0 ? (
-            <ul class="mt-6 space-y-3">
+            <ul class="mt-6 space-y-3 border-t border-zinc-200/70 pt-5">
               {bullets.map((b: string) => (
                 <li class="flex items-start gap-3 text-base text-zinc-600">
                   <span
@@ -47,9 +47,9 @@ const blobImageSrc = about.blobImage ?? "/who_am_i/DSC_7577.avif";
         }
       </div>
 
-      <div class="about-blob-widget flex justify-center lg:justify-end">
+      <div class="about-blob-widget lg:justify-self-end">
         <svg
-          class="about-blob-svg w-full max-w-[420px] aspect-square overflow-visible"
+          class="about-blob-svg aspect-square w-full max-w-[420px] overflow-visible"
           viewBox="-8 -8 216 216"
           xmlns="http://www.w3.org/2000/svg"
           aria-hidden="true"

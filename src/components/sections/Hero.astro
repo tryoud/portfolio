@@ -11,6 +11,10 @@ const primaryLabel = typeof primaryCta === "object" && primaryCta.label ? primar
 const secondaryHref = typeof secondaryCta === "object" && secondaryCta.href ? secondaryCta.href : "#work";
 const secondaryLabel = typeof secondaryCta === "object" && secondaryCta.label ? secondaryCta.label : "View work";
 const specialization = hero.specialization ?? "";
+const specializationLines = Array.isArray(hero.specializationLines) && hero.specializationLines.length
+  ? hero.specializationLines.map((line) => String(line).trim()).filter(Boolean)
+  : [];
+const decorativeHeadline = String(hero.decorativeHeadline ?? "Hey, there").trim();
 const nameLine = site.name ?? "";
 const roleLine = site.role ?? "";
 const nameUpper = nameLine.toUpperCase().replace(/\s+/g, " ");
@@ -22,12 +26,38 @@ const roleSubline = (hero.roleSubline && String(hero.roleSubline).trim()) || "";
 const nameParts = nameLine.trim().split(/\s+/);
 const firstNameUpper = nameParts[0] ? nameParts[0].toUpperCase() : nameUpper;
 const lastNameUpper = nameParts.length > 1 ? nameParts.slice(1).join(" ").toUpperCase() : "";
-const greetingParts = (headline || "Hey, there").split(/,\s*/);
-const greetingLeft = greetingParts[0] ? `${greetingParts[0]},` : "Hey,";
-const greetingRight = greetingParts[1] ?? "there";
+const rawHeadline = String(headline || "").trim();
+const headlineLinesSource = Array.isArray(hero.headlineLines) && hero.headlineLines.length
+  ? hero.headlineLines
+  : rawHeadline.includes(" für ")
+    ? (() => {
+        const [beforeFor, afterFor = ""] = rawHeadline.split(" für ");
+        const afterForParts = afterFor.split(", ").map((part) => part.trim()).filter(Boolean);
+        if (afterForParts.length > 1) {
+          return [beforeFor, `für ${afterForParts[0]},`, afterForParts.slice(1).join(", ")];
+        }
+        return [beforeFor, `für ${afterFor}`];
+      })()
+    : rawHeadline.includes(" for ")
+      ? (() => {
+          const [beforeFor, afterFor = ""] = rawHeadline.split(" for ");
+          const afterForParts = afterFor.split(", ").map((part) => part.trim()).filter(Boolean);
+          if (afterForParts.length > 1) {
+            return [beforeFor, `for ${afterForParts[0]},`, afterForParts.slice(1).join(", ")];
+          }
+          return [beforeFor, `for ${afterFor}`];
+        })()
+      : rawHeadline.split(/,\s*/);
+const headlineLines = headlineLinesSource
+  .map((part) => String(part).trim())
+  .filter(Boolean);
+const heroHeadlineLines = headlineLines.length ? headlineLines : [headline];
+const decorativeParts = decorativeHeadline.split(/,\s*/);
+const decorativeLeft = decorativeParts[0] ? `${decorativeParts[0]},` : "Hey,";
+const decorativeRight = decorativeParts[1] ?? "there";
 ---
 
-<section class="relative flex min-h-0 max-h-[800px] flex-col overflow-hidden pt-[clamp(1.5rem,4vw,2.5rem)] pb-[clamp(0.75rem,2vw,1.5rem)] md:min-h-[calc(100svh-5rem)] md:pt-8 md:pb-[clamp(0.5rem,1.5vw,1rem)]" aria-labelledby="hero-heading">
+<section class="relative flex min-h-0 max-h-[800px] flex-col overflow-hidden pt-[clamp(1.5rem,4vw,2.5rem)] pb-[clamp(0.75rem,2vw,1.5rem)] md:min-h-[calc(100svh-5rem)] md:pt-8 md:pb-[clamp(0.5rem,1.5vw,1rem)]" aria-labelledby="hero-heading" data-hero-motion>
   <div class="pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
     <div class="absolute inset-0 bg-[var(--color-background-light)]" />
     <div
@@ -37,7 +67,7 @@ const greetingRight = greetingParts[1] ?? "there";
   </div>
 
   <!-- Single centered container: max-w-7xl, no drift on ultra-wide -->
-  <div class="relative mx-auto flex min-h-0 w-full max-w-7xl flex-1 flex-col px-4 sm:px-6">
+  <div class="relative mx-auto flex min-h-0 w-full max-w-6xl flex-1 flex-col px-4 sm:px-6">
     <h1 id="hero-heading" class="sr-only">{headline} — {nameLine}, {roleLine}</h1>
 
     <!-- Availability pill: left-mid, inside container -->
@@ -53,15 +83,24 @@ const greetingRight = greetingParts[1] ?? "there";
       </div>
     ) : null}
 
-    <!-- "Hey, there": one baseline, centered behind portrait head; on mobile above portrait so visible -->
-    <div class="pointer-events-none absolute left-1/2 top-[34%] z-10 flex -translate-x-1/2 translate-y-[60px] items-baseline justify-center gap-[clamp(2rem,40vw,15rem)] sm:top-[30%] sm:-translate-y-[40px] sm:gap-[clamp(3rem,40vw,15rem)] md:z-0 md:top-[32%]" aria-hidden="true">
-      <span class="font-display text-[clamp(1.5rem,5vw,8rem)] font-medium italic leading-tight tracking-[-0.02em] text-zinc-900/35 sm:text-[clamp(1.75rem,5.5vw,9rem)] md:text-[clamp(2.5rem,8vw,10rem)] md:text-zinc-900/30">{greetingLeft}</span>
-      <span class="font-display text-[clamp(1.5rem,5vw,8rem)] font-medium italic leading-tight tracking-[-0.02em] text-zinc-900/35 sm:text-[clamp(1.75rem,5.5vw,9rem)] md:text-[clamp(2.5rem,8vw,10rem)] md:text-zinc-900/30">{greetingRight}</span>
+    <div class="relative z-10 mx-auto w-full max-w-5xl pt-4 text-center md:hidden">
+      <div class="mx-auto max-w-[21rem]">
+        {heroHeadlineLines.map((line) => (
+          <p class="font-display text-[clamp(2.15rem,9vw,3.5rem)] font-medium italic leading-[0.92] tracking-[-0.04em] text-zinc-900">
+            {line}
+          </p>
+        ))}
+      </div>
+    </div>
+
+    <div class="pointer-events-none absolute left-1/2 top-[34%] z-10 hidden -translate-x-1/2 translate-y-[60px] items-baseline justify-center gap-[clamp(2rem,40vw,15rem)] sm:top-[30%] sm:-translate-y-[40px] sm:gap-[clamp(3rem,40vw,15rem)] md:flex md:z-0 md:top-[32%]" aria-hidden="true">
+      <span class="hero-parallax font-display text-[clamp(2.5rem,8vw,10rem)] font-medium italic leading-tight tracking-[-0.02em] text-zinc-900/30" data-hero-layer="back">{decorativeLeft}</span>
+      <span class="hero-parallax font-display text-[clamp(2.5rem,8vw,10rem)] font-medium italic leading-tight tracking-[-0.02em] text-zinc-900/30" data-hero-layer="back">{decorativeRight}</span>
     </div>
 
     <!-- Portrait: centered, no offset; bottom fade preserved -->
     <div class="relative z-10 flex min-h-0 flex-1 flex-col items-center justify-center py-[clamp(0.25rem,1vw,0.5rem)] md:py-0">
-      <div class="mx-auto w-64 shrink-0 translate-x-[40px] translate-y-[60px] scale-[1.2] sm:w-80 md:w-[28rem] lg:w-[34rem] xl:w-[min(440px,90vw)] [filter:drop-shadow(0_25px_50px_-12px_rgba(0,0,0,0.15))_drop-shadow(0_0_40px_-8px_rgba(0,0,0,0.08))]">
+      <div class="hero-parallax-soft mx-auto w-64 shrink-0 translate-x-[40px] translate-y-[60px] scale-[1.2] sm:w-80 md:w-[28rem] md:translate-x-[40px] md:translate-y-[60px] md:scale-[1.2] lg:w-[34rem] xl:w-[min(440px,90vw)] [filter:drop-shadow(0_25px_50px_-12px_rgba(0,0,0,0.15))_drop-shadow(0_0_40px_-8px_rgba(0,0,0,0.08))]" data-hero-layer="portrait">
         <img
           src={portraitSrc}
           alt=""
@@ -77,30 +116,48 @@ const greetingRight = greetingParts[1] ?? "there";
     </div>
 
     {specialization ? (
-      <div class="absolute right-4 top-auto z-20 hidden text-right text-sm leading-relaxed text-zinc-600 lg:right-6 lg:top-[50%] lg:block lg:max-w-[280px] lg:-translate-y-1/2 xl:max-w-[320px]">
-        <p>{specialization}</p>
+      <div class="mx-auto mt-2 max-w-[20rem] text-center md:hidden">
+        {specializationLines.length ? (
+          <div class="space-y-1 text-sm leading-relaxed text-zinc-600">
+            {specializationLines.map((line) => <p>{line}</p>)}
+          </div>
+        ) : (
+          <p class="text-sm leading-relaxed text-zinc-600">{specialization}</p>
+        )}
+      </div>
+    ) : null}
+
+    {specialization ? (
+      <div class="hero-parallax absolute right-4 top-auto z-20 hidden text-right leading-relaxed text-zinc-600 lg:right-0 lg:top-[56%] lg:block lg:max-w-[440px] lg:-translate-y-1/2 lg:text-[0.8rem] xl:max-w-[480px] xl:text-[0.88rem]" data-hero-layer="copy">
+        {specializationLines.length ? (
+          <div class="space-y-1">
+            {specializationLines.map((line) => <p class="whitespace-nowrap">{line}</p>)}
+          </div>
+        ) : (
+          <p>{specialization}</p>
+        )}
       </div>
     ) : null}
 
     <!-- Bottom band: 3-col grid, same baseline, within container -->
-    <div class="relative z-20 shrink-0 px-0 pt-[clamp(0.5rem,1.5vw,1rem)] pb-[clamp(0.5rem,1.5vw,1rem)] sm:px-0">
-      <div class="grid w-full grid-cols-2 items-end gap-3 md:grid-cols-3 md:gap-4">
-        <div class="flex min-w-0 flex-col items-start gap-0.5">
-          <span class="block select-none text-sm font-bold uppercase tracking-tight text-zinc-400 sm:text-lg md:text-xl lg:text-2xl xl:text-3xl" aria-hidden="true">I AM</span>
-          <span class="block text-lg font-bold uppercase tracking-tight text-zinc-900 sm:text-2xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-6xl" aria-hidden="true">{firstNameUpper}</span>
-          {lastNameUpper ? <span class="block text-lg font-bold uppercase tracking-tight text-zinc-900 sm:text-2xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-6xl" aria-hidden="true">{lastNameUpper}</span> : null}
+    <div class="relative z-20 shrink-0 px-0 pt-[clamp(0.5rem,1.5vw,1rem)] pb-[clamp(0.5rem,1.5vw,1rem)] sm:px-0 md:pt-3">
+      <div class="grid w-full grid-cols-2 items-end gap-3 md:grid-cols-3 md:gap-8 lg:gap-10">
+        <div class="flex min-w-0 flex-col items-start gap-0.5 md:gap-0">
+          <span class="block select-none text-sm font-bold uppercase tracking-tight text-zinc-400 sm:text-lg md:text-lg lg:text-xl xl:text-2xl" aria-hidden="true">I AM</span>
+          <span class="block text-lg font-bold uppercase tracking-tight text-zinc-900 sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl 2xl:text-5xl" aria-hidden="true">{firstNameUpper}</span>
+          {lastNameUpper ? <span class="block text-lg font-bold uppercase tracking-tight text-zinc-900 sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl 2xl:text-5xl" aria-hidden="true">{lastNameUpper}</span> : null}
         </div>
-        <div class="hidden items-end justify-self-center md:flex md:flex-col">
-          <div class="flex flex-row justify-center gap-3 lg:gap-5">
+        <div class="hidden items-end justify-self-center md:flex md:flex-col md:pb-1">
+          <div class="flex flex-row justify-center gap-3 lg:gap-4">
             <a
               href={primaryHref}
-              class="hero-primary-cta inline-flex min-h-[48px] items-center justify-center rounded-xl bg-[var(--accent)] px-6 py-3 text-sm font-medium text-[var(--accent-foreground)] shadow-md hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-[var(--ring)] focus:ring-offset-2 focus:ring-offset-[var(--ring-offset)] transition-colors"
+              class="hero-primary-cta inline-flex min-h-[48px] items-center justify-center rounded-xl bg-[var(--accent)] px-5 py-3 text-sm font-medium text-[var(--accent-foreground)] shadow-md hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-[var(--ring)] focus:ring-offset-2 focus:ring-offset-[var(--ring-offset)] transition-colors"
             >
               {primaryLabel}
             </a>
             <a
               href={secondaryHref}
-              class="inline-flex min-h-[48px] items-center justify-center rounded-xl border-2 border-zinc-900 px-6 py-3 text-sm font-medium text-zinc-900 hover:bg-zinc-50 focus:outline-none focus:ring-2 focus:ring-zinc-400 focus:ring-offset-2 transition-colors"
+              class="inline-flex min-h-[48px] items-center justify-center rounded-xl border-2 border-zinc-900 px-5 py-3 text-sm font-medium text-zinc-900 hover:bg-zinc-50 focus:outline-none focus:ring-2 focus:ring-zinc-400 focus:ring-offset-2 transition-colors"
             >
               {secondaryLabel}
             </a>
@@ -108,9 +165,9 @@ const greetingRight = greetingParts[1] ?? "there";
         </div>
         <div class="flex min-w-0 flex-col items-end gap-0.5 text-right">
           {roleLines.length ? roleLines.map((line) => (
-            <span class="block text-xs font-bold uppercase tracking-tight leading-tight text-zinc-900 sm:text-sm md:text-xl lg:text-2xl xl:text-3xl" aria-hidden="true">{line}</span>
+            <span class="block text-xs font-bold uppercase tracking-tight leading-tight text-zinc-900 sm:text-sm md:text-lg lg:text-xl xl:text-2xl" aria-hidden="true">{line}</span>
           )) : (
-            <span class="block text-xs font-bold uppercase tracking-tight leading-tight text-zinc-900 sm:text-sm md:text-xl lg:text-2xl xl:text-3xl" aria-hidden="true">{roleUpper}</span>
+            <span class="block text-xs font-bold uppercase tracking-tight leading-tight text-zinc-900 sm:text-sm md:text-lg lg:text-xl xl:text-2xl" aria-hidden="true">{roleUpper}</span>
           )}
           {roleSubline ? (
             <span class="mt-1 block text-xs font-medium uppercase tracking-wide text-zinc-500 sm:text-sm" aria-hidden="true">{roleSubline}</span>
@@ -120,3 +177,36 @@ const greetingRight = greetingParts[1] ?? "there";
     </div>
   </div>
 </section>
+
+<script>
+  (function () {
+    const section = document.querySelector("[data-hero-motion]");
+    if (!section || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    const backLayers = section.querySelectorAll('[data-hero-layer="back"]');
+    const portrait = section.querySelector('[data-hero-layer="portrait"]');
+    const copy = section.querySelector('[data-hero-layer="copy"]');
+    let ticking = false;
+
+    function update() {
+      ticking = false;
+      const rect = section.getBoundingClientRect();
+      const viewport = window.innerHeight || 1;
+      const progress = Math.max(-1, Math.min(1, (viewport * 0.5 - rect.top) / viewport));
+
+      backLayers.forEach((el) => el.style.setProperty("--parallax-y", `${Math.round(progress * -24)}px`));
+      if (portrait) portrait.style.setProperty("--parallax-soft-y", `${Math.round(progress * 16)}px`);
+      if (copy) copy.style.setProperty("--parallax-y", `${Math.round(progress * -10)}px`);
+    }
+
+    function onScroll() {
+      if (ticking) return;
+      ticking = true;
+      window.requestAnimationFrame(update);
+    }
+
+    update();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll, { passive: true });
+  })();
+</script>

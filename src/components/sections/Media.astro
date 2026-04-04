@@ -7,14 +7,14 @@ const embedSrc = youtubeId ? `https://www.youtube-nocookie.com/embed/${youtubeId
 const thumbSrc = youtubeId ? `https://img.youtube.com/vi/${youtubeId}/hqdefault.jpg` : "";
 ---
 
-<section id="media" class="bg-[#FDFBF7] py-24" aria-labelledby="media-heading">
-  <div class="mx-auto max-w-5xl px-6 text-center">
-    <span class="mb-6 block text-sm font-semibold uppercase tracking-wider text-zinc-500">{sectionLabel}</span>
+<section id="media" class="bg-[#FDFBF7] py-16 md:py-20" aria-labelledby="media-heading" data-reveal-group>
+  <div class="mx-auto max-w-6xl px-6 text-center">
+    <span class="scroll-reveal mb-5 block text-sm font-semibold uppercase tracking-[0.18em] text-zinc-500" data-reveal="fade">{sectionLabel}</span>
     {youtubeId ? (
-      <div class="youtube-2click relative mb-12 overflow-hidden rounded-xl border border-zinc-200 shadow-2xl aspect-video bg-zinc-900" data-embed-src={embedSrc}>
+      <div class="youtube-2click scroll-reveal relative mb-12 aspect-video overflow-hidden rounded-2xl border border-zinc-200/70 shadow-[0_18px_50px_-24px_rgba(24,24,27,0.32)] bg-zinc-900" data-embed-src={embedSrc} data-reveal="card">
         <div class="youtube-2click-placeholder absolute inset-0 flex flex-col items-center justify-center gap-4 p-6">
           <img src={thumbSrc} alt="" class="absolute inset-0 h-full w-full object-cover opacity-40" width="480" height="360" loading="lazy" />
-          <button type="button" class="youtube-2click-btn relative z-10 inline-flex items-center justify-center gap-2 rounded-full bg-white/95 px-6 py-3 text-sm font-medium text-zinc-900 shadow-lg hover:bg-white focus:outline-none focus:ring-2 focus:ring-zinc-400 focus:ring-offset-2 focus:ring-offset-zinc-900 transition-colors" aria-label="Video laden">
+          <button type="button" class="youtube-2click-btn relative z-10 inline-flex items-center justify-center gap-2 rounded-full bg-white/95 px-6 py-3 text-sm font-medium text-zinc-900 shadow-lg transition-all hover:-translate-y-0.5 hover:bg-white focus:outline-none focus:ring-2 focus:ring-zinc-400 focus:ring-offset-2 focus:ring-offset-zinc-900" aria-label="Video laden">
             <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z" /></svg>
             Video laden
           </button>
@@ -31,7 +31,7 @@ const thumbSrc = youtubeId ? `https://img.youtube.com/vi/${youtubeId}/hqdefault.
         </div>
       </div>
     ) : (
-      <div class="mb-12 aspect-video overflow-hidden rounded-xl border border-zinc-200 bg-zinc-100 flex items-center justify-center">
+      <div class="scroll-reveal mb-12 flex aspect-video items-center justify-center overflow-hidden rounded-2xl border border-zinc-200/70 bg-zinc-100" data-reveal="card">
         <p class="text-sm text-zinc-500">Add media.youtubeId or media.youtubeEmbedUrl in site.json</p>
       </div>
     )}
@@ -56,3 +56,26 @@ const thumbSrc = youtubeId ? `https://img.youtube.com/vi/${youtubeId}/hqdefault.
     })();
   </script>
 ) : null}
+<script>
+  (function () {
+    const section = document.querySelector("#media[data-reveal-group]");
+    if (!section || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    const items = section.querySelectorAll(".scroll-reveal");
+    if (!items.length) return;
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: "0px 0px -8% 0px" });
+
+    items.forEach((item, index) => {
+      item.style.setProperty("--reveal-delay", `${Math.min(index * 120, 180)}ms`);
+      observer.observe(item);
+    });
+  })();
+</script>

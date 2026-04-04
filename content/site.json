@@ -1,14 +1,26 @@
 {
   "name": "Nikolas Maerker",
   "role": "Web Developer · Photographer & Videographer",
-  "tagline": "Ich entwickle schnelle, performante Websites und KI-gestützte Workflows.",
+  "tagline": "Ich entwickle Websites, Foto- und Videocontent für Dienstleister, Unternehmen und Marken, die professioneller auftreten, Vertrauen aufbauen und mehr qualifizierte Anfragen gewinnen wollen.",
   "siteUrl": "https://nikolasmaerker.com",
   "ogImage": "/og.png",
   "twitterHandle": "",
   "hero": {
-    "headline": "Hey, there",
+    "headline": "Websites und Content für Dienstleister, Unternehmen und Marken",
+    "decorativeHeadline": "Hey, there",
+    "headlineLines": [
+      "Websites und Content",
+      "für Dienstleister,",
+      "Unternehmen",
+      "und Marken"
+    ],
     "badgeText": "Offen für neue Projekte",
-    "specialization": "Spezialisiert auf Web Design & Development, Foto & Video sowie Drohne / Luftaufnahmen.",
+    "specialization": "Für Dienstleister, Unternehmen und persönliche Marken, die klarer kommunizieren, hochwertiger auftreten und online überzeugender verkaufen wollen.",
+    "specializationLines": [
+      "Für Dienstleister, Unternehmen und persönliche Marken,",
+      "die klarer kommunizieren hochwertiger auftreten",
+      "und online überzeugender verkaufen wollen"
+    ],
     "roleLines": ["WEB DESIGNER", "& DEVELOPER"],
     "roleSubline": "PHOTO / VIDEO / DRONE",
     "portraitSrc": "/hero/Nikolas_Maerker_hero.webp",
@@ -16,26 +28,26 @@
     "secondaryCta": { "label": "Projekte ansehen", "href": "#work" }
   },
   "servicesSectionLabel": "Meine Expertise",
-  "servicesHeading": "Gestaltet für Wirkung.",
-  "servicesLead": "Ich verbinde zielgerichtete Umsetzung mit klarer Kommunikation für wirkungsvolle digitale Arbeit.",
+  "servicesHeading": "Leistungen, die sichtbar weiterhelfen.",
+  "servicesLead": "Ich verbinde Strategie, Gestaltung und Umsetzung, damit dein Auftritt nicht nur gut aussieht, sondern klar kommuniziert, Vertrauen schafft und Anfragen unterstützt.",
   "services": [
     {
       "id": "web-design-dev",
       "title": "Web Design & Development",
-      "description": "Individuelle Lösungen und moderne Websites: schnell, barrierefrei und auf Conversion ausgelegt.",
-      "bullets": ["User Journey und UX", "SEO und Performance", "Landing Pages und Web-Apps"]
+      "description": "Websites und Landing Pages, die deine Leistung verständlich machen, professionell wirken und auf Anfragen ausgerichtet sind.",
+      "bullets": ["Positionierung, Struktur und UX", "SEO, Performance und saubere Umsetzung", "Landing Pages, Websites und individuelle Builds"]
     },
     {
       "id": "photo-video",
       "title": "Photo & Video",
-      "description": "Event-Fotografie und filmische Videos für deine Marken-Story.",
-      "bullets": ["Event- und Redaktionsfotografie", "Videoschnitt und Aftermovies", "Einheitlicher Look und Lieferung"]
+      "description": "Foto- und Videocontent, der deine Marke hochwertig zeigt und Material für Website, Social Media und Kampagnen liefert.",
+      "bullets": ["Event-, Portrait- und Redaktionsfotografie", "Videoproduktion, Schnitt und Aftermovies", "Einheitlicher Look fuer Web, Social und Ads"]
     },
     {
       "id": "drone-aerial",
       "title": "Drone Pilot / Aerial",
-      "description": "Professionelle Drohnenaufnahmen für Immobilien, Events und Marketing.",
-      "bullets": ["Lizenzierte Luftaufnahmen", "Immobilien und Events", "Ruhige, filmische Umsetzung"]
+      "description": "Drohnenaufnahmen, die Perspektive, Dynamik und Produktionswert in Immobilien-, Event- und Markenprojekte bringen.",
+      "bullets": ["Lizenzierte Luftaufnahmen", "Immobilien, Events und Markencontent", "Ruhige, filmische Shots fuer starke Einbindungen"]
     }
   ],
   "workSectionLabel": "Ausgewählte Arbeiten",
@@ -61,7 +73,7 @@
       "description": "Case Study Webdesign und -entwicklung.",
       "href": "https://www.cantero-consulting.de/",
       "image": "/work/cantero.webp",
-      "tags": ["Figma", "Framer"]
+      "tags": ["Figma", "Astro"]
     }
   ],
   "process": {

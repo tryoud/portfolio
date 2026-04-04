@@ -39,15 +39,17 @@ const formCopy = lang === "en"
     };
 ---
 
-<footer id="contact" class="border-t border-zinc-100 bg-white pt-24 pb-12" aria-labelledby="contact-heading">
-  <div class="mx-auto max-w-7xl px-6">
-    <div class="mb-24 flex flex-col items-center text-center">
-      <h2 id="contact-heading" class="font-display mb-8 text-5xl italic text-zinc-900 md:text-6xl">{headline}</h2>
-      {subline ? <p class="mb-8 max-w-md text-lg text-zinc-600">{subline}</p> : null}
+<footer id="contact" class="border-t border-zinc-100 bg-white pt-16 pb-12 md:pt-20" aria-labelledby="contact-heading" data-reveal-group>
+  <div class="mx-auto max-w-6xl px-6">
+    <div class="mb-20 flex flex-col items-center text-center md:mb-24">
+      <h2 id="contact-heading" class="scroll-reveal font-display mb-6 text-5xl italic text-zinc-900 md:text-6xl" data-reveal="fade">{headline}</h2>
+      {subline ? <p class="scroll-reveal mb-8 max-w-lg text-base leading-relaxed text-zinc-600 md:text-lg" data-reveal="fade" style="--reveal-delay: 90ms;">{subline}</p> : null}
       <form
         action="https://formspree.io/f/mzdakanj"
         method="POST"
-        class="w-full max-w-xl space-y-5 text-left"
+        class="scroll-reveal w-full max-w-xl space-y-5 rounded-2xl border border-zinc-200/70 bg-[#FDFBF7] p-5 text-left shadow-sm md:p-6"
+        data-reveal="card"
+        style="--reveal-delay: 180ms;"
       >
         <input type="text" name="_gotcha" class="hidden" tabindex="-1" autocomplete="off" />
         <div>
@@ -92,14 +94,14 @@ const formCopy = lang === "en"
             name="message"
             required
             rows={5}
-            class="w-full rounded-2xl border border-zinc-200/70 bg-white px-4 py-3 text-zinc-900 shadow-sm transition-colors placeholder:text-zinc-400 focus:outline-none focus:ring-2 focus:ring-zinc-400 focus:ring-offset-2 resize-y min-h-[120px]"
+            class="min-h-[120px] w-full resize-y rounded-2xl border border-zinc-200/70 bg-white px-4 py-3 text-zinc-900 shadow-sm transition-colors placeholder:text-zinc-400 focus:outline-none focus:ring-2 focus:ring-zinc-400 focus:ring-offset-2"
             placeholder={formCopy.messagePlaceholder}
           />
         </div>
         <div>
           <button
             type="submit"
-            class="inline-flex rounded-2xl border border-zinc-200/70 bg-zinc-900 px-5 py-3 text-sm font-medium text-white shadow-sm transition-colors hover:bg-zinc-800 focus:outline-none focus:ring-2 focus:ring-zinc-400 focus:ring-offset-2"
+            class="inline-flex rounded-2xl border border-zinc-200/70 bg-zinc-900 px-5 py-3 text-sm font-medium text-white shadow-sm transition-all hover:-translate-y-0.5 hover:bg-zinc-800 focus:outline-none focus:ring-2 focus:ring-zinc-400 focus:ring-offset-2"
           >
             {formCopy.submitLabel}
           </button>
@@ -119,7 +121,7 @@ const formCopy = lang === "en"
         </a>
       </div>
     ) : null}
-    <div class="mt-16 flex flex-col gap-6 border-t border-zinc-200/70 pt-10 text-sm text-zinc-500 md:flex-row md:justify-between md:items-center">
+    <div class="scroll-reveal mt-16 flex flex-col gap-6 border-t border-zinc-200/70 pt-10 text-sm text-zinc-500 md:flex-row md:justify-between md:items-center" data-reveal="fade" style="--reveal-delay: 260ms;">
       <p class="order-2 md:order-1">© {new Date().getFullYear()} {site.name}.</p>
       <nav class="order-1 md:order-2 flex flex-wrap items-center gap-x-8 gap-y-2" aria-label="Footer links">
         {links?.email && (
@@ -138,3 +140,23 @@ const formCopy = lang === "en"
     </div>
   </div>
 </footer>
+<script>
+  (function () {
+    const section = document.querySelector("#contact[data-reveal-group]");
+    if (!section || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    const items = section.querySelectorAll(".scroll-reveal");
+    if (!items.length) return;
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: "0px 0px -8% 0px" });
+
+    items.forEach((item) => observer.observe(item));
+  })();
+</script>
