@@ -14,6 +14,11 @@
       "companies,",
       "and brands"
     ],
+    "headlineTabletLines": [
+      "Websites and content",
+      "for service businesses, companies,",
+      "and brands"
+    ],
     "badgeText": "Available for new projects",
     "specialization": "For service businesses, companies, and personal brands that want to communicate more clearly, look more credible, and convert attention into real inquiries.",
     "specializationLines": [
@@ -52,28 +57,45 @@
   ],
   "workSectionLabel": "Selected Work",
   "workHeading": "Recent case studies.",
+  "workArchiveHeading": "More projects.",
+  "workArchiveLead": "Additional products, websites, and in-progress builds that round out the portfolio.",
   "workSwipeHint": "Swipe to discover →",
   "work": [
     {
-      "title": "Wiro",
-      "description": "Conversion-focused agency site with case studies and lead capture.",
+      "title": "WIRO e.V.",
+      "description": "Alumni website with clear structure and a more modern presence.",
       "href": "https://www.wiro-alumni.de/",
       "image": "/work/wiro.webp",
       "tags": ["Wordpress"]
     },
     {
-      "title": "Tum",
-      "description": "Another website build.",
+      "title": "TUM Management Alumni e.V.",
+      "description": "Alumni website with better orientation and a cleaner look.",
       "href": "https://tum-management-alumni.de/",
       "image": "/work/tum.webp",
       "tags": ["Wordpress", "php"]
     },
     {
       "title": "Cantero",
-      "description": "Web design and development case study.",
+      "description": "Consulting funnel with a clearer conversion flow.",
       "href": "https://www.cantero-consulting.de/",
       "image": "/work/cantero.webp",
       "tags": ["Figma", "Astro"]
+    }
+  ],
+  "workArchive": [
+    {
+      "title": "Focus Partner",
+      "description": "Product page for a focused tool.",
+      "href": "https://focuspartner.app/",
+      "tags": ["Astro", "Product"]
+    },
+    {
+      "title": "ExamDraft",
+      "description": "Coming-soon landing page for an education tool.",
+      "href": "",
+      "status": "Coming soon",
+      "tags": ["Astro", "Product", "Education"]
     }
   ],
   "process": {

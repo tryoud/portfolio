@@ -14,11 +14,16 @@
       "Unternehmen",
       "und Marken"
     ],
+    "headlineTabletLines": [
+      "Websites und Content",
+      "für Dienstleister, Unternehmen",
+      "und Marken"
+    ],
     "badgeText": "Offen für neue Projekte",
     "specialization": "Für Dienstleister, Unternehmen und persönliche Marken, die klarer kommunizieren, hochwertiger auftreten und online überzeugender verkaufen wollen.",
     "specializationLines": [
       "Für Dienstleister, Unternehmen und persönliche Marken,",
-      "die klarer kommunizieren hochwertiger auftreten",
+      "die klarer kommunizieren, hochwertiger auftreten",
       "und online überzeugender verkaufen wollen"
     ],
     "roleLines": ["WEB DESIGNER", "& DEVELOPER"],
@@ -41,39 +46,56 @@
       "id": "photo-video",
       "title": "Photo & Video",
       "description": "Foto- und Videocontent, der deine Marke hochwertig zeigt und Material für Website, Social Media und Kampagnen liefert.",
-      "bullets": ["Event-, Portrait- und Redaktionsfotografie", "Videoproduktion, Schnitt und Aftermovies", "Einheitlicher Look fuer Web, Social und Ads"]
+      "bullets": ["Event-, Portrait- und Redaktionsfotografie", "Videoproduktion, Schnitt und Aftermovies", "Einheitlicher Look für Web, Social und Ads"]
     },
     {
       "id": "drone-aerial",
       "title": "Drone Pilot / Aerial",
       "description": "Drohnenaufnahmen, die Perspektive, Dynamik und Produktionswert in Immobilien-, Event- und Markenprojekte bringen.",
-      "bullets": ["Lizenzierte Luftaufnahmen", "Immobilien, Events und Markencontent", "Ruhige, filmische Shots fuer starke Einbindungen"]
+      "bullets": ["Lizenzierte Luftaufnahmen", "Immobilien, Events und Markencontent", "Ruhige, filmische Shots für starke Einbindungen"]
     }
   ],
   "workSectionLabel": "Ausgewählte Arbeiten",
   "workHeading": "Aktuelle Projekte.",
+  "workArchiveHeading": "Weitere Projekte.",
+  "workArchiveLead": "Weitere Web-Projekte, Produkte und Builds, die ich aktuell mitentwickle oder vorbereitet habe.",
   "workSwipeHint": "Wischen zum Entdecken →",
   "work": [
     {
-      "title": "Wiro",
-      "description": "Conversion-orientierte Agency-Website mit Projekten und Lead-Erfassung.",
+      "title": "WIRO e.V.",
+      "description": "Alumni-Website mit klarem Aufbau und modernem Auftritt.",
       "href": "https://www.wiro-alumni.de/",
       "image": "/work/wiro.webp",
       "tags": ["Wordpress"]
     },
     {
-      "title": "Tum",
-      "description": "Weitere Website-Realisation.",
+      "title": "TUM Management Alumni e.V.",
+      "description": "Alumni-Website mit besserer Orientierung und modernerem Look.",
       "href": "https://tum-management-alumni.de/",
       "image": "/work/tum.webp",
       "tags": ["Wordpress", "php"]
     },
     {
       "title": "Cantero",
-      "description": "Case Study Webdesign und -entwicklung.",
+      "description": "Beratungs-Funnel mit klarer Conversion-Führung.",
       "href": "https://www.cantero-consulting.de/",
       "image": "/work/cantero.webp",
       "tags": ["Figma", "Astro"]
+    }
+  ],
+  "workArchive": [
+    {
+      "title": "Focus Partner",
+      "description": "Produktseite für ein fokussiertes Tool.",
+      "href": "https://focuspartner.app/",
+      "tags": ["Astro", "Product"]
+    },
+    {
+      "title": "ExamDraft",
+      "description": "Coming-soon-Landingpage für ein Education-Tool.",
+      "href": "",
+      "status": "Coming soon",
+      "tags": ["Astro", "Product", "Education"]
     }
   ],
   "process": {
@@ -99,7 +121,7 @@
     "sectionLabel": "Über mich",
     "paragraph": "Ich bin ein zielstrebiger Creator: schnell, fokussiert und conversion-orientiert. Ich baue Websites und Inhalte, die performen.",
     "bullets": [
-      "Performante Sites und Landing Pages (Astro, Cloudflare)",
+      "Performante Sites und Landing Pages (Astro, WordPress, Cloudflare)",
       "Event-Fotografie, Drohne und Videoschnitt",
       "Klarer Prozess und Kommunikation von Briefing bis Abnahme"
     ]

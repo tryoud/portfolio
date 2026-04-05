@@ -52,6 +52,9 @@ const headlineLines = headlineLinesSource
   .map((part) => String(part).trim())
   .filter(Boolean);
 const heroHeadlineLines = headlineLines.length ? headlineLines : [headline];
+const tabletHeadlineLines = Array.isArray(hero.headlineTabletLines) && hero.headlineTabletLines.length
+  ? hero.headlineTabletLines.map((line) => String(line).trim()).filter(Boolean)
+  : heroHeadlineLines;
 const decorativeParts = decorativeHeadline.split(/,\s*/);
 const decorativeLeft = decorativeParts[0] ? `${decorativeParts[0]},` : "Hey,";
 const decorativeRight = decorativeParts[1] ?? "there";
@@ -83,24 +86,31 @@ const decorativeRight = decorativeParts[1] ?? "there";
       </div>
     ) : null}
 
-    <div class="relative z-10 mx-auto w-full max-w-5xl pt-4 text-center md:hidden">
-      <div class="mx-auto max-w-[21rem]">
-        {heroHeadlineLines.map((line) => (
-          <p class="font-display text-[clamp(2.15rem,9vw,3.5rem)] font-medium italic leading-[0.92] tracking-[-0.04em] text-zinc-900">
+    <div class="relative z-10 mx-auto w-full max-w-5xl pt-4 text-center lg:hidden">
+      <div class="mx-auto max-w-[18rem] sm:hidden">
+        {(tabletHeadlineLines.length ? tabletHeadlineLines : heroHeadlineLines).map((line) => (
+          <p class="font-display text-[clamp(2rem,8.2vw,3.15rem)] font-medium italic leading-[0.9] tracking-[-0.04em] text-zinc-900">
+            {line}
+          </p>
+        ))}
+      </div>
+      <div class="mx-auto hidden max-w-[27rem] sm:block">
+        {tabletHeadlineLines.map((line) => (
+          <p class="font-display text-[clamp(2.65rem,6.8vw,4.1rem)] font-medium italic leading-[0.9] tracking-[-0.045em] text-zinc-900">
             {line}
           </p>
         ))}
       </div>
     </div>
 
-    <div class="pointer-events-none absolute left-1/2 top-[34%] z-10 hidden -translate-x-1/2 translate-y-[60px] items-baseline justify-center gap-[clamp(2rem,40vw,15rem)] sm:top-[30%] sm:-translate-y-[40px] sm:gap-[clamp(3rem,40vw,15rem)] md:flex md:z-0 md:top-[32%]" aria-hidden="true">
+    <div class="pointer-events-none absolute left-1/2 top-[34%] z-10 hidden -translate-x-1/2 translate-y-[60px] items-baseline justify-center gap-[clamp(2rem,40vw,15rem)] lg:flex lg:z-0 lg:top-[32%]" aria-hidden="true">
       <span class="hero-parallax font-display text-[clamp(2.5rem,8vw,10rem)] font-medium italic leading-tight tracking-[-0.02em] text-zinc-900/30" data-hero-layer="back">{decorativeLeft}</span>
       <span class="hero-parallax font-display text-[clamp(2.5rem,8vw,10rem)] font-medium italic leading-tight tracking-[-0.02em] text-zinc-900/30" data-hero-layer="back">{decorativeRight}</span>
     </div>
 
     <!-- Portrait: centered, no offset; bottom fade preserved -->
-    <div class="relative z-10 flex min-h-0 flex-1 flex-col items-center justify-center py-[clamp(0.25rem,1vw,0.5rem)] md:py-0">
-      <div class="hero-parallax-soft mx-auto w-64 shrink-0 translate-x-[40px] translate-y-[60px] scale-[1.2] sm:w-80 md:w-[28rem] md:translate-x-[40px] md:translate-y-[60px] md:scale-[1.2] lg:w-[34rem] xl:w-[min(440px,90vw)] [filter:drop-shadow(0_25px_50px_-12px_rgba(0,0,0,0.15))_drop-shadow(0_0_40px_-8px_rgba(0,0,0,0.08))]" data-hero-layer="portrait">
+    <div class="relative z-10 flex min-h-0 flex-1 flex-col items-center justify-center pt-4 pb-[clamp(0.25rem,1vw,0.5rem)] lg:py-0">
+      <div class="hero-parallax-soft mx-auto mt-4 w-52 shrink-0 translate-x-[8px] translate-y-[10px] scale-[1.02] sm:mt-5 sm:w-64 sm:translate-x-[10px] sm:translate-y-[8px] sm:scale-[1.04] lg:mt-0 lg:w-[34rem] lg:translate-x-[40px] lg:translate-y-[60px] lg:scale-[1.2] xl:w-[min(440px,90vw)] [filter:drop-shadow(0_25px_50px_-12px_rgba(0,0,0,0.15))_drop-shadow(0_0_40px_-8px_rgba(0,0,0,0.08))]" data-hero-layer="portrait">
         <img
           src={portraitSrc}
           alt=""
@@ -116,10 +126,10 @@ const decorativeRight = decorativeParts[1] ?? "there";
     </div>
 
     {specialization ? (
-      <div class="mx-auto mt-2 max-w-[20rem] text-center md:hidden">
+      <div class="mx-auto mt-6 max-w-[40rem] px-2 text-center lg:hidden">
         {specializationLines.length ? (
-          <div class="space-y-1 text-sm leading-relaxed text-zinc-600">
-            {specializationLines.map((line) => <p>{line}</p>)}
+          <div class="space-y-1 text-[clamp(0.95rem,2.3vw,1.15rem)] leading-relaxed text-zinc-600">
+            {specializationLines.map((line) => <p class="whitespace-nowrap">{line}</p>)}
           </div>
         ) : (
           <p class="text-sm leading-relaxed text-zinc-600">{specialization}</p>
@@ -128,7 +138,7 @@ const decorativeRight = decorativeParts[1] ?? "there";
     ) : null}
 
     {specialization ? (
-      <div class="hero-parallax absolute right-4 top-auto z-20 hidden text-right leading-relaxed text-zinc-600 lg:right-0 lg:top-[56%] lg:block lg:max-w-[440px] lg:-translate-y-1/2 lg:text-[0.8rem] xl:max-w-[480px] xl:text-[0.88rem]" data-hero-layer="copy">
+      <div class="hero-parallax absolute right-4 top-auto z-20 hidden text-right leading-relaxed text-zinc-600 lg:right-6 lg:top-[56%] lg:block lg:max-w-[440px] lg:-translate-y-1/2 lg:text-[0.8rem] xl:right-8 xl:max-w-[480px] xl:text-[0.88rem]" data-hero-layer="copy">
         {specializationLines.length ? (
           <div class="space-y-1">
             {specializationLines.map((line) => <p class="whitespace-nowrap">{line}</p>)}
