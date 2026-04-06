@@ -94,18 +94,18 @@ const decorativeRight = decorativeParts[1] ?? "there";
           </p>
         ))}
       </div>
-      <div class="mx-auto hidden max-w-[25rem] sm:block">
+      <div class="mx-auto hidden max-w-[38rem] sm:block">
         {tabletHeadlineLines.map((line) => (
-          <p class="font-display text-[clamp(2.5rem,6.3vw,3.8rem)] font-medium italic leading-[0.92] tracking-[-0.045em] text-zinc-900">
+          <p class="font-display text-[clamp(2.5rem,5vw,3.4rem)] font-medium italic leading-[0.92] tracking-[-0.045em] text-zinc-900">
             {line}
           </p>
         ))}
       </div>
     </div>
 
-    <div class="pointer-events-none absolute left-1/2 top-[34%] z-10 hidden -translate-x-1/2 translate-y-[60px] items-baseline justify-center gap-[clamp(2rem,40vw,15rem)] lg:flex lg:z-0 lg:top-[32%]" aria-hidden="true">
+    <div class="pointer-events-none absolute left-1/2 top-[34%] z-10 hidden -translate-x-1/2 translate-y-[20px] items-baseline justify-center gap-[clamp(2rem,28vw,26rem)] lg:flex lg:z-0 lg:top-[32%] xl:gap-[clamp(2.5rem,30vw,28rem)]" aria-hidden="true">
       <span class="hero-parallax font-display text-[clamp(2.5rem,8vw,10rem)] font-medium italic leading-tight tracking-[-0.02em] text-zinc-900/30" data-hero-layer="back">{decorativeLeft}</span>
-      <span class="hero-parallax font-display text-[clamp(2.5rem,8vw,10rem)] font-medium italic leading-tight tracking-[-0.02em] text-zinc-900/30" data-hero-layer="back">{decorativeRight}</span>
+      <span class="hero-parallax -translate-x-10 xl:-translate-x-14 2xl:-translate-x-16 font-display text-[clamp(2.5rem,8vw,10rem)] font-medium italic leading-tight tracking-[-0.02em] text-zinc-900/30" data-hero-layer="back">{decorativeRight}</span>
     </div>
 
     <!-- Portrait: centered, no offset; bottom fade preserved -->
@@ -129,7 +129,7 @@ const decorativeRight = decorativeParts[1] ?? "there";
       <div class="mx-auto mt-3 max-w-[20rem] px-3 text-center sm:max-w-[28rem] lg:hidden">
         {specializationLines.length ? (
           <div class="space-y-0.5 text-[clamp(0.82rem,3.6vw,0.95rem)] leading-[1.45] text-zinc-600 sm:text-[clamp(0.95rem,2.3vw,1.08rem)] sm:leading-[1.5]">
-            {specializationLines.map((line) => <p class="sm:whitespace-nowrap">{line}</p>)}
+            {specializationLines.map((line) => <p>{line}</p>)}
           </div>
         ) : (
           <p class="text-sm leading-relaxed text-zinc-600">{specialization}</p>
@@ -138,10 +138,10 @@ const decorativeRight = decorativeParts[1] ?? "there";
     ) : null}
 
     {specialization ? (
-      <div class="hero-parallax absolute right-4 top-auto z-20 hidden text-right leading-relaxed text-zinc-600 lg:right-6 lg:top-[56%] lg:block lg:max-w-[440px] lg:-translate-y-1/2 lg:text-[0.8rem] xl:right-8 xl:max-w-[480px] xl:text-[0.88rem]" data-hero-layer="copy">
+      <div class="hero-parallax absolute right-4 top-auto z-20 hidden text-right leading-relaxed text-zinc-600 lg:right-10 lg:top-[64%] lg:block lg:w-[280px] lg:-translate-y-1/2 lg:text-[0.74rem] xl:right-14 xl:w-[320px] xl:text-[0.82rem] 2xl:right-16 2xl:w-[350px] 2xl:text-[0.88rem]" data-hero-layer="copy">
         {specializationLines.length ? (
           <div class="space-y-1">
-            {specializationLines.map((line) => <p class="whitespace-nowrap">{line}</p>)}
+            {specializationLines.map((line) => <p>{line}</p>)}
           </div>
         ) : (
           <p>{specialization}</p>
