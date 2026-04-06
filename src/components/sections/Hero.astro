@@ -14,6 +14,13 @@ const specialization = hero.specialization ?? "";
 const specializationLines = Array.isArray(hero.specializationLines) && hero.specializationLines.length
   ? hero.specializationLines.map((line) => String(line).trim()).filter(Boolean)
   : [];
+const specializationDesktopLines = Array.isArray(hero.specializationDesktopLines) && hero.specializationDesktopLines.length
+  ? hero.specializationDesktopLines.map((line) => String(line).trim()).filter(Boolean)
+  : [];
+const specializationDesktopCompactLines = Array.isArray(hero.specializationDesktopCompactLines) && hero.specializationDesktopCompactLines.length
+  ? hero.specializationDesktopCompactLines.map((line) => String(line).trim()).filter(Boolean)
+  : [];
+const specializationCopy = specialization || specializationLines.join(" ");
 const decorativeHeadline = String(hero.decorativeHeadline ?? "Hey, there").trim();
 const nameLine = site.name ?? "";
 const roleLine = site.role ?? "";
@@ -52,6 +59,9 @@ const headlineLines = headlineLinesSource
   .map((part) => String(part).trim())
   .filter(Boolean);
 const heroHeadlineLines = headlineLines.length ? headlineLines : [headline];
+const mobileHeadlineLines = Array.isArray(hero.headlineMobileLines) && hero.headlineMobileLines.length
+  ? hero.headlineMobileLines.map((line) => String(line).trim()).filter(Boolean).slice(0, 5)
+  : heroHeadlineLines.slice(0, 5);
 const tabletHeadlineLines = Array.isArray(hero.headlineTabletLines) && hero.headlineTabletLines.length
   ? hero.headlineTabletLines.map((line) => String(line).trim()).filter(Boolean)
   : heroHeadlineLines;
@@ -87,9 +97,9 @@ const decorativeRight = decorativeParts[1] ?? "there";
     ) : null}
 
     <div class="relative z-10 mx-auto w-full max-w-5xl pt-3 text-center lg:hidden">
-      <div class="mx-auto max-w-[16.75rem] sm:hidden">
-        {(tabletHeadlineLines.length ? tabletHeadlineLines : heroHeadlineLines).map((line) => (
-          <p class="font-display text-[clamp(1.8rem,7.4vw,2.65rem)] font-medium italic leading-[0.9] tracking-[-0.04em] text-zinc-900">
+      <div class="mx-auto max-w-[20rem] sm:hidden">
+        {(mobileHeadlineLines.length ? mobileHeadlineLines : heroHeadlineLines).map((line) => (
+          <p class="font-display text-[clamp(1.72rem,7vw,2.45rem)] font-medium italic leading-[0.9] tracking-[-0.04em] text-zinc-900 whitespace-nowrap">
             {line}
           </p>
         ))}
@@ -125,26 +135,37 @@ const decorativeRight = decorativeParts[1] ?? "there";
       </div>
     </div>
 
-    {specialization ? (
-      <div class="mx-auto mt-3 max-w-[20rem] px-3 text-center sm:max-w-[28rem] lg:hidden">
-        {specializationLines.length ? (
-          <div class="space-y-0.5 text-[clamp(0.82rem,3.6vw,0.95rem)] leading-[1.45] text-zinc-600 sm:text-[clamp(0.95rem,2.3vw,1.08rem)] sm:leading-[1.5]">
-            {specializationLines.map((line) => <p>{line}</p>)}
+    {specializationCopy ? (
+      <div class="mx-auto mt-3 max-w-[18.75rem] px-2 text-center sm:max-w-[28rem] lg:hidden">
+        {specializationDesktopCompactLines.length ? (
+          <div class="space-y-0.5 text-center text-[clamp(0.75rem,3.1vw,0.94rem)] leading-[1.4] text-zinc-600 sm:text-[clamp(0.9rem,2.2vw,1.04rem)] sm:leading-[1.5]">
+            {specializationDesktopCompactLines.map((line) => <p class="whitespace-nowrap">{line}</p>)}
           </div>
         ) : (
-          <p class="text-sm leading-relaxed text-zinc-600">{specialization}</p>
+          <p class="text-[clamp(0.82rem,3.6vw,0.95rem)] leading-[1.45] text-zinc-600 [text-wrap:balance] sm:text-[clamp(0.95rem,2.3vw,1.08rem)] sm:leading-[1.5]">
+            {specializationCopy}
+          </p>
         )}
       </div>
     ) : null}
 
-    {specialization ? (
-      <div class="hero-parallax absolute right-4 top-auto z-20 hidden text-right leading-relaxed text-zinc-600 lg:right-10 lg:top-[64%] lg:block lg:w-[280px] lg:-translate-y-1/2 lg:text-[0.74rem] xl:right-14 xl:w-[320px] xl:text-[0.82rem] 2xl:right-16 2xl:w-[350px] 2xl:text-[0.88rem]" data-hero-layer="copy">
-        {specializationLines.length ? (
-          <div class="space-y-1">
-            {specializationLines.map((line) => <p>{line}</p>)}
+    {specializationCopy ? (
+      <div class="hero-parallax pointer-events-none absolute top-[60%] z-20 hidden -translate-y-1/2 text-right text-zinc-600 lg:block lg:left-[calc(50%+12.5rem)] lg:right-8 lg:text-[0.72rem] lg:leading-[1.55] xl:left-[calc(50%+13.5rem)] xl:right-10 xl:text-[0.8rem] 2xl:left-[calc(50%+14rem)] 2xl:right-12 2xl:text-[0.88rem]" data-hero-layer="copy">
+        {specializationDesktopCompactLines.length ? (
+          <>
+            <div class="ml-auto w-max space-y-1 xl:hidden">
+              {specializationDesktopCompactLines.map((line) => <p class="whitespace-nowrap">{line}</p>)}
+            </div>
+            <div class="ml-auto hidden w-max space-y-1 xl:block">
+              {(specializationDesktopLines.length ? specializationDesktopLines : specializationDesktopCompactLines).map((line) => <p class="whitespace-nowrap">{line}</p>)}
+            </div>
+          </>
+        ) : specializationDesktopLines.length ? (
+          <div class="ml-auto w-max space-y-1">
+            {specializationDesktopLines.map((line) => <p class="whitespace-nowrap">{line}</p>)}
           </div>
         ) : (
-          <p>{specialization}</p>
+          <p class="[text-wrap:balance]">{specializationCopy}</p>
         )}
       </div>
     ) : null}
@@ -167,7 +188,7 @@ const decorativeRight = decorativeParts[1] ?? "there";
             </a>
             <a
               href={secondaryHref}
-              class="inline-flex min-h-[48px] items-center justify-center rounded-xl border-2 border-zinc-900 px-5 py-3 text-sm font-medium text-zinc-900 hover:bg-zinc-50 focus:outline-none focus:ring-2 focus:ring-zinc-400 focus:ring-offset-2 transition-colors"
+              class="inline-flex min-h-[48px] items-center justify-center whitespace-nowrap rounded-xl border-2 border-zinc-900 px-5 py-3 text-sm font-medium text-zinc-900 hover:bg-zinc-50 focus:outline-none focus:ring-2 focus:ring-zinc-400 focus:ring-offset-2 transition-colors"
             >
               {secondaryLabel}
             </a>

@@ -14,6 +14,12 @@
       "Unternehmen",
       "und Marken"
     ],
+    "headlineMobileLines": [
+      "Websites und Content",
+      "für Dienstleister,",
+      "Unternehmen",
+      "und Marken"
+    ],
     "headlineTabletLines": [
       "Websites und Content",
       "für Dienstleister, Unternehmen",
@@ -22,10 +28,20 @@
     "badgeText": "",
     "specialization": "Für Dienstleister, Unternehmen und persönliche Marken, die klarer kommunizieren, hochwertiger auftreten und online überzeugender verkaufen wollen.",
     "specializationLines": [
-      "Klarer kommunizieren, hochwertiger auftreten",
-      "und online überzeugender verkaufen –",
-      "für Dienstleister, Unternehmen",
-      "und persönliche Marken."
+      "Für Dienstleister, Unternehmen und persönliche Marken,",
+      "die klarer kommunizieren, hochwertiger auftreten",
+      "und online überzeugender verkaufen wollen"
+    ],
+    "specializationDesktopLines": [
+      "Für Dienstleister, Unternehmen und persönliche Marken,",
+      "die klarer kommunizieren, hochwertiger auftreten",
+      "und online überzeugender verkaufen wollen"
+    ],
+    "specializationDesktopCompactLines": [
+      "Für Dienstleister, Unternehmen und persönliche",
+      "Marken, die klarer kommunizieren, hochwertiger",
+      "auftreten und online überzeugender",
+      "verkaufen wollen"
     ],
     "roleLines": ["WEB DESIGNER", "& DEVELOPER"],
     "roleSubline": "PHOTO / VIDEO / DRONE",
