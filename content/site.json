@@ -105,14 +105,14 @@
       "title": "Focus Partner",
       "description": "Produktseite für ein fokussiertes Tool.",
       "href": "https://focuspartner.app/",
-      "tags": ["Astro", "Product"]
+      "tags": ["Astro", "Product", "JavaScript"]
     },
     {
       "title": "ExamDraft",
       "description": "Coming-soon-Landingpage für ein Education-Tool.",
       "href": "",
       "status": "Coming soon",
-      "tags": ["Astro", "Product", "Education"]
+      "tags": ["Astro", "Product", "Education", "TypeScript"]
     }
   ],
   "process": {
