@@ -83,7 +83,7 @@
       "description": "Alumni-Website mit klarem Aufbau und modernem Auftritt.",
       "href": "https://www.wiro-alumni.de/",
       "image": "/work/wiro.webp",
-      "tags": ["Wordpress"]
+      "tags": ["Wordpress", "php"]
     },
     {
       "title": "TUM Management Alumni e.V.",
@@ -110,8 +110,8 @@
     {
       "title": "ExamDraft",
       "description": "Coming-soon-Landingpage für ein Education-Tool.",
-      "href": "",
-      "status": "Coming soon",
+      "href": "https://examdraft.com/",
+      "status": "Beta",
       "tags": ["Astro", "Product", "Education", "TypeScript"]
     }
   ],
