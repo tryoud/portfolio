@@ -50,6 +50,7 @@ const description = site.tagline ?? "";
   </head>
 
   <body class="min-h-screen overflow-x-hidden bg-[var(--bg)] text-[var(--text)] antialiased">
+    <div id="top" aria-hidden="true"></div>
     <script is:inline>
       (function () {
         var y = sessionStorage.getItem("langSwitchScroll");
@@ -64,7 +65,7 @@ const description = site.tagline ?? "";
         }
       })();
     </script>
-    <header id="top" class="sticky top-0 z-50 w-full border-b border-[var(--border)] bg-[var(--surface)]/85 backdrop-blur-md">
+    <header class="sticky top-0 z-50 w-full border-b border-[var(--border)] bg-[var(--surface)]/85 backdrop-blur-md">
       <nav class="mx-auto flex h-[4.5rem] max-w-6xl items-center justify-between px-4 sm:px-6" aria-label="Main">
         <a href="/en/#top" id="logo-link" class="font-display text-2xl font-semibold italic tracking-tight text-[var(--text)] hover:opacity-80 focus:outline-none focus:ring-2 focus:ring-[var(--ring)] focus:ring-offset-2 focus:ring-offset-[var(--ring-offset)] rounded">{site.name}.</a>
         <ul class="hidden items-center gap-7 md:flex text-sm font-medium text-[var(--muted)]">

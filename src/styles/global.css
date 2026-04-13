@@ -110,8 +110,8 @@
   background-color: var(--bg) !important;
 }
 
-/* Hero: no section background so wrapper layers (solid + blue cloud) are visible (hero is first section in main, no longer has id="top") */
-.dark [id="top"] {
+/* Header: transparent bg in dark so sticky nav blends naturally */
+.dark header {
   background-color: transparent !important;
   border-color: transparent !important;
 }
@@ -306,8 +306,8 @@
   }
 }
 
-/* Hero: background and badge (exclude nav contact button so it keeps light pill + outline in dark) */
-.dark [id="top"] [class*="bg-\[var\("]:not(.nav-contact-btn) {
+/* Header: background and badge (exclude nav contact button so it keeps light pill + outline in dark) */
+.dark header [class*="bg-\[var\("]:not(.nav-contact-btn) {
   background-color: var(--bg) !important;
 }
 
@@ -316,12 +316,12 @@
   background: radial-gradient(ellipse 75% 65% at 50% 38%, rgba(147, 197, 253, 0.5) 0%, rgba(96, 165, 250, 0.3) 35%, rgba(59, 130, 246, 0.12) 55%, transparent 75%) !important;
 }
 
-.dark [id="top"] [class*="rounded-full"].border.border-zinc-200 {
+.dark header [class*="rounded-full"].border.border-zinc-200 {
   background-color: var(--surface) !important;
   border-color: var(--border) !important;
 }
 
-.dark [id="top"] [class*="rounded-full"] span.text-zinc-700 {
+.dark header [class*="rounded-full"] span.text-zinc-700 {
   color: var(--muted) !important;
 }
 
