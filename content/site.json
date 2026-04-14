@@ -113,6 +113,12 @@
       "href": "https://examdraft.com/",
       "status": "Beta",
       "tags": ["Astro", "Product", "Education", "TypeScript"]
+    },
+    {
+      "title": "Tryoud",
+      "description": "Konzept-Landingpage für eine kreative Agentur.",
+      "href": "https://www.tryoud.com/",
+      "tags": ["Astro", "Product", "JavaScript"]
     }
   ],
   "process": {
