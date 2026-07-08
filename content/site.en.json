@@ -1,46 +1,46 @@
 {
   "name": "Nikolas Maerker",
   "role": "Web Developer · Photographer & Videographer",
-  "tagline": "I create websites, photo, and video content for service businesses, companies, and brands that want a stronger presence, more trust, and more qualified inbound leads.",
+  "tagline": "Custom websites, photo, and video content for mid-sized companies – individually designed, cleanly built, and focused on measurable inquiries.",
   "siteUrl": "https://nikolasmaerker.com",
   "ogImage": "/og.png",
   "twitterHandle": "",
+  "navCtaLabel": "Start a project",
   "hero": {
-    "headline": "Websites and content for service businesses, companies, and brands",
+    "headline": "Websites that turn visitors into clients",
     "decorativeHeadline": "Hey, there",
     "headlineLines": [
-      "Websites and content",
-      "for service businesses,",
-      "companies, and brands"
+      "Websites that",
+      "turn visitors",
+      "into clients"
     ],
     "headlineTabletLines": [
-      "Websites and content",
-      "for service businesses,",
-      "companies, and brands"
+      "Websites that turn",
+      "visitors into clients"
     ],
     "badgeText": "Available for new projects",
-    "specialization": "For service businesses, companies, and personal brands that want to communicate more clearly, look more credible, and convert attention into real inquiries.",
+    "specialization": "For mid-sized companies and brands that want to stand out from the template crowd, build trust, and win measurably more inquiries.",
     "specializationLines": [
-      "Communicate more clearly, look more credible,",
-      "and sell more convincingly online –",
-      "for businesses, companies,",
-      "and brands."
+      "For mid-sized companies and brands",
+      "that want to stand out from the template crowd,",
+      "build trust, and win measurably",
+      "more inquiries."
     ],
     "portraitSrc": "/hero/Nikolas_Maerker_hero.webp",
-    "primaryCta": { "label": "Contact", "href": "#contact" },
+    "primaryCta": { "label": "Start a project", "href": "#contact" },
     "secondaryCta": { "label": "View work", "href": "#work" },
     "roleLines": ["WEB DESIGNER", "& DEVELOPER"],
     "roleSubline": "PHOTO / VIDEO / DRONE"
   },
   "servicesSectionLabel": "What I do",
   "servicesHeading": "Services built to move the brand forward.",
-  "servicesLead": "I combine strategy, design, and execution so your presence does more than look polished. It should communicate clearly, build trust, and support conversions.",
+  "servicesLead": "No off-the-shelf templates: strategy, design, and code from a single source – so your site loads fast, feels premium, and turns visitors into inquiries.",
   "services": [
     {
       "id": "web-design-dev",
       "title": "Web Design & Development",
-      "description": "Websites and landing pages that make your offer easier to understand, feel more credible, and turn visits into inquiries.",
-      "bullets": ["Positioning, structure, and UX", "SEO, performance, and clean implementation", "Landing pages, websites, and custom builds"]
+      "description": "Custom-designed websites and landing pages – no page builders, no templates – that make your offer easy to understand and are built to convert.",
+      "bullets": ["Tailored design, positioning, and UX", "SEO, performance, and clean implementation", "Landing pages, websites, and custom builds"]
     },
     {
       "id": "photo-video",
@@ -56,28 +56,36 @@
     }
   ],
   "workSectionLabel": "Selected Work",
-  "workHeading": "Recent case studies.",
+  "workHeading": "Selected projects.",
   "workArchiveHeading": "More projects.",
   "workArchiveLead": "Additional products, websites, and in-progress builds that round out the portfolio.",
   "workSwipeHint": "Swipe to discover →",
+  "workCta": {
+    "text": "Your project could be next.",
+    "label": "Start a project",
+    "href": "#contact"
+  },
   "work": [
     {
       "title": "WIRO e.V.",
-      "description": "Alumni website with clear structure and a more modern presence.",
+      "scope": "Design · Build",
+      "description": "Alumni website for the association: clear structure, a modern look, and content that gets members where they need to go.",
       "href": "https://www.wiro-alumni.de/",
       "image": "/work/wiro.webp",
       "tags": ["Wordpress", "php"]
     },
     {
       "title": "TUM Management Alumni e.V.",
-      "description": "Alumni website with better orientation and a cleaner look.",
+      "scope": "Design · Build",
+      "description": "Website for TUM's management alumni network: better orientation, decluttered content, and a contemporary look.",
       "href": "https://tum-management-alumni.de/",
       "image": "/work/tum.webp",
       "tags": ["Wordpress", "php"]
     },
     {
       "title": "Cantero",
-      "description": "Consulting funnel with a clearer conversion flow.",
+      "scope": "Concept · Design · Development",
+      "description": "Consulting funnel from the first Figma sketch to launch in Astro – every section guides visitors toward the inquiry.",
       "href": "https://www.cantero-consulting.de/",
       "image": "/work/cantero.webp",
       "tags": ["Figma", "Astro"]
@@ -91,27 +99,27 @@
       "tags": ["Astro", "Product", "JavaScript"]
     },
     {
+      "title": "Tryoud",
+      "description": "Modern concept page with a similar focus to this portfolio.",
+      "href": "https://www.tryoud.com/",
+      "tags": ["Astro", "JavaScript"]
+    },
+    {
       "title": "ExamDraft",
-      "description": "Coming-soon landing page for an education tool.",
+      "description": "Application for creating high-quality practice exams.",
       "href": "https://examdraft.com/",
       "status": "Beta",
       "tags": ["Astro", "Product", "Education", "TypeScript"]
-    },
-    {
-      "title": "Tryoud",
-      "description": "Concept landing page for a creative agency.",
-      "href": "https://www.tryoud.com/",
-      "tags": ["Astro", "Product", "JavaScript"]
     }
   ],
   "process": {
     "sectionLabel": "How I work",
     "heading": "Seamless collaboration.",
     "steps": [
-      { "title": "Discovery", "description": "I listen to your vision and define the roadmap for success." },
-      { "title": "Strategy", "description": "Researching the market to position you perfectly." },
-      { "title": "Creation", "description": "Designing, building, and refining your digital assets." },
-      { "title": "Launch", "description": "Deploying to the world with full support and optimization." }
+      { "title": "Discovery", "description": "A free intro call: goals, audience, and what your website needs to deliver." },
+      { "title": "Strategy", "description": "Concept, page structure, and positioning – before a single line of code." },
+      { "title": "Creation", "description": "Design and development under one roof, with regular check-ins for feedback." },
+      { "title": "Launch", "description": "Go-live with a technical check, handover, and post-launch optimization." }
     ]
   },
   "media": {
@@ -125,16 +133,43 @@
   },
   "about": {
     "sectionLabel": "About",
-    "paragraph": "I'm a focused creator: fast, conversion-oriented. I build websites and content that perform.",
+    "paragraph": "I'm Nikolas – web developer, photographer, and licensed drone pilot. With me you get design, code, and content from one person: a single point of contact from the first call to launch, short feedback loops, and a result that stands apart from the template crowd.",
     "bullets": [
       "High-performance sites and landing pages (Astro, Cloudflare)",
       "Event photography, drone shots, and video editing",
       "Clear process and communication from brief to delivery"
     ]
   },
+  "faq": {
+    "sectionLabel": "FAQ",
+    "heading": "Frequently asked.",
+    "lead": "Short, honest answers – everything else we can cover in a free intro call.",
+    "items": [
+      {
+        "q": "What does a website cost?",
+        "a": "It depends on the scope: a focused landing page takes far less time than a full presence with photo and video production. After the free intro call you get a transparent proposal with a clearly defined scope – no hidden costs."
+      },
+      {
+        "q": "How long does a project take?",
+        "a": "A landing page is typically live within a few weeks; a larger site takes correspondingly longer. We define the concrete timeline in the intro call – with clear milestones, so you always know where your project stands."
+      },
+      {
+        "q": "How are you different from a traditional agency?",
+        "a": "You work directly with the person who designs and builds your project – no project managers in between, no overhead. That means short feedback loops, fast decisions, and a coherent result across design, code, photo, and video."
+      },
+      {
+        "q": "Can I maintain the website myself afterwards?",
+        "a": "Yes. Depending on the project I build on WordPress or a modern stack like Astro – either way you get a handover session and can update content yourself. And if you'd rather have support, I'm available after launch too."
+      },
+      {
+        "q": "I already have a website – is a relaunch worth it?",
+        "a": "If your site loads slowly, looks broken on phones, or barely generates inquiries – usually yes. In the intro call we take an honest look: sometimes targeted optimization is enough, sometimes a rebuild is the better investment."
+      }
+    ]
+  },
   "contact": {
     "headline": "Let's build something memorable.",
-    "subline": "Reach out to discuss how I can help with your project.",
+    "subline": "Tell me briefly about your project – I'll reply personally within 24 hours. No strings attached.",
     "email": "mailto:nikolas.maerker@gmail.com",
     "socials": [
       { "label": "GitHub", "href": "https://github.com/tryoud" },

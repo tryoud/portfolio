@@ -1,63 +1,61 @@
 {
   "name": "Nikolas Maerker",
   "role": "Web Developer · Photographer & Videographer",
-  "tagline": "Ich entwickle Websites, Foto- und Videocontent für Dienstleister, Unternehmen und Marken, die professioneller auftreten, Vertrauen aufbauen und mehr qualifizierte Anfragen gewinnen wollen.",
+  "tagline": "Maßgeschneiderte Websites, Foto- und Videocontent für mittelständische Unternehmen – individuell gestaltet, sauber entwickelt und auf messbare Anfragen ausgerichtet.",
   "siteUrl": "https://nikolasmaerker.com",
   "ogImage": "/og.png",
   "twitterHandle": "",
+  "navCtaLabel": "Projekt anfragen",
   "hero": {
-    "headline": "Websites und Content für Dienstleister, Unternehmen und Marken",
+    "headline": "Websites, die aus Besuchern Kunden machen",
     "decorativeHeadline": "Hey, there",
     "headlineLines": [
-      "Websites und Content",
-      "für Dienstleister,",
-      "Unternehmen",
-      "und Marken"
+      "Websites, die",
+      "aus Besuchern",
+      "Kunden machen"
     ],
     "headlineMobileLines": [
-      "Websites und Content",
-      "für Dienstleister,",
-      "Unternehmen",
-      "und Marken"
+      "Websites, die",
+      "aus Besuchern",
+      "Kunden machen"
     ],
     "headlineTabletLines": [
-      "Websites und Content",
-      "für Dienstleister, Unternehmen",
-      "und Marken"
+      "Websites, die aus Besuchern",
+      "Kunden machen"
     ],
-    "badgeText": "",
-    "specialization": "Für Dienstleister, Unternehmen und persönliche Marken, die klarer kommunizieren, hochwertiger auftreten und online überzeugender verkaufen wollen.",
+    "badgeText": "Verfügbar für neue Projekte",
+    "specialization": "Für mittelständische Unternehmen und Marken, die sich vom Standard abheben, Vertrauen aufbauen und messbar mehr Anfragen gewinnen wollen.",
     "specializationLines": [
-      "Für Dienstleister, Unternehmen und persönliche Marken,",
-      "die klarer kommunizieren, hochwertiger auftreten",
-      "und online überzeugender verkaufen wollen"
+      "Für mittelständische Unternehmen und Marken,",
+      "die sich vom Standard abheben, Vertrauen aufbauen",
+      "und messbar mehr Anfragen gewinnen wollen"
     ],
     "specializationDesktopLines": [
-      "Für Dienstleister, Unternehmen und persönliche Marken,",
-      "die klarer kommunizieren, hochwertiger auftreten",
-      "und online überzeugender verkaufen wollen"
+      "Für mittelständische Unternehmen und Marken,",
+      "die sich vom Standard abheben, Vertrauen aufbauen",
+      "und messbar mehr Anfragen gewinnen wollen"
     ],
     "specializationDesktopCompactLines": [
-      "Für Dienstleister, Unternehmen und persönliche",
-      "Marken, die klarer kommunizieren, hochwertiger",
-      "auftreten und online überzeugender",
-      "verkaufen wollen"
+      "Für mittelständische Unternehmen",
+      "und Marken, die sich vom Standard",
+      "abheben, Vertrauen aufbauen und",
+      "messbar mehr Anfragen gewinnen"
     ],
     "roleLines": ["WEB DESIGNER", "& DEVELOPER"],
     "roleSubline": "PHOTO / VIDEO / DRONE",
     "portraitSrc": "/hero/Nikolas_Maerker_hero.webp",
-    "primaryCta": { "label": "Kontakt", "href": "#contact" },
+    "primaryCta": { "label": "Projekt anfragen", "href": "#contact" },
     "secondaryCta": { "label": "Projekte ansehen", "href": "#work" }
   },
   "servicesSectionLabel": "Meine Expertise",
   "servicesHeading": "Leistungen, die sichtbar weiterhelfen.",
-  "servicesLead": "Ich verbinde Strategie, Gestaltung und Umsetzung, damit dein Auftritt nicht nur gut aussieht, sondern klar kommuniziert, Vertrauen schafft und Anfragen unterstützt.",
+  "servicesLead": "Keine Templates von der Stange: Strategie, Design und Code aus einer Hand – damit dein Auftritt schnell lädt, hochwertig wirkt und Besucher zu Anfragen führt.",
   "services": [
     {
       "id": "web-design-dev",
       "title": "Web Design & Development",
-      "description": "Websites und Landing Pages, die deine Leistung verständlich machen, professionell wirken und auf Anfragen ausgerichtet sind.",
-      "bullets": ["Positionierung, Struktur und UX", "SEO, Performance und saubere Umsetzung", "Landing Pages, Websites und individuelle Builds"]
+      "description": "Individuell entworfene Websites und Landing Pages – kein Baukasten, kein Template –, die deine Leistung verständlich machen und auf Anfragen ausgerichtet sind.",
+      "bullets": ["Maßgeschneidertes Design, Positionierung und UX", "SEO, Performance und saubere Umsetzung", "Landing Pages, Websites und individuelle Builds"]
     },
     {
       "id": "photo-video",
@@ -73,28 +71,36 @@
     }
   ],
   "workSectionLabel": "Ausgewählte Arbeiten",
-  "workHeading": "Aktuelle Projekte.",
+  "workHeading": "Ausgewählte Projekte.",
   "workArchiveHeading": "Weitere Projekte.",
   "workArchiveLead": "Weitere Web-Projekte, Produkte und Builds, die ich aktuell mitentwickle oder vorbereitet habe.",
   "workSwipeHint": "Wischen zum Entdecken →",
+  "workCta": {
+    "text": "Dein Projekt könnte das nächste sein.",
+    "label": "Projekt anfragen",
+    "href": "#contact"
+  },
   "work": [
     {
       "title": "WIRO e.V.",
-      "description": "Alumni-Website mit klarem Aufbau und modernem Auftritt.",
+      "scope": "Design · Umsetzung",
+      "description": "Alumni-Website für den Verein: klare Struktur, moderner Auftritt und Inhalte, die Mitglieder schnell ans Ziel führen.",
       "href": "https://www.wiro-alumni.de/",
       "image": "/work/wiro.webp",
       "tags": ["Wordpress", "php"]
     },
     {
       "title": "TUM Management Alumni e.V.",
-      "description": "Alumni-Website mit besserer Orientierung und modernerem Look.",
+      "scope": "Design · Umsetzung",
+      "description": "Website für das Alumni-Netzwerk der TUM: bessere Orientierung, aufgeräumte Inhalte und ein zeitgemäßer Look.",
       "href": "https://tum-management-alumni.de/",
       "image": "/work/tum.webp",
       "tags": ["Wordpress", "php"]
     },
     {
       "title": "Cantero",
-      "description": "Beratungs-Funnel mit klarer Conversion-Führung.",
+      "scope": "Konzept · Design · Entwicklung",
+      "description": "Beratungs-Funnel von der ersten Figma-Skizze bis zum Launch in Astro – jede Sektion führt gezielt zur Anfrage.",
       "href": "https://www.cantero-consulting.de/",
       "image": "/work/cantero.webp",
       "tags": ["Figma", "Astro"]
@@ -108,27 +114,27 @@
       "tags": ["Astro", "Product", "JavaScript"]
     },
     {
+      "title": "Tryoud",
+      "description": "Moderne Konzeptseite mit ähnlichem Fokus wie die Portfolio-Seite.",
+      "href": "https://www.tryoud.com/",
+      "tags": ["Astro", "JavaScript"]
+    },
+    {
       "title": "ExamDraft",
-      "description": "Coming-soon-Landingpage für ein Education-Tool.",
+      "description": "Application zur Erstellung von hochwertigen Probe-Klausuren.",
       "href": "https://examdraft.com/",
       "status": "Beta",
       "tags": ["Astro", "Product", "Education", "TypeScript"]
-    },
-    {
-      "title": "Tryoud",
-      "description": "Konzept-Landingpage für eine kreative Agentur.",
-      "href": "https://www.tryoud.com/",
-      "tags": ["Astro", "Product", "JavaScript"]
     }
   ],
   "process": {
     "sectionLabel": "So arbeite ich",
     "heading": "Reibungslose Zusammenarbeit.",
     "steps": [
-      { "title": "Discovery", "description": "Ich höre deiner Vision zu und definiere den Weg zum Erfolg." },
-      { "title": "Strategie", "description": "Markt und Positionierung für dein Projekt." },
-      { "title": "Umsetzung", "description": "Design, Build und Feinschliff deiner digitalen Produkte." },
-      { "title": "Launch", "description": "Go-Live mit Support und Optimierung." }
+      { "title": "Discovery", "description": "Kostenloses Erstgespräch: Ziele, Zielgruppe und was deine Website leisten muss." },
+      { "title": "Strategie", "description": "Konzept, Seitenstruktur und Positionierung – bevor die erste Zeile Code entsteht." },
+      { "title": "Umsetzung", "description": "Design und Entwicklung aus einer Hand, mit regelmäßigen Zwischenständen zum Feedback." },
+      { "title": "Launch", "description": "Go-Live mit Technik-Check, Einweisung und Optimierung nach dem Start." }
     ]
   },
   "media": {
@@ -142,16 +148,43 @@
   },
   "about": {
     "sectionLabel": "Über mich",
-    "paragraph": "Ich bin ein zielstrebiger Creator: schnell, fokussiert und conversion-orientiert. Ich baue Websites und Inhalte, die performen.",
+    "paragraph": "Ich bin Nikolas – Webentwickler, Fotograf und lizenzierter Drohnenpilot. Bei mir bekommst du Design, Code und Content aus einer Hand: ein Ansprechpartner vom ersten Gespräch bis zum Launch, kurze Wege, klare Kommunikation und ein Ergebnis, das sich vom Standard abhebt.",
     "bullets": [
       "Performante Sites und Landing Pages (Astro, WordPress, Cloudflare)",
       "Event-Fotografie, Drohne und Videoschnitt",
       "Klarer Prozess und Kommunikation von Briefing bis Abnahme"
     ]
   },
+  "faq": {
+    "sectionLabel": "FAQ",
+    "heading": "Häufige Fragen.",
+    "lead": "Kurz und ehrlich beantwortet – alles Weitere klären wir im kostenlosen Erstgespräch.",
+    "items": [
+      {
+        "q": "Was kostet eine Website bei dir?",
+        "a": "Das hängt vom Umfang ab: Eine fokussierte Landing Page ist deutlich schneller umgesetzt als ein kompletter Auftritt mit Foto- und Videoproduktion. Nach dem kostenlosen Erstgespräch bekommst du ein transparentes Angebot mit klarem Leistungsumfang – ohne versteckte Kosten."
+      },
+      {
+        "q": "Wie lange dauert die Umsetzung?",
+        "a": "Eine Landing Page ist typischerweise in wenigen Wochen live, ein größerer Auftritt entsprechend länger. Den konkreten Zeitplan legen wir im Erstgespräch fest – mit klaren Meilensteinen, damit du jederzeit weißt, wo dein Projekt steht."
+      },
+      {
+        "q": "Was unterscheidet dich von einer klassischen Agentur?",
+        "a": "Du arbeitest direkt mit der Person, die dein Projekt entwirft und umsetzt – ohne Projektmanager dazwischen, ohne Overhead. Das heißt: kurze Wege, schnelle Entscheidungen und ein Ergebnis aus einem Guss, von Design über Code bis zum Foto- und Videocontent."
+      },
+      {
+        "q": "Kann ich die Website später selbst pflegen?",
+        "a": "Ja. Je nach Projekt setze ich auf WordPress oder einen modernen Stack wie Astro – in beiden Fällen bekommst du eine Einweisung und kannst Inhalte selbst aktualisieren. Und wenn du Unterstützung willst, bin ich auch nach dem Launch erreichbar."
+      },
+      {
+        "q": "Ich habe schon eine Website – lohnt sich ein Relaunch?",
+        "a": "Wenn deine Seite langsam lädt, auf dem Smartphone schlecht aussieht oder kaum Anfragen bringt, meist ja. Im Erstgespräch schauen wir ehrlich drauf: Manchmal reicht gezielte Optimierung, manchmal ist ein Neuaufbau die bessere Investition."
+      }
+    ]
+  },
   "contact": {
     "headline": "Lass uns etwas Bleibendes bauen.",
-    "subline": "Schreib mir, wie ich dich bei deinem Projekt unterstützen kann.",
+    "subline": "Beschreib kurz dein Projekt – ich antworte persönlich innerhalb von 24 Stunden. Unverbindlich und kostenlos.",
     "email": "mailto:nikolas.maerker@gmail.com",
     "socials": [
       { "label": "GitHub", "href": "https://github.com/tryoud" },
