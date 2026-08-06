@@ -1,0 +1,80 @@
+---
+const { site } = Astro.props;
+const clients = site.clients ?? {};
+const label = clients.label ?? "";
+const items = Array.isArray(clients.items)
+  ? clients.items.filter((item) => item?.name)
+  : [];
+---
+
+{items.length ? (
+  <section id="clients" class="border-t border-zinc-100 bg-white py-8 md:py-10" aria-label={label || "Kunden"} data-reveal-group>
+    <div class="mx-auto max-w-6xl px-6">
+      <div class="scroll-reveal flex flex-col items-center gap-5 md:flex-row md:gap-10" data-reveal="fade">
+        {label ? (
+          <p class="shrink-0 text-center text-[0.7rem] font-semibold uppercase leading-snug tracking-[0.18em] text-zinc-400 md:max-w-[9rem] md:text-left">
+            {label}
+          </p>
+        ) : null}
+        <div class="hidden h-10 w-px shrink-0 bg-zinc-200 md:block" aria-hidden="true" />
+        <ul class="flex flex-wrap items-center justify-center gap-x-8 gap-y-4 md:justify-start md:gap-x-10 lg:gap-x-12">
+          {items.map((item) => {
+            const logo = (item.logo && String(item.logo).trim()) || "";
+            const href = (item.href && String(item.href).trim()) || "";
+            const inner = logo ? (
+              <img
+                src={logo}
+                alt={item.name}
+                height="28"
+                loading="lazy"
+                decoding="async"
+                class="h-6 w-auto max-w-[9rem] object-contain opacity-55 grayscale transition duration-300 group-hover:opacity-100 group-hover:grayscale-0 md:h-7"
+              />
+            ) : (
+              <span class="whitespace-nowrap text-sm font-semibold tracking-tight text-[var(--muted-soft)] transition-colors duration-300 group-hover:text-[var(--text)] md:text-base">
+                {item.name}
+              </span>
+            );
+            return (
+              <li>
+                {href ? (
+                  <a
+                    href={href}
+                    target="_blank"
+                    rel="noreferrer noopener"
+                    class="group inline-flex items-center rounded focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--ring-offset)]"
+                  >
+                    {inner}
+                  </a>
+                ) : (
+                  <span class="group inline-flex items-center">{inner}</span>
+                )}
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+    </div>
+  </section>
+) : null}
+
+<script>
+  (function () {
+    const section = document.querySelector("#clients[data-reveal-group]");
+    if (!section || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    const items = section.querySelectorAll(".scroll-reveal");
+    if (!items.length) return;
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.2, rootMargin: "0px 0px -5% 0px" });
+
+    items.forEach((item) => observer.observe(item));
+  })();
+</script>

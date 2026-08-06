@@ -2,6 +2,7 @@
 import "../../styles/global.css";
 import site from "../../../content/site.en.json";
 import Hero from "../../components/sections/Hero.astro";
+import Clients from "../../components/sections/Clients.astro";
 import Services from "../../components/sections/Services.astro";
 import Work from "../../components/sections/Work.astro";
 import Process from "../../components/sections/Process.astro";
@@ -20,9 +21,23 @@ const title = `${site.name} — ${site.role}`;
 const description = site.tagline ?? "";
 const links = (site as { links?: { github?: string; linkedin?: string; instagram?: string } }).links ?? {};
 const sameAs = [links.github, links.linkedin, links.instagram].filter(Boolean);
+const faqItems = (site as { faq?: { items?: { q?: string; a?: string }[] } }).faq?.items?.filter((i) => i?.q && i?.a) ?? [];
 const jsonLd = {
   "@context": "https://schema.org",
   "@graph": [
+    ...(faqItems.length
+      ? [
+          {
+            "@type": "FAQPage",
+            "@id": `${baseUrl}/en/#faq`,
+            mainEntity: faqItems.map((item) => ({
+              "@type": "Question",
+              name: item.q,
+              acceptedAnswer: { "@type": "Answer", text: item.a },
+            })),
+          },
+        ]
+      : []),
     {
       "@type": "ProfessionalService",
       "@id": `${baseUrl}/#business`,
@@ -178,6 +193,7 @@ const jsonLd = {
     </script>
     <main>
       <Hero site={site} />
+      <Clients site={site} />
       <Services site={site} />
       <Work site={site} />
       <Process site={site} />
@@ -186,5 +202,51 @@ const jsonLd = {
       <Faq site={site} />
       <Contact site={site} lang="en" />
     </main>
+
+    <!-- Sticky mobile CTA: the nav CTA scrolls away on phones, so keep one
+         reachable at all times once the user is past the hero. -->
+    <div class="mobile-cta" id="mobile-cta" aria-hidden="true">
+      <a href="#contact" class="btn btn-primary w-full" tabindex="-1">
+        {(site as { navCtaLabel?: string }).navCtaLabel ?? "Contact"}
+        <svg class="btn-arrow h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+      </a>
+    </div>
+    <script is:inline>
+      (function () {
+        var bar = document.getElementById("mobile-cta");
+        var contact = document.getElementById("contact");
+        if (!bar) return;
+        var link = bar.querySelector("a");
+
+        function setShown(shown) {
+          if (bar.classList.contains("is-visible") === shown) return;
+          bar.classList.toggle("is-visible", shown);
+          bar.setAttribute("aria-hidden", shown ? "false" : "true");
+          if (link) link.tabIndex = shown ? 0 : -1;
+        }
+
+        var ticking = false;
+        function update() {
+          ticking = false;
+          // Show once the hero is behind us, hide again over the contact form
+          // so the bar never covers the fields it points to.
+          var pastHero = window.scrollY > window.innerHeight * 0.75;
+          var atContact = contact
+            ? contact.getBoundingClientRect().top < window.innerHeight * 0.85
+            : false;
+          setShown(pastHero && !atContact);
+        }
+
+        function onScroll() {
+          if (ticking) return;
+          ticking = true;
+          window.requestAnimationFrame(update);
+        }
+
+        update();
+        window.addEventListener("scroll", onScroll, { passive: true });
+        window.addEventListener("resize", onScroll, { passive: true });
+      })();
+    </script>
   </body>
 </html>

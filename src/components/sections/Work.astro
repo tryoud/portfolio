@@ -11,8 +11,8 @@ const workCta = site.workCta ?? null;
 <section id="work" class="bg-[#FDFBF7] py-16 md:py-20" aria-labelledby="work-heading" data-reveal-group>
   <div class="mx-auto max-w-6xl px-6">
     <div class="scroll-reveal mb-12 md:mb-14" data-reveal="fade">
-      <span class="mb-2 block text-sm font-semibold uppercase tracking-[0.18em] text-zinc-500">{workSectionLabel}</span>
-      <h2 id="work-heading" class="font-display text-4xl italic text-zinc-900 md:text-[3.25rem]">{workHeading}</h2>
+      <span class="eyebrow">{workSectionLabel}</span>
+      <h2 id="work-heading" class="section-head-gap font-display text-4xl italic text-zinc-900 md:text-[3.25rem]">{workHeading}</h2>
     </div>
     <div class="relative md:static">
       <p class="mb-3 text-xs font-medium text-zinc-400 sm:hidden" aria-hidden="true">{workSwipeHint}</p>
@@ -53,7 +53,7 @@ const workCta = site.workCta ?? null;
                 <div class="flex min-h-[11rem] w-full items-start justify-between gap-4">
                   <div class="flex min-w-0 flex-1 flex-col">
                     {item.scope ? (
-                      <span class="mb-1.5 block text-[0.68rem] font-semibold uppercase tracking-[0.16em] text-zinc-400">{item.scope}</span>
+                      <span class="mb-1.5 block text-[0.68rem] font-semibold uppercase tracking-[0.16em] text-[var(--brand)]">{item.scope}</span>
                     ) : null}
                     <h3 class="mb-2 min-h-[4.5rem] text-2xl font-bold text-zinc-900 decoration-zinc-900 underline-offset-4 group-hover:underline decoration-1">{item.title}</h3>
                     {item.description ? (
@@ -69,8 +69,8 @@ const workCta = site.workCta ?? null;
                       </div>
                     ) : null}
                   </div>
-                  <span class="mt-1 text-zinc-400 transition-all duration-300 group-hover:translate-x-1.5 group-hover:text-zinc-700" aria-hidden="true">
-                    <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+                  <span class="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-zinc-200/70 text-[var(--muted-soft)] transition-all duration-300 group-hover:border-[var(--brand-border)] group-hover:bg-[var(--brand-soft)] group-hover:text-[var(--brand)]" aria-hidden="true">
+                    <svg class="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
                   </span>
                 </div>
               </a>
@@ -141,11 +141,9 @@ const workCta = site.workCta ?? null;
         {workCta.text ? (
           <p class="font-display text-2xl italic text-zinc-900 md:text-3xl">{workCta.text}</p>
         ) : null}
-        <a
-          href={workCta.href ?? "#contact"}
-          class="inline-flex min-h-[48px] items-center justify-center rounded-xl bg-[var(--accent)] px-6 py-3 text-sm font-medium text-[var(--accent-foreground)] shadow-md transition-all hover:-translate-y-0.5 hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-[var(--ring)] focus:ring-offset-2 focus:ring-offset-[var(--ring-offset)]"
-        >
+        <a href={workCta.href ?? "#contact"} class="btn btn-primary">
           {workCta.label}
+          <svg class="btn-arrow h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
         </a>
       </div>
     ) : null}

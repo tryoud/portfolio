@@ -4,6 +4,7 @@ const about = site.about ?? {};
 const paragraph = about.paragraph ?? "";
 const bullets = about.bullets ?? [];
 const sectionLabel = about.sectionLabel ?? "About";
+const aboutHeading = about.heading ?? "Who I am.";
 const blobImageSrc = about.blobImage ?? "/who_am_i/DSC_7577.avif";
 ---
 
@@ -15,15 +16,12 @@ const blobImageSrc = about.blobImage ?? "/who_am_i/DSC_7577.avif";
   <div class="mx-auto max-w-6xl px-6">
     <div class="grid gap-10 lg:grid-cols-2 lg:items-center lg:gap-14">
       <div>
-        <span
-          class="mb-2 block text-sm font-semibold uppercase tracking-[0.18em] text-zinc-500"
-          >{sectionLabel}</span
-        >
+        <span class="eyebrow">{sectionLabel}</span>
         <h2
           id="about-heading"
-          class="font-display mb-6 text-4xl italic text-zinc-900 md:text-[3.25rem]"
+          class="font-display section-head-gap mb-6 text-4xl italic text-zinc-900 md:text-[3.25rem]"
         >
-          Who I am.
+          {aboutHeading}
         </h2>
         {
           paragraph ? (
@@ -34,11 +32,21 @@ const blobImageSrc = about.blobImage ?? "/who_am_i/DSC_7577.avif";
           bullets.length > 0 ? (
             <ul class="mt-6 space-y-3 border-t border-zinc-200/70 pt-5">
               {bullets.map((b: string) => (
-                <li class="flex items-start gap-3 text-base text-zinc-600">
-                  <span
-                    class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-zinc-400"
+                <li class="flex items-start gap-3 text-base leading-relaxed text-zinc-600">
+                  <svg
+                    class="mt-1 h-[1.15rem] w-[1.15rem] shrink-0 text-[var(--brand)]"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
                     aria-hidden="true"
-                  />
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2.5"
+                      d="M5 13l4 4L19 7"
+                    />
+                  </svg>
                   <span>{b}</span>
                 </li>
               ))}

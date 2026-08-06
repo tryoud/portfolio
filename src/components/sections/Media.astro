@@ -9,7 +9,7 @@ const thumbSrc = youtubeId ? `https://img.youtube.com/vi/${youtubeId}/hqdefault.
 
 <section id="media" class="bg-[#FDFBF7] py-16 md:py-20" aria-labelledby="media-heading" data-reveal-group>
   <div class="mx-auto max-w-6xl px-6 text-center">
-    <span class="scroll-reveal mb-5 block text-sm font-semibold uppercase tracking-[0.18em] text-zinc-500" data-reveal="fade">{sectionLabel}</span>
+    <span class="scroll-reveal eyebrow eyebrow-center mb-8 flex" data-reveal="fade">{sectionLabel}</span>
     {youtubeId ? (
       <div class="youtube-2click scroll-reveal relative mb-12 aspect-video overflow-hidden rounded-2xl border border-zinc-200/70 shadow-[0_18px_50px_-24px_rgba(24,24,27,0.32)] bg-zinc-900" data-embed-src={embedSrc} data-reveal="card">
         <div class="youtube-2click-placeholder absolute inset-0 flex flex-col items-center justify-center gap-4 p-6">

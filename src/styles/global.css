@@ -24,6 +24,12 @@
   --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
   --ring: #a1a1aa;
   --ring-offset: #fdfbf7;
+  /* Brand accent (warm amber) */
+  --brand: #b45309;
+  --brand-strong: #92400e;
+  --brand-soft: rgba(180, 83, 9, 0.08);
+  --brand-border: rgba(180, 83, 9, 0.22);
+  --brand-glow: rgba(180, 83, 9, 0.3);
 }
 
 /* Semantic tokens: dark (warm premium) */
@@ -43,6 +49,12 @@
   --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -2px rgba(0, 0, 0, 0.3);
   --ring: #78716c;
   --ring-offset: #1c1917;
+  /* Brand accent (warm amber) */
+  --brand: #fbbf24;
+  --brand-strong: #fcd34d;
+  --brand-soft: rgba(251, 191, 36, 0.1);
+  --brand-border: rgba(251, 191, 36, 0.26);
+  --brand-glow: rgba(251, 191, 36, 0.28);
 }
 
 @layer base {
@@ -411,4 +423,197 @@
 
 .dark *:focus-visible {
   outline-color: var(--ring);
+}
+
+/* ============================================================
+ * DESIGN SYSTEM — shared primitives (eyebrow, buttons, cards)
+ * Built on semantic tokens so both themes work without overrides.
+ * ============================================================ */
+
+/* --- Eyebrow: small-caps section label with accent rule --- */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--brand);
+}
+
+.eyebrow::before {
+  content: "";
+  width: 1.75rem;
+  height: 1px;
+  flex: none;
+  background-color: currentColor;
+  opacity: 0.6;
+}
+
+.eyebrow-center {
+  justify-content: center;
+}
+
+.eyebrow-center::after {
+  content: "";
+  width: 1.75rem;
+  height: 1px;
+  flex: none;
+  background-color: currentColor;
+  opacity: 0.6;
+}
+
+/* --- Buttons --- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 3rem;
+  border-radius: 0.75rem;
+  padding: 0.75rem 1.5rem;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  line-height: 1.2;
+  white-space: nowrap;
+  transition:
+    transform 250ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 250ms cubic-bezier(0.22, 1, 0.36, 1),
+    background-color 200ms ease,
+    border-color 200ms ease,
+    color 200ms ease;
+}
+
+.btn-arrow {
+  transition: transform 250ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.btn:hover .btn-arrow {
+  transform: translateX(3px);
+}
+
+.btn-primary {
+  background-color: var(--accent);
+  color: var(--accent-foreground);
+  border: 1px solid transparent;
+  box-shadow: 0 10px 24px -14px rgba(24, 24, 27, 0.65);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 18px 34px -16px rgba(24, 24, 27, 0.6),
+    0 0 0 3px var(--brand-soft),
+    0 0 0 1px var(--brand-border);
+}
+
+.dark .btn-primary:hover {
+  box-shadow:
+    0 18px 34px -16px rgba(0, 0, 0, 0.7),
+    0 0 0 3px var(--brand-soft),
+    0 0 0 1px var(--brand-border);
+}
+
+.btn-secondary {
+  background-color: transparent;
+  color: var(--text);
+  border: 1px solid var(--border-strong);
+}
+
+.btn-secondary:hover {
+  transform: translateY(-2px);
+  border-color: var(--brand-border);
+  background-color: var(--brand-soft);
+  color: var(--text);
+}
+
+/* --- Card surface --- */
+.card {
+  border-radius: 1rem;
+  border: 1px solid var(--border);
+  background-color: var(--surface);
+  box-shadow: var(--shadow);
+  transition:
+    transform 300ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 300ms cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 300ms ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-4px);
+  border-color: var(--brand-border);
+  box-shadow:
+    0 22px 45px -28px rgba(24, 24, 27, 0.45),
+    0 0 0 1px var(--brand-border);
+}
+
+/* --- Accent icon well --- */
+.icon-well {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  border: 1px solid var(--brand-border);
+  background-color: var(--brand-soft);
+  color: var(--brand);
+  transition: transform 300ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.group:hover .icon-well {
+  transform: scale(1.06);
+}
+
+/* --- Section eyebrow-to-heading rhythm --- */
+.section-head-gap {
+  margin-top: 0.9rem;
+}
+
+/* --- Dark-mode reconciliation for accent affordances ---
+ * The blanket `.dark a[href]:hover` / `.dark input` rules above are !important,
+ * so accent hovers and field surfaces need to be restated here to win.
+ */
+.dark a.accent-link:hover {
+  color: var(--brand) !important;
+}
+
+.dark #contact form input,
+.dark #contact form textarea {
+  background-color: var(--bg) !important;
+}
+
+/* --- Sticky mobile CTA bar --- */
+.mobile-cta {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 60;
+  padding: 0.625rem 1rem calc(0.625rem + env(safe-area-inset-bottom));
+  border-top: 1px solid var(--border);
+  background-color: color-mix(in srgb, var(--surface) 92%, transparent);
+  backdrop-filter: blur(12px);
+  transform: translateY(110%);
+  transition: transform 320ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.mobile-cta.is-visible {
+  transform: translateY(0);
+}
+
+@media (min-width: 768px) {
+  .mobile-cta {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mobile-cta {
+    transition: none;
+  }
+  .btn:hover,
+  .card-hover:hover {
+    transform: none;
+  }
 }

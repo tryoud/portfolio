@@ -30,7 +30,18 @@
     "primaryCta": { "label": "Start a project", "href": "#contact" },
     "secondaryCta": { "label": "View work", "href": "#work" },
     "roleLines": ["WEB DESIGNER", "& DEVELOPER"],
-    "roleSubline": "PHOTO / VIDEO / DRONE"
+    "roleSubline": "PHOTO / VIDEO / DRONE",
+    "ctaNote": "Free intro call · Reply within 24 hours"
+  },
+  "clients": {
+    "label": "Trusted by",
+    "items": [
+      { "name": "WIRO e.V.", "href": "https://www.wiro-alumni.de/" },
+      { "name": "TUM Management Alumni", "href": "https://tum-management-alumni.de/" },
+      { "name": "Cantero Consulting", "href": "https://www.cantero-consulting.de/" },
+      { "name": "Focus Partner", "href": "https://focuspartner.app/" },
+      { "name": "ExamDraft", "href": "https://examdraft.com/" }
+    ]
   },
   "servicesSectionLabel": "What I do",
   "servicesHeading": "Services built to move the brand forward.",
@@ -133,6 +144,7 @@
   },
   "about": {
     "sectionLabel": "About",
+    "heading": "Who I am.",
     "paragraph": "I'm Nikolas – web developer, photographer, and licensed drone pilot. With me you get design, code, and content from one person: a single point of contact from the first call to launch, short feedback loops, and a result that stands apart from the template crowd.",
     "bullets": [
       "High-performance sites and landing pages (Astro, Cloudflare)",
@@ -168,8 +180,15 @@
     ]
   },
   "contact": {
+    "sectionLabel": "Contact",
     "headline": "Let's build something memorable.",
     "subline": "Tell me briefly about your project – I'll reply personally within 24 hours. No strings attached.",
+    "trustPoints": [
+      "Free intro call – no obligation, no sales pressure",
+      "You talk directly to me, not to a project manager",
+      "Transparent fixed-price quote with a clear scope",
+      "Design, code, and content from one person"
+    ],
     "email": "mailto:nikolas.maerker@gmail.com",
     "socials": [
       { "label": "GitHub", "href": "https://github.com/tryoud" },

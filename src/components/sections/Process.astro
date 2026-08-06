@@ -12,15 +12,15 @@ const stepList = Array.isArray(steps) && steps.length > 0
 <section id="process" class="border-y border-zinc-100 bg-white py-16 md:py-20" aria-labelledby="process-heading" data-reveal-group>
   <div class="mx-auto max-w-6xl px-6">
     <div class="scroll-reveal mb-12 text-center md:mb-14" data-reveal="fade">
-      <span class="mb-2 block text-sm font-semibold uppercase tracking-[0.18em] text-zinc-500">{sectionLabel}</span>
-      <h2 id="process-heading" class="font-display text-4xl italic text-zinc-900 md:text-[3.25rem]">{heading}</h2>
+      <span class="eyebrow eyebrow-center">{sectionLabel}</span>
+      <h2 id="process-heading" class="section-head-gap font-display text-4xl italic text-zinc-900 md:text-[3.25rem]">{heading}</h2>
     </div>
     <div class="relative grid grid-cols-1 gap-6 md:grid-cols-4 md:gap-7">
-      <div class="absolute left-0 top-11 hidden h-px w-full bg-zinc-200 md:block" aria-hidden="true" />
+      <div class="process-line absolute left-0 top-10 hidden h-px w-full md:block" aria-hidden="true" />
       {stepList.map((step, i) => (
         <div class="scroll-reveal group relative z-10 rounded-2xl border border-zinc-200/70 bg-[#FDFBF7] p-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-zinc-300 hover:shadow-md md:border-none md:bg-transparent md:p-0 md:shadow-none md:hover:translate-y-0 md:hover:shadow-none" data-reveal="card" style={`--reveal-delay: ${Math.min(i * 120, 320)}ms;`}>
-          <div class="mx-auto mb-5 flex h-20 w-20 items-center justify-center rounded-full border border-zinc-200/70 bg-white shadow-sm transition-transform duration-300 group-hover:scale-105 md:mx-0">
-            <span class="font-display text-2xl italic font-bold text-zinc-400">{String(i + 1).padStart(2, "0")}</span>
+          <div class="process-step-num icon-well mx-auto mb-5 h-20 w-20 md:mx-0">
+            <span class="font-display text-2xl font-bold italic">{String(i + 1).padStart(2, "0")}</span>
           </div>
           <h4 class="mb-2 text-center text-lg font-bold text-zinc-900 md:text-left md:text-[1.2rem]">{step.title}</h4>
           <p class="text-center text-sm leading-relaxed text-zinc-600 md:text-left">{step.description}</p>
@@ -50,3 +50,33 @@ const stepList = Array.isArray(steps) && steps.length > 0
     items.forEach((item) => observer.observe(item));
   })();
 </script>
+
+<style>
+  /* Connector fades in from both ends so it reads as a timeline, not a divider */
+  .process-line {
+    background-image: linear-gradient(
+      to right,
+      transparent,
+      var(--border-strong) 12%,
+      var(--border-strong) 88%,
+      transparent
+    );
+  }
+
+  .process-step-num {
+    background-color: var(--surface);
+  }
+
+  /* Mask the connector line behind the number (desktop only — the line is
+     hidden below md, where the number sits on the cream card instead). */
+  @media (min-width: 768px) {
+    .process-step-num {
+      box-shadow: 0 0 0 6px var(--surface);
+    }
+  }
+
+  .process-step-num:hover,
+  .group:hover .process-step-num {
+    background-color: var(--brand-soft);
+  }
+</style>

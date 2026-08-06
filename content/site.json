@@ -45,7 +45,18 @@
     "roleSubline": "PHOTO / VIDEO / DRONE",
     "portraitSrc": "/hero/Nikolas_Maerker_hero.webp",
     "primaryCta": { "label": "Projekt anfragen", "href": "#contact" },
-    "secondaryCta": { "label": "Projekte ansehen", "href": "#work" }
+    "secondaryCta": { "label": "Projekte ansehen", "href": "#work" },
+    "ctaNote": "Kostenloses Erstgespräch · Antwort in 24 Stunden"
+  },
+  "clients": {
+    "label": "Vertrauen von",
+    "items": [
+      { "name": "WIRO e.V.", "href": "https://www.wiro-alumni.de/" },
+      { "name": "TUM Management Alumni", "href": "https://tum-management-alumni.de/" },
+      { "name": "Cantero Consulting", "href": "https://www.cantero-consulting.de/" },
+      { "name": "Focus Partner", "href": "https://focuspartner.app/" },
+      { "name": "ExamDraft", "href": "https://examdraft.com/" }
+    ]
   },
   "servicesSectionLabel": "Meine Expertise",
   "servicesHeading": "Leistungen, die sichtbar weiterhelfen.",
@@ -148,6 +159,7 @@
   },
   "about": {
     "sectionLabel": "Über mich",
+    "heading": "Wer ich bin.",
     "paragraph": "Ich bin Nikolas – Webentwickler, Fotograf und lizenzierter Drohnenpilot. Bei mir bekommst du Design, Code und Content aus einer Hand: ein Ansprechpartner vom ersten Gespräch bis zum Launch, kurze Wege, klare Kommunikation und ein Ergebnis, das sich vom Standard abhebt.",
     "bullets": [
       "Performante Sites und Landing Pages (Astro, WordPress, Cloudflare)",
@@ -183,8 +195,15 @@
     ]
   },
   "contact": {
+    "sectionLabel": "Kontakt",
     "headline": "Lass uns etwas Bleibendes bauen.",
     "subline": "Beschreib kurz dein Projekt – ich antworte persönlich innerhalb von 24 Stunden. Unverbindlich und kostenlos.",
+    "trustPoints": [
+      "Kostenloses Erstgespräch – unverbindlich und ohne Verkaufsdruck",
+      "Du sprichst direkt mit mir, nicht mit einem Projektmanager",
+      "Transparentes Festpreis-Angebot mit klarem Leistungsumfang",
+      "Design, Code und Content aus einer Hand"
+    ],
     "email": "mailto:nikolas.maerker@gmail.com",
     "socials": [
       { "label": "GitHub", "href": "https://github.com/tryoud" },
