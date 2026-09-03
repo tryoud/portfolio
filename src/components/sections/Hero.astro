@@ -84,18 +84,7 @@ const decorativeRight = decorativeParts[1] ?? "there";
   <div class="relative mx-auto flex min-h-0 w-full max-w-6xl flex-1 flex-col px-4 sm:px-6">
     <h1 id="hero-heading" class="sr-only">{headline} — {nameLine}, {roleLine}</h1>
 
-    <!-- Availability pill: left-mid, inside container -->
-    {badgeText ? (
-      <div class="relative z-20 flex shrink-0 justify-center pt-1 pb-1 md:absolute md:left-4 md:top-1/2 md:-translate-y-1/2 md:justify-start md:pt-0 md:pb-0 sm:left-6">
-        <div class="inline-flex min-h-[40px] min-w-[40px] items-center gap-2 rounded-full border border-zinc-200/70 bg-white/95 px-3.5 py-2 shadow-sm sm:min-h-0 sm:min-w-0 sm:px-4 sm:py-2">
-          <span class="relative flex h-2.5 w-2.5 shrink-0" aria-hidden="true">
-            <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-amber-400 opacity-75" />
-            <span class="relative inline-flex h-2.5 w-2.5 rounded-full bg-amber-500" />
-          </span>
-          <span class="text-xs font-medium tracking-wide text-zinc-700 sm:text-xs">{badgeText}</span>
-        </div>
-      </div>
-    ) : null}
+    <!-- Availability pill removed -->
 
     <div class="relative z-10 mx-auto w-full max-w-5xl pt-3 text-center lg:hidden">
       <div class="mx-auto max-w-[20rem] sm:hidden">
