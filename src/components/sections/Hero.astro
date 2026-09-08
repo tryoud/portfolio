@@ -4,12 +4,12 @@ const hero = site.hero ?? {};
 const headline = hero.headline ?? "Hey, there";
 const badgeText = hero.badgeText ?? "";
 const portraitSrc = (hero.portraitSrc && String(hero.portraitSrc).trim()) || "/hero/Nikolas_Maerker_hero.webp";
-const primaryCta = hero.primaryCta ?? { label: "Let's talk", href: "#contact" };
-const secondaryCta = hero.secondaryCta ?? { label: "View work", href: "#work" };
+const primaryCta = hero.primaryCta ?? { label: "Projekt anfragen", href: "#contact" };
+const secondaryCta = hero.secondaryCta ?? { label: "Projekte ansehen", href: "#work" };
 const primaryHref = typeof primaryCta === "object" && primaryCta.href ? primaryCta.href : "#contact";
-const primaryLabel = typeof primaryCta === "object" && primaryCta.label ? primaryCta.label : "Let's talk";
+const primaryLabel = typeof primaryCta === "object" && primaryCta.label ? primaryCta.label : "Projekt anfragen";
 const secondaryHref = typeof secondaryCta === "object" && secondaryCta.href ? secondaryCta.href : "#work";
-const secondaryLabel = typeof secondaryCta === "object" && secondaryCta.label ? secondaryCta.label : "View work";
+const secondaryLabel = typeof secondaryCta === "object" && secondaryCta.label ? secondaryCta.label : "Projekte ansehen";
 const specialization = hero.specialization ?? "";
 const specializationLines = Array.isArray(hero.specializationLines) && hero.specializationLines.length
   ? hero.specializationLines.map((line) => String(line).trim()).filter(Boolean)
@@ -56,9 +56,7 @@ const headlineLinesSource = Array.isArray(hero.headlineLines) && hero.headlineLi
           return [beforeFor, `for ${afterFor}`];
         })()
       : rawHeadline.split(/,\s*/);
-const headlineLines = headlineLinesSource
-  .map((part) => String(part).trim())
-  .filter(Boolean);
+const headlineLines = headlineLinesSource.map((part) => String(part).trim()).filter(Boolean);
 const heroHeadlineLines = headlineLines.length ? headlineLines : [headline];
 const mobileHeadlineLines = Array.isArray(hero.headlineMobileLines) && hero.headlineMobileLines.length
   ? hero.headlineMobileLines.map((line) => String(line).trim()).filter(Boolean).slice(0, 5)
@@ -69,144 +67,84 @@ const tabletHeadlineLines = Array.isArray(hero.headlineTabletLines) && hero.head
 const decorativeParts = decorativeHeadline.split(/,\s*/);
 const decorativeLeft = decorativeParts[0] ? `${decorativeParts[0]},` : "Hey,";
 const decorativeRight = decorativeParts[1] ?? "there";
+const eyebrow = (hero.eyebrow && String(hero.eyebrow).trim()) || "WEB DESIGNER & DEVELOPER";
 ---
 
-<section class="relative flex min-h-0 max-h-[800px] flex-col overflow-hidden pt-4 pb-3 md:min-h-[calc(100svh-5rem)] md:pt-8 md:pb-[clamp(0.5rem,1.5vw,1rem)]" aria-labelledby="hero-heading" data-hero-motion>
+<section class="bg-[#fdfbf7] dark:bg-[var(--surface)] text-[var(--text)] relative overflow-hidden" aria-labelledby="hero-heading" data-hero-motion>
+  <!-- Background glow blob -->
   <div class="pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
-    <div class="absolute inset-0 bg-[var(--color-background-light)]" />
-    <div
-      class="hero-portrait-cloud absolute inset-0 opacity-100"
-      style="background: radial-gradient(ellipse 65% 55% at 50% 38%, rgb(255, 248, 228) 0%, rgb(255, 244, 218) 30%, rgba(255, 242, 225, 0.4) 55%, transparent 72%);"
-    />
+    <div class="absolute inset-0 bg-[var(--color-background-light)]"></div>
+    <div class="absolute inset-0 opacity-30" style="background: radial-gradient(ellipse 70% 55% at 50% 40%, rgba(255,200,0,0.2), transparent 70%);"></div>
   </div>
 
-  <!-- Single centered container: max-w-7xl, no drift on ultra-wide -->
-  <div class="relative mx-auto flex min-h-0 w-full max-w-6xl flex-1 flex-col px-4 sm:px-6">
-    <h1 id="hero-heading" class="sr-only">{headline} — {nameLine}, {roleLine}</h1>
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 flex flex-col md:flex-row items-center md:items-start py-8 md:py-16 gap-8">
+    <!-- Left column (mobile: top) -->
+    <div class="flex-1 w-full md:w-1/2 flex flex-col items-center md:items-start text-center md:text-left">
+      <h2 class="text-sm font-medium tracking-widest uppercase text-amber-600 mb-2">{eyebrow}</h2>
 
-    <!-- Availability pill removed -->
-
-    <div class="relative z-10 mx-auto w-full max-w-5xl pt-3 text-center lg:hidden">
-      <div class="mx-auto max-w-[20rem] sm:hidden">
+      <!-- Headline -->
+      <div class="max-w-2xl mx-auto md:mx-0">
         {(mobileHeadlineLines.length ? mobileHeadlineLines : heroHeadlineLines).map((line) => (
-          <p class="font-display text-[clamp(1.72rem,7vw,2.45rem)] font-medium italic leading-[0.9] tracking-[-0.04em] text-zinc-900 whitespace-nowrap">
-            {line}
-          </p>
+          <p class="font-display font-medium italic text-[clamp(2rem,8vw,4rem)] leading-[1] tracking-tight text-[var(--text)]">{line}</p>
         ))}
       </div>
-      <div class="mx-auto hidden max-w-[38rem] sm:block">
-        {tabletHeadlineLines.map((line) => (
-          <p class="font-display text-[clamp(2.5rem,5vw,3.4rem)] font-medium italic leading-[0.92] tracking-[-0.045em] text-zinc-900">
-            {line}
-          </p>
-        ))}
+
+      <!-- Specialization copy -->
+      {specializationCopy && (
+        <div class="mt-4 max-w-lg text-base text-[var(--text)]/70">
+          <p class="text-[clamp(0.9rem,2vw,1.1rem)] leading-relaxed [text-wrap:balance]">{specializationCopy}</p>
+        </div>
+      )}
+
+      <!-- CTA Buttons -->
+      <div class="mt-6 w-full max-w-sm md:max-w-none">
+        <div class="flex flex-col gap-3 sm:flex-row md:flex-col lg:flex-row">
+          <a href={primaryHref} class="inline-flex flex-1 items-center justify-center gap-2 bg-[var(--brand)] hover:bg-[var(--brand-strong)] text-white font-medium px-7 py-3 rounded-xl transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--brand)]">
+            {primaryLabel}
+            <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+          </a>
+          <a href={secondaryHref} class="inline-flex flex-1 items-center justify-center border border-[var(--brand-border)] text-[var(--brand)] hover:bg-[var(--brand-soft)] font-medium px-7 py-3 rounded-xl transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--brand)]">
+            {secondaryLabel}
+          </a>
+        </div>
+        {ctaNote && <p class="mt-2.5 text-xs text-[var(--muted-soft)] md:text-left sm:text-center">{ctaNote}</p>}
       </div>
     </div>
 
-    <div class="pointer-events-none absolute left-1/2 top-[34%] z-10 hidden -translate-x-1/2 translate-y-[20px] items-baseline justify-center gap-[clamp(2rem,28vw,26rem)] lg:flex lg:z-0 lg:top-[32%] xl:gap-[clamp(2.5rem,30vw,28rem)]" aria-hidden="true">
-      <span class="hero-parallax font-display text-[clamp(2.5rem,8vw,10rem)] font-medium italic leading-tight tracking-[-0.02em] text-zinc-900/30" data-hero-layer="back">{decorativeLeft}</span>
-      <span class="hero-parallax -translate-x-10 xl:-translate-x-14 2xl:-translate-x-16 font-display text-[clamp(2.5rem,8vw,10rem)] font-medium italic leading-tight tracking-[-0.02em] text-zinc-900/30" data-hero-layer="back">{decorativeRight}</span>
-    </div>
-
-    <!-- Portrait: centered, no offset; bottom fade preserved -->
-    <div class="relative z-10 flex min-h-0 flex-1 flex-col items-center justify-center pt-3 pb-[clamp(0.25rem,1vw,0.5rem)] lg:py-0">
-      <div class="hero-parallax-soft mx-auto mt-2 w-44 shrink-0 translate-x-[6px] translate-y-[6px] scale-[1.01] sm:mt-5 sm:w-64 sm:translate-x-[10px] sm:translate-y-[8px] sm:scale-[1.04] lg:mt-0 lg:w-[34rem] lg:translate-x-[40px] lg:translate-y-[60px] lg:scale-[1.2] xl:w-[min(440px,90vw)] [filter:drop-shadow(0_25px_50px_-12px_rgba(0,0,0,0.15))_drop-shadow(0_0_40px_-8px_rgba(0,0,0,0.08))]" data-hero-layer="portrait">
+    <!-- Right column: portrait -->
+    <div class="relative w-full md:w-1/2 flex justify-center md:justify-end">
+      <div class="relative hero-parallax-soft" data-hero-layer="portrait">
         <img
           src={portraitSrc}
           alt=""
-          class="h-auto w-full object-contain object-center"
+          class="object-cover w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl"
           width="480"
           height="640"
           loading="eager"
           decoding="async"
           fetchpriority="high"
-          style="-webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 75%, rgba(0,0,0,0) 100%); mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 75%, rgba(0,0,0,0) 100%); -webkit-mask-size: cover; mask-size: cover;"
+          style="-webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 75%, rgba(0,0,0,0) 100%); mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 75%, rgba(0,0,0,0) 100%);"
         />
-      </div>
-    </div>
-
-    {specializationCopy ? (
-      <div class="mx-auto mt-3 max-w-[18.75rem] px-2 text-center sm:max-w-[28rem] lg:hidden">
-        {specializationDesktopCompactLines.length ? (
-          <div class="space-y-0.5 text-center text-[clamp(0.75rem,3.1vw,0.94rem)] leading-[1.4] text-zinc-600 sm:text-[clamp(0.9rem,2.2vw,1.04rem)] sm:leading-[1.5]">
-            {specializationDesktopCompactLines.map((line) => <p class="whitespace-nowrap">{line}</p>)}
-          </div>
-        ) : (
-          <p class="text-[clamp(0.82rem,3.6vw,0.95rem)] leading-[1.45] text-zinc-600 [text-wrap:balance] sm:text-[clamp(0.95rem,2.3vw,1.08rem)] sm:leading-[1.5]">
-            {specializationCopy}
-          </p>
-        )}
-      </div>
-    ) : null}
-
-    {specializationCopy ? (
-      <div class="hero-parallax pointer-events-none absolute top-[calc(60%+20px)] z-20 hidden -translate-y-1/2 text-right text-zinc-600 lg:block lg:left-[calc(50%+12.5rem)] lg:right-8 lg:text-[0.72rem] lg:leading-[1.55] xl:left-[calc(50%+13.5rem)] xl:right-10 xl:text-[0.8rem] 2xl:left-[calc(50%+14rem)] 2xl:right-12 2xl:text-[0.88rem]" data-hero-layer="copy">
-        {specializationDesktopCompactLines.length ? (
-          <>
-            <div class="ml-auto w-max space-y-1 xl:hidden">
-              {specializationDesktopCompactLines.map((line) => <p class="whitespace-nowrap">{line}</p>)}
-            </div>
-            <div class="ml-auto hidden w-max space-y-1 xl:block">
-              {(specializationDesktopLines.length ? specializationDesktopLines : specializationDesktopCompactLines).map((line) => <p class="whitespace-nowrap">{line}</p>)}
-            </div>
-          </>
-        ) : specializationDesktopLines.length ? (
-          <div class="ml-auto w-max space-y-1">
-            {specializationDesktopLines.map((line) => <p class="whitespace-nowrap">{line}</p>)}
-          </div>
-        ) : (
-          <p class="[text-wrap:balance]">{specializationCopy}</p>
-        )}
-      </div>
-    ) : null}
-
-    <!-- Mobile/tablet CTA: the primary conversion path below md, where the
-         bottom-band CTA column is hidden. Sits directly under the hero copy. -->
-    <div class="relative z-20 mx-auto mt-4 w-full max-w-[22rem] shrink-0 px-2 sm:max-w-md md:hidden">
-      <div class="flex flex-col gap-2.5">
-        <a href={primaryHref} class="btn btn-primary hero-primary-cta w-full">
-          {primaryLabel}
-          <svg class="btn-arrow h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
-        </a>
-        <a href={secondaryHref} class="btn btn-secondary w-full">{secondaryLabel}</a>
-      </div>
-      {ctaNote ? (
-        <p class="mt-2.5 text-center text-[0.7rem] leading-snug text-zinc-500">{ctaNote}</p>
-      ) : null}
-    </div>
-
-    <!-- Bottom band: 3-col grid, same baseline, within container -->
-    <div class="relative z-20 shrink-0 px-0 pt-2 pb-0 sm:px-0 md:pt-3 md:pb-[clamp(0.5rem,1.5vw,1rem)]">
-      <div class="grid w-full grid-cols-2 items-end gap-3 md:grid-cols-3 md:gap-8 lg:gap-10">
-        <div class="flex min-w-0 flex-col items-start gap-0.5 md:gap-0">
-          <span class="hidden select-none text-sm font-bold uppercase tracking-tight text-zinc-400 sm:block sm:text-lg md:text-lg lg:text-xl xl:text-2xl" aria-hidden="true">I AM</span>
-          <span class="block text-[1.05rem] font-bold uppercase tracking-tight text-zinc-900 sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl 2xl:text-5xl" aria-hidden="true">{firstNameUpper}</span>
-          {lastNameUpper ? <span class="block text-[1.05rem] font-bold uppercase tracking-tight text-zinc-900 sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl 2xl:text-5xl" aria-hidden="true">{lastNameUpper}</span> : null}
-        </div>
-        <div class="hidden items-end justify-self-center md:flex md:flex-col md:pb-1">
-          <div class="flex flex-row justify-center gap-3 lg:gap-4">
-            <a href={primaryHref} class="btn btn-primary hero-primary-cta">
-              {primaryLabel}
-              <svg class="btn-arrow h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
-            </a>
-            <a href={secondaryHref} class="btn btn-secondary">{secondaryLabel}</a>
-          </div>
-          {ctaNote ? (
-            <p class="mt-3 text-center text-xs leading-snug text-zinc-500">{ctaNote}</p>
-          ) : null}
-        </div>
-        <div class="flex min-w-0 flex-col items-end gap-0.5 text-right">
-          {roleLines.length ? roleLines.map((line) => (
-            <span class="block text-[0.8rem] font-bold uppercase tracking-tight leading-tight text-zinc-900 sm:text-sm md:text-lg lg:text-xl xl:text-2xl" aria-hidden="true">{line}</span>
-          )) : (
-            <span class="block text-[0.8rem] font-bold uppercase tracking-tight leading-tight text-zinc-900 sm:text-sm md:text-lg lg:text-xl xl:text-2xl" aria-hidden="true">{roleUpper}</span>
+        <!-- Name / role overlay -->
+        <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-max max-w-full bg-white/80 dark:bg-[var(--surface)]/80 backdrop-blur-sm px-5 py-2 rounded-t-lg text-center">
+          <p class="text-xs font-semibold tracking-widest uppercase text-[var(--text)]">{nameLine}</p>
+          {roleLines.length ? (
+            roleLines.map((line) => (
+              <p class="text-[0.65rem] font-medium uppercase text-[var(--text)]/70">{line}</p>
+            ))
+          ) : (
+            <p class="text-[0.65rem] font-medium uppercase text-[var(--text)]/70">{roleUpper}</p>
           )}
-          {roleSubline ? (
-            <span class="mt-0.5 hidden text-xs font-medium uppercase tracking-wide text-zinc-500 sm:block sm:text-sm" aria-hidden="true">{roleSubline}</span>
-          ) : null}
+          {roleSubline && <p class="text-[0.55rem] italic text-[var(--text)]/50">{roleSubline}</p>}
         </div>
       </div>
     </div>
+  </div>
+
+  <!-- Hidden decorative large text for parallax (desktop) -->
+  <div class="hidden lg:flex absolute inset-0 items-center justify-center pointer-events-none" aria-hidden="true">
+    <span class="hero-parallax font-display text-[clamp(8rem,20vw,16rem)] italic text-[var(--text)]/10" data-hero-layer="back">{decorativeLeft}</span>
+    <span class="hero-parallax font-display text-[clamp(8rem,20vw,16rem)] italic text-[var(--text)]/10 ml-4" data-hero-layer="back">{decorativeRight}</span>
   </div>
 </section>
 
