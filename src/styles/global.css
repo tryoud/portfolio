@@ -106,6 +106,11 @@
 }
 
 @layer base {
+  /* Not overflow-x: hidden — that turns the body into a scroll container and
+     stops position: sticky from working against the viewport. */
+  .clip-x {
+    overflow-x: clip;
+  }
   a {
     color: inherit;
   }
@@ -991,7 +996,6 @@ html.menu-open body {
 .hero {
   position: relative;
   isolation: isolate;
-  overflow: hidden;
   margin-top: -4rem;
   background-color: var(--hero-ink);
   color: var(--hero-fg);
@@ -1000,6 +1004,7 @@ html.menu-open body {
 .hero-stage {
   position: relative;
   display: flex;
+  overflow: hidden;
   min-height: 100svh;
   flex-direction: column;
 }
@@ -1035,6 +1040,11 @@ html.menu-open body {
   user-select: none;
 }
 
+.hero-wordmark .wm-pivot {
+  display: inline-block;
+  margin-left: 0.72em;
+}
+
 .hero-wordmark .wm-tail {
   display: inline-block;
   transform: translateY(0);
@@ -1048,7 +1058,7 @@ html.menu-open body {
 .hero-portrait {
   position: absolute;
   z-index: 2;
-  top: 8%;
+  top: 13%;
   left: 50%;
   transform: translateX(-50%);
   height: 60%;
@@ -1076,7 +1086,9 @@ html.menu-open body {
   inset: 0;
   z-index: 4;
   pointer-events: none;
-  background: linear-gradient(to bottom, transparent 24%, var(--hero-ink) 68%);
+  background:
+    linear-gradient(to bottom, var(--hero-ink) 0%, rgba(19, 14, 11, 0.55) 9%, transparent 22%),
+    linear-gradient(to bottom, transparent 26%, var(--hero-ink) 70%);
 }
 
 .hero-shell {
@@ -1239,7 +1251,7 @@ html.menu-open body {
 
   .hero-wordmark {
     top: 12%;
-    font-size: clamp(3.5rem, 15vw, 9rem);
+    font-size: clamp(3rem, 13.2vw, 8rem);
   }
 
   .hero-title {
@@ -1286,8 +1298,18 @@ html.menu-open body {
     margin-top: -4.5rem;
   }
 
+  /* A runway of scroll where the frame holds still: the stage pins to the top
+     while the extra height below it scrolls past, so the tail finishes its
+     drop before the picture starts moving. */
+  .hero {
+    height: calc(min(100svh, 60rem) + 20rem);
+  }
+
   .hero-stage {
-    min-height: min(100svh, 60rem);
+    position: sticky;
+    top: 0;
+    height: min(100svh, 60rem);
+    min-height: 0;
   }
 
   .hero-shell {
@@ -1374,6 +1396,17 @@ html.menu-open body {
 
 .hero.is-anim.is-ready .hero-wordmark {
   opacity: 0.96;
+}
+
+@media (prefers-reduced-motion: reduce) and (min-width: 900px) {
+  /* Without the drop there is nothing to hold the frame for, and the runway
+     would just be 20rem of scrolling where nothing happens. */
+  .hero {
+    height: auto;
+  }
+  .hero-stage {
+    position: relative;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

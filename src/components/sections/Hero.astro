@@ -27,7 +27,11 @@ const wordmark = String(hero.wordmark ?? "").trim().toUpperCase();
 // if the word changes.
 const tailWanted = String(hero.wordmarkTail ?? "").trim().toUpperCase();
 const wordmarkTail = tailWanted && wordmark.endsWith(tailWanted) && wordmark !== tailWanted ? tailWanted : "";
-const wordmarkHead = wordmarkTail ? wordmark.slice(0, -wordmarkTail.length) : wordmark;
+const beforeTail = wordmarkTail ? wordmark.slice(0, -wordmarkTail.length) : wordmark;
+// The character just before the tail carries an extra gap, so it clears the
+// head instead of disappearing behind it.
+const wordmarkPivot = wordmarkTail && beforeTail.length > 1 ? beforeTail.slice(-1) : "";
+const wordmarkHead = wordmarkPivot ? beforeTail.slice(0, -1) : beforeTail;
 
 // Meta chip: a claim, not a count. A client tally in the first screen invites
 // the reader to weigh how small it is; both halves come from content.
@@ -47,7 +51,7 @@ const secondaryLabel = secondaryCta.label ?? "Projekte ansehen";
     <div class="hero-glow" aria-hidden="true"></div>
     {wordmark ? (
       <span class="hero-wordmark" aria-hidden="true">
-        {wordmarkHead}{wordmarkTail ? <span class="wm-tail">{wordmarkTail}</span> : null}
+        {wordmarkHead}{wordmarkPivot ? <span class="wm-pivot">{wordmarkPivot}</span> : null}{wordmarkTail ? <span class="wm-tail">{wordmarkTail}</span> : null}
       </span>
     ) : null}
 
