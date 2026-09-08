@@ -2,7 +2,6 @@
 const { site } = Astro.props;
 const hero = site.hero ?? {};
 const headline = hero.headline ?? "Hey, there";
-const badgeText = hero.badgeText ?? "";
 const portraitSrc = (hero.portraitSrc && String(hero.portraitSrc).trim()) || "/hero/Nikolas_Maerker_hero.webp";
 const primaryCta = hero.primaryCta ?? { label: "Projekt anfragen", href: "#contact" };
 const secondaryCta = hero.secondaryCta ?? { label: "Projekte ansehen", href: "#work" };
@@ -11,140 +10,103 @@ const primaryLabel = typeof primaryCta === "object" && primaryCta.label ? primar
 const secondaryHref = typeof secondaryCta === "object" && secondaryCta.href ? secondaryCta.href : "#work";
 const secondaryLabel = typeof secondaryCta === "object" && secondaryCta.label ? secondaryCta.label : "Projekte ansehen";
 const specialization = hero.specialization ?? "";
-const specializationLines = Array.isArray(hero.specializationLines) && hero.specializationLines.length
-  ? hero.specializationLines.map((line) => String(line).trim()).filter(Boolean)
-  : [];
-const specializationDesktopLines = Array.isArray(hero.specializationDesktopLines) && hero.specializationDesktopLines.length
-  ? hero.specializationDesktopLines.map((line) => String(line).trim()).filter(Boolean)
-  : [];
-const specializationDesktopCompactLines = Array.isArray(hero.specializationDesktopCompactLines) && hero.specializationDesktopCompactLines.length
-  ? hero.specializationDesktopCompactLines.map((line) => String(line).trim()).filter(Boolean)
-  : [];
-const specializationCopy = specialization || specializationLines.join(" ");
+const specializationCopy = specialization || (Array.isArray(hero.specializationLines) ? hero.specializationLines.join(" ") : "");
 const ctaNote = (hero.ctaNote && String(hero.ctaNote).trim()) || "";
 const decorativeHeadline = String(hero.decorativeHeadline ?? "Hey, there").trim();
 const nameLine = site.name ?? "";
 const roleLine = site.role ?? "";
-const nameUpper = nameLine.toUpperCase().replace(/\s+/g, " ");
-const roleUpper = roleLine.toUpperCase();
-const roleSegments = roleUpper.split(/\s*·\s*/).filter(Boolean);
-const roleDisplayLinesFallback = roleSegments.flatMap((seg) => seg.split(/\s+&\s+/).map((s) => s.trim()).filter(Boolean));
-const roleLines = Array.isArray(hero.roleLines) && hero.roleLines.length ? hero.roleLines.map((l) => String(l).toUpperCase()) : roleDisplayLinesFallback;
 const roleSubline = (hero.roleSubline && String(hero.roleSubline).trim()) || "";
 const nameParts = nameLine.trim().split(/\s+/);
-const firstNameUpper = nameParts[0] ? nameParts[0].toUpperCase() : nameUpper;
+const firstNameUpper = nameParts[0] ? nameParts[0].toUpperCase() : "";
 const lastNameUpper = nameParts.length > 1 ? nameParts.slice(1).join(" ").toUpperCase() : "";
+const roleSegments = roleLine.toUpperCase().split(/\s*·\s*/).filter(Boolean);
+const roleLines = Array.isArray(hero.roleLines) && hero.roleLines.length ? hero.roleLines.map((l) => String(l).toUpperCase()) : roleSegments;
 const rawHeadline = String(headline || "").trim();
 const headlineLinesSource = Array.isArray(hero.headlineLines) && hero.headlineLines.length
   ? hero.headlineLines
-  : rawHeadline.includes(" für ")
-    ? (() => {
-        const [beforeFor, afterFor = ""] = rawHeadline.split(" für ");
-        const afterForParts = afterFor.split(", ").map((part) => part.trim()).filter(Boolean);
-        if (afterForParts.length > 1) {
-          return [beforeFor, `für ${afterForParts[0]},`, afterForParts.slice(1).join(", ")];
-        }
-        return [beforeFor, `für ${afterFor}`];
-      })()
-    : rawHeadline.includes(" for ")
-      ? (() => {
-          const [beforeFor, afterFor = ""] = rawHeadline.split(" for ");
-          const afterForParts = afterFor.split(", ").map((part) => part.trim()).filter(Boolean);
-          if (afterForParts.length > 1) {
-            return [beforeFor, `for ${afterForParts[0]},`, afterForParts.slice(1).join(", ")];
-          }
-          return [beforeFor, `for ${afterFor}`];
-        })()
-      : rawHeadline.split(/,\s*/);
+  : rawHeadline.split(/,\s*/);
 const headlineLines = headlineLinesSource.map((part) => String(part).trim()).filter(Boolean);
 const heroHeadlineLines = headlineLines.length ? headlineLines : [headline];
-const mobileHeadlineLines = Array.isArray(hero.headlineMobileLines) && hero.headlineMobileLines.length
-  ? hero.headlineMobileLines.map((line) => String(line).trim()).filter(Boolean).slice(0, 5)
-  : heroHeadlineLines.slice(0, 5);
-const tabletHeadlineLines = Array.isArray(hero.headlineTabletLines) && hero.headlineTabletLines.length
-  ? hero.headlineTabletLines.map((line) => String(line).trim()).filter(Boolean)
-  : heroHeadlineLines;
 const decorativeParts = decorativeHeadline.split(/,\s*/);
 const decorativeLeft = decorativeParts[0] ? `${decorativeParts[0]},` : "Hey,";
 const decorativeRight = decorativeParts[1] ?? "there";
-const eyebrow = (hero.eyebrow && String(hero.eyebrow).trim()) || "WEB DESIGNER & DEVELOPER";
+const eyebrow = (hero.eyebrow && String(hero.eyebrow).trim()) || roleLines[0] || "WEB DESIGNER";
 ---
 
-<section class="bg-[#fdfbf7] dark:bg-[var(--surface)] text-[var(--text)] relative overflow-hidden" aria-labelledby="hero-heading" data-hero-motion>
-  <!-- Background glow blob -->
+<section class="relative overflow-hidden bg-[var(--bg)] text-[var(--text)]" aria-labelledby="hero-heading" data-hero-motion>
+  <!-- Warm ambient background -->
   <div class="pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
-    <div class="absolute inset-0 bg-[var(--color-background-light)]"></div>
-    <div class="absolute inset-0 opacity-30" style="background: radial-gradient(ellipse 70% 55% at 50% 40%, rgba(255,200,0,0.2), transparent 70%);"></div>
+    <div class="absolute inset-0" style="background: radial-gradient(ellipse 90% 70% at 70% 20%, hsla(38, 80%, 92%, 1) 0%, transparent 60%);"></div>
+    <div class="absolute inset-0" style="background: radial-gradient(ellipse 60% 50% at 10% 90%, hsla(30, 60%, 94%, 0.8) 0%, transparent 60%);"></div>
   </div>
 
-  <div class="mx-auto max-w-7xl px-4 sm:px-6 flex flex-col md:flex-row items-center md:items-start py-8 md:py-16 gap-8">
-    <!-- Left column (mobile: top) -->
-    <div class="flex-1 w-full md:w-1/2 flex flex-col items-center md:items-start text-center md:text-left">
-      <h2 class="text-sm font-medium tracking-widest uppercase text-amber-600 mb-2">{eyebrow}</h2>
+  <div class="mx-auto grid w-full max-w-7xl grid-cols-1 items-center gap-y-2 px-4 pb-0 pt-10 sm:px-6 md:min-h-[calc(100svh-4.5rem)] md:grid-cols-[minmax(0,6fr)_minmax(0,5fr)] md:gap-x-10 md:pt-6 lg:gap-x-16">
 
-      <!-- Headline -->
-      <div class="max-w-2xl mx-auto md:mx-0">
-        {(mobileHeadlineLines.length ? mobileHeadlineLines : heroHeadlineLines).map((line) => (
-          <p class="font-display font-medium italic text-[clamp(2rem,8vw,4rem)] leading-[1] tracking-tight text-[var(--text)]">{line}</p>
-        ))}
+    <!-- ===== LEFT: copy ===== -->
+    <div class="relative z-10 order-2 flex flex-col items-center pb-10 text-center md:order-1 md:items-start md:pb-24 md:text-left lg:pb-28">
+      <p class="text-[0.7rem] font-semibold uppercase tracking-[0.22em] text-[var(--brand)] md:text-xs">{eyebrow}</p>
+
+      <h1 id="hero-heading" class="mt-4 font-display text-[clamp(2.4rem,9vw,4.6rem)] font-medium italic leading-[1.02] tracking-[-0.02em] text-[var(--text)] [text-wrap:balance]">
+        {(hero.headlineTabletLines && Array.isArray(hero.headlineTabletLines) && hero.headlineTabletLines.length
+          ? (Array.isArray(hero.headlineTabletLines) ? hero.headlineTabletLines : heroHeadlineLines)
+          : heroHeadlineLines
+        ).map((line) => <span class="block">{line}</span>)}
+      </h1>
+
+      {specializationCopy ? (
+        <p class="mt-5 max-w-[34ch] text-[0.95rem] leading-relaxed text-[var(--muted)] md:max-w-[42ch] md:text-base [text-wrap:pretty]">
+          {specializationCopy}
+        </p>
+      ) : null}
+
+      <div class="mt-8 flex w-full max-w-[22rem] flex-col gap-3 md:max-w-none md:flex-row md:items-center">
+        <a href={primaryHref} class="btn btn-primary hero-primary-cta md:px-7 md:py-3">
+          {primaryLabel}
+          <svg class="btn-arrow h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+        </a>
+        <a href={secondaryHref} class="btn btn-secondary md:px-7 md:py-3">{secondaryLabel}</a>
       </div>
-
-      <!-- Specialization copy -->
-      {specializationCopy && (
-        <div class="mt-4 max-w-lg text-base text-[var(--text)]/70">
-          <p class="text-[clamp(0.9rem,2vw,1.1rem)] leading-relaxed [text-wrap:balance]">{specializationCopy}</p>
-        </div>
-      )}
-
-      <!-- CTA Buttons -->
-      <div class="mt-6 w-full max-w-sm md:max-w-none">
-        <div class="flex flex-col gap-3 sm:flex-row md:flex-col lg:flex-row">
-          <a href={primaryHref} class="inline-flex flex-1 items-center justify-center gap-2 bg-[var(--brand)] hover:bg-[var(--brand-strong)] text-white font-medium px-7 py-3 rounded-xl transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--brand)]">
-            {primaryLabel}
-            <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
-          </a>
-          <a href={secondaryHref} class="inline-flex flex-1 items-center justify-center border border-[var(--brand-border)] text-[var(--brand)] hover:bg-[var(--brand-soft)] font-medium px-7 py-3 rounded-xl transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--brand)]">
-            {secondaryLabel}
-          </a>
-        </div>
-        {ctaNote && <p class="mt-2.5 text-xs text-[var(--muted-soft)] md:text-left sm:text-center">{ctaNote}</p>}
-      </div>
+      {ctaNote ? (
+        <p class="mt-3 text-xs leading-snug text-[var(--muted-soft)]">{ctaNote}</p>
+      ) : null}
     </div>
 
-    <!-- Right column: portrait -->
-    <div class="relative w-full md:w-1/2 flex justify-center md:justify-end">
-      <div class="relative hero-parallax-soft" data-hero-layer="portrait">
+    <!-- ===== RIGHT: portrait ===== -->
+    <div class="relative order-1 md:order-2 md:self-end">
+      <!-- decorative watermark, tucked behind portrait -->
+      <div class="pointer-events-none absolute -left-8 top-6 z-0 hidden select-none items-baseline gap-4 lg:flex xl:-left-16" aria-hidden="true">
+        <span class="hero-parallax font-display text-[clamp(3rem,5vw,5.5rem)] font-medium italic leading-none tracking-[-0.02em] text-zinc-900/10" data-hero-layer="back">{decorativeLeft}</span>
+        <span class="hero-parallax -ml-6 font-display text-[clamp(3rem,5vw,5.5rem)] font-medium italic leading-none tracking-[-0.02em] text-zinc-900/[0.06]" data-hero-layer="back">{decorativeRight}</span>
+      </div>
+
+      <div class="hero-parallax-soft relative z-10 mx-auto w-60 sm:w-72 md:w-auto md:max-w-none lg:translate-x-6" data-hero-layer="portrait">
         <img
           src={portraitSrc}
           alt=""
-          class="object-cover w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl"
+          class="mx-auto h-auto w-full object-contain object-bottom md:mx-0"
           width="480"
           height="640"
           loading="eager"
           decoding="async"
           fetchpriority="high"
-          style="-webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 75%, rgba(0,0,0,0) 100%); mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 75%, rgba(0,0,0,0) 100%);"
         />
-        <!-- Name / role overlay -->
-        <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-max max-w-full bg-white/80 dark:bg-[var(--surface)]/80 backdrop-blur-sm px-5 py-2 rounded-t-lg text-center">
-          <p class="text-xs font-semibold tracking-widest uppercase text-[var(--text)]">{nameLine}</p>
-          {roleLines.length ? (
-            roleLines.map((line) => (
-              <p class="text-[0.65rem] font-medium uppercase text-[var(--text)]/70">{line}</p>
-            ))
-          ) : (
-            <p class="text-[0.65rem] font-medium uppercase text-[var(--text)]/70">{roleUpper}</p>
-          )}
-          {roleSubline && <p class="text-[0.55rem] italic text-[var(--text)]/50">{roleSubline}</p>}
-        </div>
+      </div>
+
+      <!-- name/role strip along portrait bottom, desktop only -->
+      <div class="pointer-events-none absolute bottom-6 right-2 z-20 hidden max-w-[calc(100%-1rem)] md:block lg:bottom-8 lg:right-6" aria-hidden="true">
+        <p class="font-display text-[clamp(1.4rem,2.2vw,2.1rem)] font-medium italic leading-none text-[var(--text)]">
+          {nameLine}
+        </p>
+        <p class="mt-2 text-[0.6rem] font-semibold uppercase tracking-[0.2em] text-[var(--muted)] md:text-[0.65rem] lg:mt-2.5 lg:whitespace-nowrap lg:text-xs">
+          {roleLines.join(" · ")}{roleSubline ? <span class="text-[var(--muted-soft)]"> · {roleSubline}</span> : null}
+        </p>
       </div>
     </div>
-  </div>
 
-  <!-- Hidden decorative large text for parallax (desktop) -->
-  <div class="hidden lg:flex absolute inset-0 items-center justify-center pointer-events-none" aria-hidden="true">
-    <span class="hero-parallax font-display text-[clamp(8rem,20vw,16rem)] italic text-[var(--text)]/10" data-hero-layer="back">{decorativeLeft}</span>
-    <span class="hero-parallax font-display text-[clamp(8rem,20vw,16rem)] italic text-[var(--text)]/10 ml-4" data-hero-layer="back">{decorativeRight}</span>
+    <!-- name/role strip, mobile only -->
+    <p class="order-3 pb-2 text-center text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-[var(--muted)] md:hidden" aria-hidden="true">
+      {nameLine} · {roleLines.join(" · ")}
+    </p>
   </div>
 </section>
 
@@ -155,7 +117,6 @@ const eyebrow = (hero.eyebrow && String(hero.eyebrow).trim()) || "WEB DESIGNER &
 
     const backLayers = section.querySelectorAll('[data-hero-layer="back"]');
     const portrait = section.querySelector('[data-hero-layer="portrait"]');
-    const copy = section.querySelector('[data-hero-layer="copy"]');
     let ticking = false;
 
     function update() {
@@ -164,9 +125,8 @@ const eyebrow = (hero.eyebrow && String(hero.eyebrow).trim()) || "WEB DESIGNER &
       const viewport = window.innerHeight || 1;
       const progress = Math.max(-1, Math.min(1, (viewport * 0.5 - rect.top) / viewport));
 
-      backLayers.forEach((el) => el.style.setProperty("--parallax-y", `${Math.round(progress * -24)}px`));
-      if (portrait) portrait.style.setProperty("--parallax-soft-y", `${Math.round(progress * 16)}px`);
-      if (copy) copy.style.setProperty("--parallax-y", `${Math.round(progress * -10)}px`);
+      backLayers.forEach((el) => el.style.setProperty("--parallax-y", `${Math.round(progress * -18)}px`));
+      if (portrait) portrait.style.setProperty("--parallax-soft-y", `${Math.round(progress * 12)}px`);
     }
 
     function onScroll() {
