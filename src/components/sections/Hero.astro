@@ -1,20 +1,31 @@
 ---
-// Head section.
+// Poster hero.
 //
-// The portrait is a background-removed cut-out, so it cannot float on the page
-// ground — a white shirt on warm paper has no edge, and the old layout let it
-// read as a sticker with a watermark and a caption running across the sleeve.
-// Here it gets a stage: a cool, dark studio backdrop it is photographed
-// against, bleeding off the right and bottom of the viewport. The copy column
-// stays on the page ground and carries the pitch alone.
+// Layer order, back to front: warm key light, the oversized surname, the
+// portrait (which occludes the middle of that word), grain, a scrim that
+// fades his white shirt into the ink, then the copy. The photograph is the
+// ground here rather than an inset panel, so the stage stays dark in both
+// themes — it is a lit photograph, not a surface that follows the page.
 const { site } = Astro.props;
 const hero = site.hero ?? {};
 
 const headline = String(hero.headline ?? "").trim();
-const lead = String(hero.lead ?? hero.specialization ?? "").trim();
+const lead = String(hero.lead ?? "").trim();
 const ctaNote = String(hero.ctaNote ?? "").trim();
+const tag = String(hero.tag ?? "").trim();
 const portraitSrc = String(hero.portraitSrc ?? "").trim() || "/hero/Nikolas_Maerker_hero.webp";
 const portraitAlt = String(hero.portraitAlt ?? "").trim() || site.name || "";
+
+// Backdrop word: the surname, so the header logo and the hero read as one
+// identity. Falls back to the full name when there is only one word.
+const nameParts = String(site.name ?? "").trim().split(/\s+/).filter(Boolean);
+const wordmark = String(hero.wordmark ?? (nameParts.length > 1 ? nameParts[nameParts.length - 1] : nameParts[0] ?? "")).toUpperCase();
+
+// Trust chip counts the real client list rather than carrying a hardcoded
+// number, so it cannot drift from content/site.json.
+const clientCount = Array.isArray(site.clients?.items) ? site.clients.items.length : 0;
+const metaValue = String(hero.metaValue ?? (clientCount ? String(clientCount) : "")).trim();
+const metaLabel = String(hero.metaLabel ?? "").trim();
 
 const primaryCta = hero.primaryCta ?? {};
 const secondaryCta = hero.secondaryCta ?? {};
@@ -25,35 +36,54 @@ const secondaryLabel = secondaryCta.label ?? "Projekte ansehen";
 ---
 
 <section class="hero" id="hero" aria-labelledby="hero-heading">
-  <div class="hero-grid">
-    <div class="hero-copy">
-      <h1 id="hero-heading" class="hero-title" data-rise>{headline}</h1>
+  <div class="hero-stage">
+    <div class="hero-glow" aria-hidden="true"></div>
+    {wordmark ? <span class="hero-wordmark" aria-hidden="true">{wordmark}</span> : null}
 
-      {lead ? (
-        <p class="hero-lead" data-rise style="--rise-delay:90ms">{lead}</p>
-      ) : null}
+    <img
+      class="hero-portrait"
+      src={portraitSrc}
+      alt={portraitAlt}
+      width="2300"
+      height="2711"
+      loading="eager"
+      decoding="async"
+      fetchpriority="high"
+    />
 
-      <div class="hero-actions" data-rise style="--rise-delay:170ms">
-        <a href={primaryHref} class="btn btn-primary">{primaryLabel}</a>
-        <a href={secondaryHref} class="btn btn-secondary">{secondaryLabel}</a>
+    <div class="hero-grain" aria-hidden="true"></div>
+    <div class="hero-scrim" aria-hidden="true"></div>
+
+    <div class="hero-shell">
+      <div class="hero-meta" data-rise>
+        {metaValue && metaLabel ? (
+          <span class="hero-chip">
+            <strong>{metaValue}</strong>
+            <span>{metaLabel}</span>
+          </span>
+        ) : <span></span>}
+        {tag ? <p class="hero-tag">{tag}</p> : null}
       </div>
 
-      {ctaNote ? (
-        <p class="hero-note" data-rise style="--rise-delay:230ms">{ctaNote}</p>
-      ) : null}
-    </div>
+      <div class="hero-content">
+        <h1 id="hero-heading" class="hero-title" data-rise style="--rise-delay:70ms">{headline}</h1>
 
-    <div class="hero-stage">
-      <img
-        class="hero-portrait"
-        src={portraitSrc}
-        alt={portraitAlt}
-        width="2300"
-        height="2711"
-        loading="eager"
-        decoding="async"
-        fetchpriority="high"
-      />
+        {lead ? (
+          <p class="hero-lead" data-rise style="--rise-delay:140ms">{lead}</p>
+        ) : null}
+
+        <div class="hero-actions" data-rise style="--rise-delay:210ms">
+          <a href={primaryHref} class="btn btn-primary">
+            {primaryLabel}
+            <svg class="btn-arrow h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+          </a>
+          <a href={secondaryHref} class="btn btn-on-dark">{secondaryLabel}</a>
+        </div>
+
+        {ctaNote ? (
+          <p class="hero-note" data-rise style="--rise-delay:270ms">{ctaNote}</p>
+        ) : null}
+      </div>
     </div>
   </div>
 </section>

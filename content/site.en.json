@@ -13,6 +13,11 @@
     "about": "About",
     "contact": "Contact"
   },
+  "menu": {
+    "kicker": "Let's build something",
+    "heading": "worth showing off.",
+    "text": "Got a project in mind? Tell me what you have in mind."
+  },
   "hero": {
     "headline": "Websites that turn visitors into clients",
     "lead": "For mid-sized companies that would rather not look like everyone else. Design, development, photo and video all come from one person – me.",
@@ -21,6 +26,9 @@
     "portraitAlt": "Portrait of Nikolas Maerker",
     "primaryCta": { "label": "Start a project", "href": "#contact" },
     "secondaryCta": { "label": "View work", "href": "#work" },
+    "tag": "Design. Code. Camera.",
+    "wordmark": "MAERKER",
+    "metaLabel": "clients & brands",
     "ctaNote": "Free intro call. I reply within 24 hours."
   },
   "clients": {

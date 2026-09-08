@@ -13,6 +13,11 @@
     "about": "Über mich",
     "contact": "Kontakt"
   },
+  "menu": {
+    "kicker": "Lass uns etwas bauen",
+    "heading": "das sich sehen lässt.",
+    "text": "Projekt im Kopf? Schreib mir kurz, worum es geht."
+  },
   "hero": {
     "headline": "Websites, die aus Besuchern Kunden machen",
     "lead": "Für mittelständische Unternehmen, die sich vom Standard abheben wollen. Design, Entwicklung, Foto und Video kommen aus einer Hand – meiner.",
@@ -21,6 +26,9 @@
     "portraitAlt": "Porträt von Nikolas Maerker",
     "primaryCta": { "label": "Projekt anfragen", "href": "#contact" },
     "secondaryCta": { "label": "Projekte ansehen", "href": "#work" },
+    "tag": "Design. Code. Kamera.",
+    "wordmark": "MAERKER",
+    "metaLabel": "Kunden & Marken",
     "ctaNote": "Kostenloses Erstgespräch. Ich antworte innerhalb von 24 Stunden."
   },
   "clients": {

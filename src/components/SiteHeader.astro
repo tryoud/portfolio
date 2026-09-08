@@ -2,49 +2,61 @@
 // Shared site header for both language routes. Previously this markup lived
 // twice, inline in src/pages/index.astro and src/pages/en/index.astro, which
 // meant every nav change had to be made in two places.
+//
+// Over the hero it is transparent and carries the hero palette; past the hero
+// it becomes a solid themed bar.
 interface Props {
   site: Record<string, any>;
   lang?: "de" | "en";
 }
 
 const { site, lang = "de" } = Astro.props as Props;
-const base = lang === "en" ? "/en/" : "";
+const en = lang === "en";
+const base = en ? "/en/" : "";
 const href = (hash: string) => `${base}${hash}`;
 
 const nav = site.nav ?? {};
 const navItems = [
   { id: "services", label: nav.services ?? "Services" },
-  { id: "work", label: nav.work ?? (lang === "en" ? "Work" : "Projekte") },
-  { id: "process", label: nav.process ?? (lang === "en" ? "Process" : "Ablauf") },
-  { id: "about", label: nav.about ?? (lang === "en" ? "About" : "Über mich") },
-  { id: "contact", label: nav.contact ?? "Kontakt" },
+  { id: "work", label: nav.work ?? (en ? "Work" : "Projekte") },
+  { id: "process", label: nav.process ?? (en ? "Process" : "Ablauf") },
+  { id: "about", label: nav.about ?? (en ? "About" : "Über mich") },
+  { id: "contact", label: nav.contact ?? (en ? "Contact" : "Kontakt") },
 ];
 
-const ctaLabel = site.navCtaLabel ?? (lang === "en" ? "Start a project" : "Projekt anfragen");
-const menuLabel = lang === "en" ? "Menu" : "Menü";
+const ctaLabel = site.navCtaLabel ?? (en ? "Start a project" : "Projekt anfragen");
+const secondaryLabel = site.hero?.secondaryCta?.label ?? (en ? "View work" : "Projekte ansehen");
+const secondaryHref = site.hero?.secondaryCta?.href ?? "#work";
+const menuLabel = en ? "Menu" : "Menü";
+
+const menu = site.menu ?? {};
+const menuKicker = menu.kicker ?? (en ? "Let's build something" : "Lass uns etwas bauen");
+const menuHeading = menu.heading ?? (en ? "worth showing off." : "das sich sehen lässt.");
+const menuText = menu.text ?? site.hero?.lead ?? "";
+
+const clientCount = Array.isArray(site.clients?.items) ? site.clients.items.length : 0;
+const metaValue = site.hero?.metaValue ?? (clientCount ? String(clientCount) : "");
+const metaLabel = site.hero?.metaLabel ?? "";
 ---
 
 <header class="site-head" id="site-head">
   <div class="head-bar">
-    <a href={href("#top")} id="logo-link" class="head-logo">{site.name}.</a>
+    <a href={href("#top")} id="logo-link" class="head-logo">
+      <span class="head-logo-mark" aria-hidden="true">
+        <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18V6l12 12V6" /></svg>
+      </span>
+      {site.name}
+    </a>
 
-    <nav class="head-nav" aria-label={lang === "en" ? "Sections" : "Bereiche"}>
+    <nav class="head-nav" aria-label={en ? "Sections" : "Bereiche"}>
       {navItems.map((item) => <a href={href(`#${item.id}`)}>{item.label}</a>)}
     </nav>
 
     <div class="head-side">
       <span class="head-lang">
-        {lang === "de" ? (
-          <span aria-current="page">DE</span>
-        ) : (
-          <a href="/" class="lang-switch">DE</a>
-        )}
+        {en ? <a href="/" class="lang-switch">DE</a> : <span aria-current="page">DE</span>}
         <span class="head-lang-sep" aria-hidden="true">/</span>
-        {lang === "en" ? (
-          <span aria-current="page">EN</span>
-        ) : (
-          <a href="/en/" class="lang-switch">EN</a>
-        )}
+        {en ? <span aria-current="page">EN</span> : <a href="/en/" class="lang-switch">EN</a>}
       </span>
 
       <button type="button" id="theme-toggle" class="head-icon-btn" aria-label="Enable dark mode">
@@ -52,7 +64,10 @@ const menuLabel = lang === "en" ? "Menu" : "Menü";
         <svg class="theme-icon-sun hidden h-[1.125rem] w-[1.125rem]" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
       </button>
 
-      <a href={href("#contact")} class="head-cta">{ctaLabel}</a>
+      <a href={href("#contact")} class="head-cta">
+        {ctaLabel}
+        <svg class="btn-arrow" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+      </a>
 
       <button
         type="button"
@@ -62,16 +77,35 @@ const menuLabel = lang === "en" ? "Menu" : "Menü";
         aria-expanded="false"
         aria-controls="head-panel"
       >
-        <svg class="menu-icon-open h-[1.125rem] w-[1.125rem]" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" d="M4 7h16M4 12h16M4 17h16" /></svg>
-        <svg class="menu-icon-close hidden h-[1.125rem] w-[1.125rem]" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" d="M6 6l12 12M18 6L6 18" /></svg>
+        <svg class="menu-icon-open h-[1.125rem] w-[1.125rem]" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" d="M4 8h16M4 16h16" /></svg>
+        <svg class="menu-icon-close hidden h-[1.125rem] w-[1.125rem]" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" d="M6 6l12 12M18 6L6 18" /></svg>
       </button>
     </div>
   </div>
 
   <div class="head-panel" id="head-panel">
-    <div class="head-panel-inner">
-      {navItems.slice(0, 4).map((item) => <a href={href(`#${item.id}`)} data-head-panel-link>{item.label}</a>)}
-      <a href={href("#contact")} class="head-panel-cta" data-head-panel-link>{ctaLabel}</a>
+    {metaValue && metaLabel ? (
+      <div class="head-panel-meta">
+        <strong>{metaValue}</strong>
+        <span>{metaLabel}</span>
+      </div>
+    ) : null}
+
+    <nav class="head-panel-nav" aria-label={en ? "Sections" : "Bereiche"}>
+      {navItems.map((item) => <a href={href(`#${item.id}`)} data-head-panel-link>{item.label}</a>)}
+    </nav>
+
+    <div class="head-panel-foot">
+      <p class="head-panel-kicker">{menuKicker}</p>
+      <h2>{menuHeading}</h2>
+      {menuText ? <p>{menuText}</p> : null}
+      <div class="head-panel-actions">
+        <a href={href("#contact")} class="btn btn-primary" data-head-panel-link>
+          {ctaLabel}
+          <svg class="btn-arrow h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+        </a>
+        <a href={href(secondaryHref)} class="btn btn-on-dark" data-head-panel-link>{secondaryLabel}</a>
+      </div>
     </div>
   </div>
 </header>
@@ -82,15 +116,24 @@ const menuLabel = lang === "en" ? "Menu" : "Menü";
     var btn = document.getElementById("head-menu-btn");
     var panel = document.getElementById("head-panel");
 
-    // Solid header only once the page has scrolled; over the hero it stays
+    // Solid header only once the hero is behind us; over the hero it stays
     // transparent so the header reads as part of the opening composition.
+    // The hero is looked up per call because this script runs before <main>
+    // has been parsed.
     if (head) {
       var ticking = false;
       function sync() {
         ticking = false;
-        head.classList.toggle("is-stuck", window.scrollY > 8);
+        var hero = document.getElementById("hero");
+        var past = hero
+          ? hero.getBoundingClientRect().bottom <= 72
+          : window.scrollY > 8;
+        head.classList.toggle("is-stuck", past);
       }
       sync();
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", sync);
+      }
       window.addEventListener(
         "scroll",
         function () {
@@ -100,6 +143,7 @@ const menuLabel = lang === "en" ? "Menu" : "Menü";
         },
         { passive: true }
       );
+      window.addEventListener("resize", sync, { passive: true });
     }
 
     if (head && btn && panel) {
@@ -109,6 +153,7 @@ const menuLabel = lang === "en" ? "Menu" : "Menü";
       function setOpen(open) {
         head.classList.toggle("is-open", open);
         btn.setAttribute("aria-expanded", open ? "true" : "false");
+        document.documentElement.classList.toggle("menu-open", open);
         if (openIcon) openIcon.classList.toggle("hidden", open);
         if (closeIcon) closeIcon.classList.toggle("hidden", !open);
       }
