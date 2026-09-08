@@ -875,23 +875,31 @@
 .hero {
   position: relative;
   overflow: hidden;
+  display: flex;
+  /* One screen on phones: the copy takes the space it needs and the
+     photograph fills the rest, so the hero never becomes a stack of blocks
+     with the portrait stranded below the fold. */
+  min-height: calc(100svh - 4rem);
   background-color: var(--bg);
 }
 
 .hero-grid {
   display: flex;
+  flex: 1 1 auto;
+  min-width: 0;
   flex-direction: column;
 }
 
 .hero-copy {
-  padding: 2.75rem 1.25rem 2.5rem;
+  flex: none;
+  padding: 1.5rem 1.25rem 1.875rem;
 }
 
 .hero-title {
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: clamp(2.5rem, 10.5vw, 3.5rem);
-  line-height: 1.01;
+  font-size: clamp(2.125rem, 9vw, 3.25rem);
+  line-height: 1.03;
   letter-spacing: -0.038em;
   color: var(--text);
   text-wrap: balance;
@@ -899,27 +907,51 @@
 }
 
 .hero-lead {
-  margin-top: 1.375rem;
-  max-width: 44ch;
-  font-size: 1.0625rem;
-  line-height: 1.62;
+  margin-top: 1.0625rem;
+  max-width: 40ch;
+  font-size: 1rem;
+  line-height: 1.58;
   color: var(--muted);
   text-wrap: pretty;
 }
 
 .hero-actions {
-  margin-top: 2rem;
+  margin-top: 1.625rem;
   display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-  max-width: 22rem;
+  flex-wrap: wrap;
+  gap: 0.625rem;
+}
+
+/* Auto-width and side by side: two full-bleed stacked bars read as an app
+   onboarding screen, not as a studio's opening. */
+.hero-actions .btn {
+  min-height: 2.875rem;
+  padding: 0.6875rem 1rem;
+  font-size: 0.875rem;
+}
+
+@media (min-width: 420px) {
+  .hero-actions .btn {
+    padding: 0.6875rem 1.1875rem;
+    font-size: 0.9375rem;
+  }
 }
 
 .hero-note {
-  margin-top: 1rem;
+  margin-top: 0.875rem;
+  max-width: 34ch;
   font-size: 0.8125rem;
   line-height: 1.5;
   color: var(--muted-soft);
+  text-wrap: balance;
+}
+
+/* The narrow cap is there to balance the two phone lines; wider screens fit
+   the note on one. */
+@media (min-width: 640px) {
+  .hero-note {
+    max-width: 52ch;
+  }
 }
 
 /* The studio stage */
@@ -927,8 +959,9 @@
   position: relative;
   isolation: isolate;
   overflow: hidden;
-  aspect-ratio: 4 / 5;
-  border-radius: 1.75rem 1.75rem 0 0;
+  flex: 1 1 auto;
+  min-height: 18rem;
+  border-radius: 1.5rem 1.5rem 0 0;
   background:
     radial-gradient(115% 78% at 52% 22%, var(--stage-lift) 0%, transparent 64%),
     linear-gradient(198deg, #1a2b37 0%, var(--stage-deep) 78%);
@@ -961,7 +994,13 @@
    a full-width 4:5 panel at this size is a wall of portrait. */
 @media (min-width: 640px) and (max-width: 899px) {
   .hero-copy {
-    padding: 4rem max(1.5rem, calc((100vw - 46rem) / 2)) 3.25rem;
+    padding: 3.5rem max(1.5rem, calc((100vw - 46rem) / 2)) 3rem;
+  }
+
+  .hero-actions .btn {
+    min-height: 3rem;
+    padding: 0.75rem 1.5rem;
+    font-size: 0.9375rem;
   }
 
   .hero-title {
@@ -973,14 +1012,8 @@
     font-size: 1.125rem;
   }
 
-  .hero-actions {
-    flex-direction: row;
-    align-items: center;
-    max-width: none;
-  }
-
   .hero-stage {
-    aspect-ratio: 5 / 4;
+    min-height: 74vw;
     border-radius: 2rem 2rem 0 0;
   }
 
@@ -995,6 +1028,10 @@
 }
 
 @media (min-width: 900px) {
+  .hero {
+    min-height: 0;
+  }
+
   .hero-grid {
     display: grid;
     grid-template-columns: minmax(0, 1fr) clamp(20rem, 43vw, 46rem);
@@ -1023,14 +1060,19 @@
   }
 
   .hero-actions {
-    flex-direction: row;
     align-items: center;
-    max-width: none;
+    gap: 0.75rem;
+  }
+
+  .hero-actions .btn {
+    min-height: 3rem;
+    padding: 0.75rem 1.75rem;
+    font-size: 0.9375rem;
   }
 
   .hero-stage {
-    aspect-ratio: auto;
     height: 100%;
+    min-height: 0;
     border-radius: 2.5rem 0 0 0;
   }
 
