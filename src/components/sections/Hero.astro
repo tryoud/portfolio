@@ -22,6 +22,13 @@ const portraitAlt = String(hero.portraitAlt ?? "").trim() || site.name || "";
 // Opt-in via content: no wordmark configured means no backdrop word.
 const wordmark = String(hero.wordmark ?? "").trim().toUpperCase();
 
+// The trailing slice is wrapped separately so it can drop on scroll. Split
+// point comes from content rather than a character count, so it stays correct
+// if the word changes.
+const tailWanted = String(hero.wordmarkTail ?? "").trim().toUpperCase();
+const wordmarkTail = tailWanted && wordmark.endsWith(tailWanted) && wordmark !== tailWanted ? tailWanted : "";
+const wordmarkHead = wordmarkTail ? wordmark.slice(0, -wordmarkTail.length) : wordmark;
+
 // Meta chip: a claim, not a count. A client tally in the first screen invites
 // the reader to weigh how small it is; both halves come from content.
 const metaValue = String(hero.metaValue ?? "").trim();
@@ -38,7 +45,11 @@ const secondaryLabel = secondaryCta.label ?? "Projekte ansehen";
 <section class="hero" id="hero" aria-labelledby="hero-heading">
   <div class="hero-stage">
     <div class="hero-glow" aria-hidden="true"></div>
-    {wordmark ? <span class="hero-wordmark" aria-hidden="true">{wordmark}</span> : null}
+    {wordmark ? (
+      <span class="hero-wordmark" aria-hidden="true">
+        {wordmarkHead}{wordmarkTail ? <span class="wm-tail">{wordmarkTail}</span> : null}
+      </span>
+    ) : null}
 
     <img
       class="hero-portrait"
@@ -101,5 +112,24 @@ const secondaryLabel = secondaryCta.label ?? "Projekte ansehen";
         hero.classList.add("is-ready");
       });
     });
+
+    // The tail of the wordmark drops as soon as the page starts moving, and
+    // springs back at the top. A threshold rather than a scroll-linked value,
+    // because the overshoot is what makes it read as a bounce.
+    var ticking = false;
+    function syncScrolled() {
+      ticking = false;
+      hero.classList.toggle("is-scrolled", window.scrollY > 24);
+    }
+    syncScrolled();
+    window.addEventListener(
+      "scroll",
+      function () {
+        if (ticking) return;
+        ticking = true;
+        window.requestAnimationFrame(syncScrolled);
+      },
+      { passive: true }
+    );
   })();
 </script>

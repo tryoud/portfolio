@@ -641,6 +641,25 @@
     border-color 260ms ease;
 }
 
+/* Over the hero the nav can end up on top of the wordmark as the page scrolls.
+   A soft veil under the bar keeps the links readable without making the header
+   look like a solid bar. */
+.site-head::before {
+  content: "";
+  position: absolute;
+  inset: -0.5rem 0 -1.75rem;
+  z-index: 0;
+  pointer-events: none;
+  background: linear-gradient(to bottom, rgba(10, 7, 5, 0.72) 0%, rgba(10, 7, 5, 0.42) 45%, transparent 100%);
+  opacity: 1;
+  transition: opacity 260ms ease;
+}
+
+.site-head.is-stuck::before,
+.site-head.is-open::before {
+  opacity: 0;
+}
+
 /* Over the hero the header sits on ink, so it carries the hero palette
    regardless of the page theme. */
 .site-head .head-logo,
@@ -1009,27 +1028,37 @@ html.menu-open body {
   font-size: clamp(3rem, 19vw, 7.5rem);
   font-weight: 800;
   line-height: 0.86;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.17em;
   white-space: nowrap;
   color: var(--hero-fg);
   opacity: 0.96;
   user-select: none;
 }
 
+.hero-wordmark .wm-tail {
+  display: inline-block;
+  transform: translateY(0);
+  transition: transform 900ms cubic-bezier(0.34, 1.5, 0.5, 1);
+}
+
+.hero.is-scrolled .hero-wordmark .wm-tail {
+  transform: translateY(0.3em);
+}
+
 .hero-portrait {
   position: absolute;
   z-index: 2;
-  top: 3%;
+  top: 8%;
   left: 50%;
   transform: translateX(-50%);
-  height: 62%;
+  height: 60%;
   width: auto;
   max-width: none;
   object-fit: contain;
   object-position: center top;
   /* Fade him into the ink so the copy never lands on the white shirt. */
-  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 46%, transparent 74%);
-  mask-image: linear-gradient(to bottom, #000 0%, #000 46%, transparent 74%);
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 42%, transparent 70%);
+  mask-image: linear-gradient(to bottom, #000 0%, #000 42%, transparent 70%);
 }
 
 .hero-grain {
@@ -1047,7 +1076,7 @@ html.menu-open body {
   inset: 0;
   z-index: 4;
   pointer-events: none;
-  background: linear-gradient(to bottom, transparent 34%, var(--hero-ink) 82%);
+  background: linear-gradient(to bottom, transparent 24%, var(--hero-ink) 68%);
 }
 
 .hero-shell {
@@ -1282,7 +1311,7 @@ html.menu-open body {
   /* Sized off the viewport height and set right of centre, so the copy
      column below-left stays on clean ink. */
   .hero-portrait {
-    left: 50%;
+    left: 57%;
     right: auto;
     top: 6%;
     height: 84%;
@@ -1348,6 +1377,11 @@ html.menu-open body {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .hero-wordmark .wm-tail,
+  .hero.is-scrolled .hero-wordmark .wm-tail {
+    transform: none;
+    transition: none;
+  }
   .hero.is-anim [data-rise],
   .hero.is-anim .hero-portrait,
   .hero.is-anim .hero-wordmark {
