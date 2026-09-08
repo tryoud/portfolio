@@ -1,10 +1,47 @@
 @import "tailwindcss";
 
+/* ============================================================
+ * TYPEFACES — self-hosted (no third-party request; GDPR-safe,
+ * no layout shift). Variable weights, latin + latin-ext.
+ * ============================================================ */
+@font-face {
+  font-family: "Bricolage Grotesque";
+  font-style: normal;
+  font-weight: 400 800;
+  font-display: swap;
+  src: url("/fonts/bricolage-grotesque-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Bricolage Grotesque";
+  font-style: normal;
+  font-weight: 400 800;
+  font-display: swap;
+  src: url("/fonts/bricolage-grotesque-latin-ext.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: "Plus Jakarta Sans";
+  font-style: normal;
+  font-weight: 300 700;
+  font-display: swap;
+  src: url("/fonts/plus-jakarta-sans-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Plus Jakarta Sans";
+  font-style: normal;
+  font-weight: 300 700;
+  font-display: swap;
+  src: url("/fonts/plus-jakarta-sans-latin-ext.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
 /* Class-based dark mode for Tailwind dark: variant */
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
-  --font-display: "Playfair Display", Georgia, serif;
+  --font-display: "Bricolage Grotesque", "Plus Jakarta Sans", system-ui, sans-serif;
   --color-background-light: #fdfbf7;
 }
 
@@ -30,6 +67,13 @@
   --brand-soft: rgba(180, 83, 9, 0.08);
   --brand-border: rgba(180, 83, 9, 0.22);
   --brand-glow: rgba(180, 83, 9, 0.3);
+  /* Studio stage: the ground the portrait is photographed against.
+     Deliberately cool so warm skin tones separate from it, and dark in
+     BOTH themes so the white shirt never dissolves into the page. */
+  --stage-lift: #26404f;
+  --stage-deep: #0d1620;
+  --stage-fg: #f1f5f7;
+  --stage-mute: #93a8b4;
 }
 
 /* Semantic tokens: dark (warm premium) */
@@ -55,6 +99,10 @@
   --brand-soft: rgba(251, 191, 36, 0.1);
   --brand-border: rgba(251, 191, 36, 0.26);
   --brand-glow: rgba(251, 191, 36, 0.28);
+  --stage-lift: #243c4a;
+  --stage-deep: #090f16;
+  --stage-fg: #f1f5f7;
+  --stage-mute: #8ea3af;
 }
 
 @layer base {
@@ -82,22 +130,6 @@
     radial-gradient(at 40% 20%, hsla(28, 60%, 35%, 0.2) 0px, transparent 50%),
     radial-gradient(at 80% 0%, hsla(189, 50%, 25%, 0.12) 0px, transparent 50%),
     radial-gradient(at 0% 50%, hsla(340, 50%, 30%, 0.1) 0px, transparent 50%);
-}
-
-.hero-portrait-glow {
-  box-shadow:
-    0 0 0 1px rgba(0, 0, 0, 0.06),
-    0 25px 50px -12px rgba(0, 0, 0, 0.15),
-    0 0 80px -10px hsla(28, 60%, 70%, 0.25),
-    0 0 120px -20px hsla(28, 50%, 85%, 0.15);
-}
-
-.dark .hero-portrait-glow {
-  box-shadow:
-    0 0 0 1px rgba(255, 255, 255, 0.06),
-    0 25px 50px -12px rgba(0, 0, 0, 0.4),
-    0 0 80px -10px hsla(28, 40%, 25%, 0.35),
-    0 0 120px -20px hsla(28, 30%, 20%, 0.2);
 }
 
 /* ----- Dark mode overrides (no component edits): sections, cards, forms ----- */
@@ -293,16 +325,6 @@
   transform: translate3d(0, 0, 0) scale(1);
 }
 
-.hero-parallax {
-  transform: translate3d(0, var(--parallax-y, 0px), 0);
-  will-change: transform;
-}
-
-.hero-parallax-soft {
-  transform: translate3d(0, var(--parallax-soft-y, 0px), 0);
-  will-change: transform;
-}
-
 @media (prefers-reduced-motion: reduce) {
   .scroll-reveal,
   .scroll-reveal.is-visible {
@@ -310,22 +332,11 @@
     transform: none;
     transition: none;
   }
-
-  .hero-parallax,
-  .hero-parallax-soft {
-    transform: none;
-    will-change: auto;
-  }
 }
 
 /* Header: background and badge (exclude nav contact button so it keeps light pill + outline in dark) */
 .dark header [class*="bg-\[var\("]:not(.nav-contact-btn) {
   background-color: var(--bg) !important;
-}
-
-/* Dark: blue cloud behind portrait – visible on dark bg (opacity tuned so cloud is perceptible) */
-.dark .hero-portrait-cloud {
-  background: radial-gradient(ellipse 75% 65% at 50% 38%, rgba(147, 197, 253, 0.5) 0%, rgba(96, 165, 250, 0.3) 35%, rgba(59, 130, 246, 0.12) 55%, transparent 75%) !important;
 }
 
 .dark header [class*="rounded-full"].border.border-zinc-200 {
@@ -616,4 +627,491 @@
   .card-hover:hover {
     transform: none;
   }
+}
+
+/* ============================================================
+ * HEAD SECTION — site header + hero
+ *
+ * Design note: the portrait is a cut-out, so it needs a ground to
+ * be photographed against. The "stage" is that ground: a cool,
+ * dark studio backdrop that stays dark in BOTH themes, because a
+ * white shirt on a warm paper page has no edge. Everything else in
+ * the head section stays quiet so the photograph carries it.
+ * ============================================================ */
+
+/* ---------- Header ---------- */
+.site-head {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background-color: transparent;
+  border-bottom: 1px solid transparent;
+  transition:
+    background-color 260ms ease,
+    border-color 260ms ease,
+    backdrop-filter 260ms ease;
+}
+
+.site-head.is-stuck {
+  background-color: color-mix(in srgb, var(--bg) 88%, transparent);
+  border-bottom-color: var(--border);
+  backdrop-filter: blur(14px) saturate(1.4);
+}
+
+.site-head.is-open {
+  background-color: var(--bg);
+  border-bottom-color: var(--border);
+}
+
+.head-bar {
+  margin-inline: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  max-width: 80rem;
+  height: 4rem;
+  padding-inline: 1.25rem;
+}
+
+.head-logo {
+  font-family: var(--font-display);
+  font-size: 1.125rem;
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  color: var(--text);
+  border-radius: 0.25rem;
+  white-space: nowrap;
+}
+
+.head-logo:hover {
+  color: var(--brand);
+}
+
+.head-nav {
+  display: none;
+  align-items: center;
+  gap: 1.75rem;
+  font-size: 0.9375rem;
+  font-weight: 450;
+  color: var(--muted);
+}
+
+.head-nav a {
+  position: relative;
+  padding-block: 0.25rem;
+  border-radius: 0.25rem;
+}
+
+.head-nav a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background-color: var(--brand);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 240ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.head-nav a:hover {
+  color: var(--text);
+}
+
+.head-nav a:hover::after {
+  transform: scaleX(1);
+}
+
+.head-side {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.head-lang {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: var(--muted-soft);
+}
+
+.head-lang [aria-current] {
+  color: var(--text);
+}
+
+.head-lang a:hover {
+  color: var(--text);
+}
+
+.head-lang-sep {
+  opacity: 0.45;
+}
+
+.head-icon-btn {
+  display: inline-flex;
+  height: 2.25rem;
+  width: 2.25rem;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.625rem;
+  border: 1px solid transparent;
+  color: var(--muted);
+  transition:
+    color 200ms ease,
+    background-color 200ms ease,
+    border-color 200ms ease;
+}
+
+.head-icon-btn:hover {
+  color: var(--text);
+  background-color: color-mix(in srgb, var(--text) 6%, transparent);
+}
+
+.head-cta {
+  display: none;
+  align-items: center;
+  border-radius: 0.625rem;
+  background-color: var(--accent);
+  padding: 0.5625rem 1.0625rem;
+  font-size: 0.875rem;
+  font-weight: 550;
+  color: var(--accent-foreground);
+  transition:
+    transform 220ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 220ms ease;
+}
+
+.head-cta:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 22px -12px color-mix(in srgb, var(--text) 70%, transparent);
+}
+
+/* Mobile menu */
+.head-menu {
+  display: block;
+}
+
+.head-panel {
+  display: block;
+  overflow: hidden;
+  max-height: 0;
+  border-top: 1px solid transparent;
+  transition:
+    max-height 320ms cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 320ms ease;
+}
+
+.site-head.is-open .head-panel {
+  max-height: 26rem;
+  border-top-color: var(--border);
+}
+
+.head-panel-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 0.75rem 1.25rem 1.25rem;
+}
+
+.head-panel-inner a {
+  padding: 0.6875rem 0;
+  font-family: var(--font-display);
+  font-size: 1.375rem;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  color: var(--text);
+  border-radius: 0.25rem;
+}
+
+.head-panel-inner a:hover {
+  color: var(--brand);
+}
+
+.head-panel-inner .head-panel-cta {
+  margin-top: 0.75rem;
+  display: flex;
+  justify-content: center;
+  border-radius: 0.75rem;
+  background-color: var(--accent);
+  padding: 0.875rem 1rem;
+  font-family: inherit;
+  font-size: 0.9375rem;
+  font-weight: 550;
+  color: var(--accent-foreground);
+}
+
+.head-panel-inner .head-panel-cta:hover {
+  color: var(--accent-foreground);
+}
+
+@media (min-width: 900px) {
+  .head-bar {
+    height: 4.5rem;
+    padding-inline: 1.5rem;
+  }
+  .head-logo {
+    font-size: 1.25rem;
+  }
+  .head-nav,
+  .head-cta {
+    display: inline-flex;
+  }
+  .head-side {
+    gap: 0.75rem;
+  }
+  .head-menu,
+  .head-panel {
+    display: none;
+  }
+}
+
+/* ---------- Hero ---------- */
+.hero {
+  position: relative;
+  overflow: hidden;
+  background-color: var(--bg);
+}
+
+.hero-grid {
+  display: flex;
+  flex-direction: column;
+}
+
+.hero-copy {
+  padding: 2.75rem 1.25rem 2.5rem;
+}
+
+.hero-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(2.5rem, 10.5vw, 3.5rem);
+  line-height: 1.01;
+  letter-spacing: -0.038em;
+  color: var(--text);
+  text-wrap: balance;
+  max-width: 15ch;
+}
+
+.hero-lead {
+  margin-top: 1.375rem;
+  max-width: 44ch;
+  font-size: 1.0625rem;
+  line-height: 1.62;
+  color: var(--muted);
+  text-wrap: pretty;
+}
+
+.hero-actions {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  max-width: 22rem;
+}
+
+.hero-note {
+  margin-top: 1rem;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: var(--muted-soft);
+}
+
+/* The studio stage */
+.hero-stage {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  aspect-ratio: 4 / 5;
+  border-radius: 1.75rem 1.75rem 0 0;
+  background:
+    radial-gradient(115% 78% at 52% 22%, var(--stage-lift) 0%, transparent 64%),
+    linear-gradient(198deg, #1a2b37 0%, var(--stage-deep) 78%);
+}
+
+.hero-portrait {
+  position: absolute;
+  /* Inset from the top so the stage keeps a band of studio air above the
+     head — a portrait pressed against the top edge reads as a crop mistake. */
+  inset: 5% 0 0;
+  width: 100%;
+  height: 95%;
+  object-fit: cover;
+  object-position: 20% 0%;
+}
+
+/* Photographic grain — this is a photograph, not a sticker. */
+.hero-stage::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  opacity: 0.5;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='140' height='140' filter='url(%23n)' opacity='0.32'/></svg>");
+}
+
+/* Tablet / large phone: still stacked, but the stage becomes a wide crop —
+   a full-width 4:5 panel at this size is a wall of portrait. */
+@media (min-width: 640px) and (max-width: 899px) {
+  .hero-copy {
+    padding: 4rem max(1.5rem, calc((100vw - 46rem) / 2)) 3.25rem;
+  }
+
+  .hero-title {
+    font-size: clamp(3.25rem, 7vw, 4.25rem);
+  }
+
+  .hero-lead {
+    margin-top: 1.625rem;
+    font-size: 1.125rem;
+  }
+
+  .hero-actions {
+    flex-direction: row;
+    align-items: center;
+    max-width: none;
+  }
+
+  .hero-stage {
+    aspect-ratio: 5 / 4;
+    border-radius: 2rem 2rem 0 0;
+  }
+
+  /* Contained rather than cropped here: at this width a cover crop scales
+     the figure by the panel width and turns the portrait into a close-up. */
+  .hero-portrait {
+    inset: 0;
+    height: 100%;
+    object-fit: contain;
+    object-position: 63% 100%;
+  }
+}
+
+@media (min-width: 900px) {
+  .hero-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) clamp(20rem, 43vw, 46rem);
+    align-items: stretch;
+    /* Capped so the stage cannot stretch into an extreme crop on tall
+       monitors; the cap also lets the next section peek above the fold. */
+    min-height: min(calc(100svh - 4.5rem), 56rem);
+    padding-left: max(1.5rem, calc((100vw - 80rem) / 2 + 1.5rem));
+  }
+
+  .hero-copy {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 4rem clamp(2rem, 5vw, 5rem) 5rem 0;
+  }
+
+  .hero-title {
+    font-size: clamp(3.1rem, 5.7vw, 5rem);
+    max-width: 13ch;
+  }
+
+  .hero-lead {
+    margin-top: 1.75rem;
+    font-size: 1.125rem;
+  }
+
+  .hero-actions {
+    flex-direction: row;
+    align-items: center;
+    max-width: none;
+  }
+
+  .hero-stage {
+    aspect-ratio: auto;
+    height: 100%;
+    border-radius: 2.5rem 0 0 0;
+  }
+
+  .hero-portrait {
+    inset: 7% 0 0;
+    height: 93%;
+  }
+}
+
+/* ---------- Head-section entrance: one orchestrated moment ---------- */
+.hero.is-anim [data-rise] {
+  opacity: 0;
+  transform: translate3d(0, 18px, 0);
+}
+
+.hero.is-anim .hero-stage {
+  opacity: 0;
+  transform: scale(1.03);
+}
+
+.hero.is-anim.is-ready [data-rise],
+.hero.is-anim.is-ready .hero-stage {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity 760ms cubic-bezier(0.22, 1, 0.36, 1) var(--rise-delay, 0ms),
+    transform 760ms cubic-bezier(0.22, 1, 0.36, 1) var(--rise-delay, 0ms);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero.is-anim [data-rise],
+  .hero.is-anim .hero-stage {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .site-head,
+  .head-panel,
+  .head-cta:hover {
+    transition: none;
+  }
+}
+
+/* ---------- Overrides for the legacy blanket dark rules ---------- */
+.dark .hero {
+  background-color: var(--bg) !important;
+}
+
+.dark .site-head.is-stuck {
+  background-color: color-mix(in srgb, var(--bg) 88%, transparent) !important;
+  border-bottom-color: var(--border) !important;
+}
+
+.dark .site-head.is-open {
+  background-color: var(--bg) !important;
+  border-bottom-color: var(--border) !important;
+}
+
+.dark .head-logo:hover,
+.dark .head-nav a:hover,
+.dark .head-lang a:hover,
+.dark .head-panel-inner a:hover {
+  color: var(--text) !important;
+}
+
+.dark .head-panel-inner a:hover,
+.dark .head-logo:hover {
+  color: var(--brand) !important;
+}
+
+.dark a.head-cta,
+.dark a.head-cta:hover,
+.dark a.head-panel-cta,
+.dark a.head-panel-cta:hover {
+  background-color: var(--accent) !important;
+  color: var(--accent-foreground) !important;
+}
+
+/* Display type is a grotesque now — it needs negative tracking at size, and it
+   has no true italic, so nothing here should be slanted. */
+.font-display {
+  letter-spacing: -0.03em;
+  font-style: normal;
 }

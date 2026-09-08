@@ -12,7 +12,7 @@ const items = Array.isArray(faq.items) ? faq.items.filter((item) => item?.q && i
     <div class="mx-auto max-w-6xl px-6">
       <div class="scroll-reveal mb-10 md:mb-12" data-reveal="fade">
         <span class="eyebrow">{sectionLabel}</span>
-        <h2 id="faq-heading" class="section-head-gap font-display text-4xl italic text-zinc-900 md:text-[3.25rem]">{heading}</h2>
+        <h2 id="faq-heading" class="section-head-gap font-display text-4xl text-zinc-900 md:text-[3.25rem]">{heading}</h2>
         {lead ? <p class="mt-4 max-w-xl text-sm leading-relaxed text-zinc-600 md:text-base">{lead}</p> : null}
       </div>
       <div class="mx-auto max-w-3xl space-y-4">

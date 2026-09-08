@@ -1,0 +1,179 @@
+---
+// Shared site header for both language routes. Previously this markup lived
+// twice, inline in src/pages/index.astro and src/pages/en/index.astro, which
+// meant every nav change had to be made in two places.
+interface Props {
+  site: Record<string, any>;
+  lang?: "de" | "en";
+}
+
+const { site, lang = "de" } = Astro.props as Props;
+const base = lang === "en" ? "/en/" : "";
+const href = (hash: string) => `${base}${hash}`;
+
+const nav = site.nav ?? {};
+const navItems = [
+  { id: "services", label: nav.services ?? "Services" },
+  { id: "work", label: nav.work ?? (lang === "en" ? "Work" : "Projekte") },
+  { id: "process", label: nav.process ?? (lang === "en" ? "Process" : "Ablauf") },
+  { id: "about", label: nav.about ?? (lang === "en" ? "About" : "Über mich") },
+  { id: "contact", label: nav.contact ?? "Kontakt" },
+];
+
+const ctaLabel = site.navCtaLabel ?? (lang === "en" ? "Start a project" : "Projekt anfragen");
+const menuLabel = lang === "en" ? "Menu" : "Menü";
+---
+
+<header class="site-head" id="site-head">
+  <div class="head-bar">
+    <a href={href("#top")} id="logo-link" class="head-logo">{site.name}.</a>
+
+    <nav class="head-nav" aria-label={lang === "en" ? "Sections" : "Bereiche"}>
+      {navItems.map((item) => <a href={href(`#${item.id}`)}>{item.label}</a>)}
+    </nav>
+
+    <div class="head-side">
+      <span class="head-lang">
+        {lang === "de" ? (
+          <span aria-current="page">DE</span>
+        ) : (
+          <a href="/" class="lang-switch">DE</a>
+        )}
+        <span class="head-lang-sep" aria-hidden="true">/</span>
+        {lang === "en" ? (
+          <span aria-current="page">EN</span>
+        ) : (
+          <a href="/en/" class="lang-switch">EN</a>
+        )}
+      </span>
+
+      <button type="button" id="theme-toggle" class="head-icon-btn" aria-label="Enable dark mode">
+        <svg class="theme-icon-moon h-[1.125rem] w-[1.125rem]" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" /></svg>
+        <svg class="theme-icon-sun hidden h-[1.125rem] w-[1.125rem]" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
+      </button>
+
+      <a href={href("#contact")} class="head-cta">{ctaLabel}</a>
+
+      <button
+        type="button"
+        id="head-menu-btn"
+        class="head-icon-btn head-menu"
+        aria-label={menuLabel}
+        aria-expanded="false"
+        aria-controls="head-panel"
+      >
+        <svg class="menu-icon-open h-[1.125rem] w-[1.125rem]" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" d="M4 7h16M4 12h16M4 17h16" /></svg>
+        <svg class="menu-icon-close hidden h-[1.125rem] w-[1.125rem]" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" d="M6 6l12 12M18 6L6 18" /></svg>
+      </button>
+    </div>
+  </div>
+
+  <div class="head-panel" id="head-panel">
+    <div class="head-panel-inner">
+      {navItems.slice(0, 4).map((item) => <a href={href(`#${item.id}`)} data-head-panel-link>{item.label}</a>)}
+      <a href={href("#contact")} class="head-panel-cta" data-head-panel-link>{ctaLabel}</a>
+    </div>
+  </div>
+</header>
+
+<script is:inline>
+  (function () {
+    var head = document.getElementById("site-head");
+    var btn = document.getElementById("head-menu-btn");
+    var panel = document.getElementById("head-panel");
+
+    // Solid header only once the page has scrolled; over the hero it stays
+    // transparent so the header reads as part of the opening composition.
+    if (head) {
+      var ticking = false;
+      function sync() {
+        ticking = false;
+        head.classList.toggle("is-stuck", window.scrollY > 8);
+      }
+      sync();
+      window.addEventListener(
+        "scroll",
+        function () {
+          if (ticking) return;
+          ticking = true;
+          window.requestAnimationFrame(sync);
+        },
+        { passive: true }
+      );
+    }
+
+    if (head && btn && panel) {
+      var openIcon = btn.querySelector(".menu-icon-open");
+      var closeIcon = btn.querySelector(".menu-icon-close");
+
+      function setOpen(open) {
+        head.classList.toggle("is-open", open);
+        btn.setAttribute("aria-expanded", open ? "true" : "false");
+        if (openIcon) openIcon.classList.toggle("hidden", open);
+        if (closeIcon) closeIcon.classList.toggle("hidden", !open);
+      }
+
+      btn.addEventListener("click", function () {
+        setOpen(btn.getAttribute("aria-expanded") !== "true");
+      });
+
+      panel.querySelectorAll("[data-head-panel-link]").forEach(function (a) {
+        a.addEventListener("click", function () {
+          setOpen(false);
+        });
+      });
+
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape") setOpen(false);
+      });
+
+      window.addEventListener("resize", function () {
+        if (window.innerWidth >= 900) setOpen(false);
+      });
+    }
+  })();
+</script>
+
+<script is:inline>
+  (function () {
+    var btn = document.getElementById("theme-toggle");
+    var moon = btn && btn.querySelector(".theme-icon-moon");
+    var sun = btn && btn.querySelector(".theme-icon-sun");
+    function applyDark(dark) {
+      document.documentElement.classList.toggle("dark", dark);
+      localStorage.setItem("theme", dark ? "dark" : "light");
+      if (moon) moon.classList.toggle("hidden", dark);
+      if (sun) sun.classList.toggle("hidden", !dark);
+      if (btn) btn.setAttribute("aria-label", dark ? "Enable light mode" : "Enable dark mode");
+    }
+    if (btn) {
+      btn.addEventListener("click", function () {
+        applyDark(!document.documentElement.classList.contains("dark"));
+      });
+      var isDark = document.documentElement.classList.contains("dark");
+      if (moon) moon.classList.toggle("hidden", isDark);
+      if (sun) sun.classList.toggle("hidden", !isDark);
+      btn.setAttribute("aria-label", isDark ? "Enable light mode" : "Enable dark mode");
+    }
+
+    var logo = document.getElementById("logo-link");
+    if (logo) {
+      logo.addEventListener("click", function (e) {
+        var h = logo.getAttribute("href");
+        if (h === "#top" || h === "/en/#top") {
+          e.preventDefault();
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        }
+      });
+    }
+
+    // Keep the scroll position when switching language.
+    document.querySelectorAll("a.lang-switch").forEach(function (a) {
+      a.addEventListener("click", function (e) {
+        e.preventDefault();
+        sessionStorage.setItem("langSwitchScroll", String(window.scrollY || 0));
+        window.location.href = a.getAttribute("href");
+      });
+    });
+  })();
+</script>
