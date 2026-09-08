@@ -22,10 +22,9 @@ const portraitAlt = String(hero.portraitAlt ?? "").trim() || site.name || "";
 // Opt-in via content: no wordmark configured means no backdrop word.
 const wordmark = String(hero.wordmark ?? "").trim().toUpperCase();
 
-// Trust chip counts the real client list rather than carrying a hardcoded
-// number, so it cannot drift from content/site.json.
-const clientCount = Array.isArray(site.clients?.items) ? site.clients.items.length : 0;
-const metaValue = String(hero.metaValue ?? (clientCount ? String(clientCount) : "")).trim();
+// Meta chip: a claim, not a count. A client tally in the first screen invites
+// the reader to weigh how small it is; both halves come from content.
+const metaValue = String(hero.metaValue ?? "").trim();
 const metaLabel = String(hero.metaLabel ?? "").trim();
 
 const primaryCta = hero.primaryCta ?? {};

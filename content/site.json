@@ -27,8 +27,9 @@
     "primaryCta": { "label": "Projekt anfragen", "href": "#contact" },
     "secondaryCta": { "label": "Projekte ansehen", "href": "#work" },
     "tag": "Design. Code. Kamera.",
-    "wordmark": "SICHTBAR",
-    "metaLabel": "Kunden & Marken",
+    "wordmark": "STANDOUT",
+    "metaValue": "Ein Ansprechpartner",
+    "metaLabel": "vom Briefing bis zum Launch",
     "ctaNote": "Kostenloses Erstgespräch. Ich antworte innerhalb von 24 Stunden."
   },
   "clients": {

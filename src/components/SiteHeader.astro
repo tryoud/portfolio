@@ -34,8 +34,7 @@ const menuKicker = menu.kicker ?? (en ? "Let's build something" : "Lass uns etwa
 const menuHeading = menu.heading ?? (en ? "worth showing off." : "das sich sehen lässt.");
 const menuText = menu.text ?? site.hero?.lead ?? "";
 
-const clientCount = Array.isArray(site.clients?.items) ? site.clients.items.length : 0;
-const metaValue = site.hero?.metaValue ?? (clientCount ? String(clientCount) : "");
+const metaValue = site.hero?.metaValue ?? "";
 const metaLabel = site.hero?.metaLabel ?? "";
 ---
 

@@ -1009,7 +1009,7 @@ html.menu-open body {
   font-size: clamp(3rem, 19vw, 7.5rem);
   font-weight: 800;
   line-height: 0.86;
-  letter-spacing: -0.045em;
+  letter-spacing: 0.12em;
   white-space: nowrap;
   color: var(--hero-fg);
   opacity: 0.96;
@@ -1063,7 +1063,7 @@ html.menu-open body {
 }
 
 .hero-meta {
-  order: 3;
+  order: 2;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -1075,26 +1075,28 @@ html.menu-open body {
 
 .hero-chip {
   display: flex;
-  align-items: baseline;
-  gap: 0.4375rem;
+  min-width: 0;
+  flex-direction: column;
+  gap: 0.125rem;
 }
 
 .hero-chip strong {
   font-family: var(--font-display);
-  font-size: 1rem;
+  font-size: 0.9375rem;
   font-weight: 700;
   letter-spacing: -0.02em;
+  line-height: 1.2;
   color: var(--hero-fg);
 }
 
 .hero-chip span {
-  max-width: 15ch;
   font-size: 0.6875rem;
   line-height: 1.35;
   color: var(--hero-mute);
 }
 
 .hero-tag {
+  flex: none;
   text-align: right;
   font-size: 0.625rem;
   font-weight: 600;
@@ -1104,7 +1106,7 @@ html.menu-open body {
 }
 
 .hero-content {
-  order: 2;
+  order: 1;
   margin-top: auto;
   padding-top: 2rem;
 }
@@ -1208,7 +1210,7 @@ html.menu-open body {
 
   .hero-wordmark {
     top: 12%;
-    font-size: clamp(4rem, 17vw, 9.5rem);
+    font-size: clamp(3.5rem, 15vw, 9rem);
   }
 
   .hero-title {
@@ -1229,20 +1231,11 @@ html.menu-open body {
     padding-inline: 1.75rem;
   }
 
-  .hero-meta {
-    order: 0;
-    align-items: flex-start;
-    margin-top: 0;
-    padding-top: 0;
-    border-top: 0;
-  }
-
-  .hero-content {
-    order: 1;
+  .hero-chip strong {
+    font-size: 1rem;
   }
 
   .hero-chip span {
-    max-width: none;
     font-size: 0.75rem;
   }
 
