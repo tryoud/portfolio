@@ -1,10 +1,47 @@
 @import "tailwindcss";
 
+/* ============================================================
+ * TYPEFACES — self-hosted (no third-party request; GDPR-safe,
+ * no layout shift). Variable weights, latin + latin-ext.
+ * ============================================================ */
+@font-face {
+  font-family: "Bricolage Grotesque";
+  font-style: normal;
+  font-weight: 400 800;
+  font-display: swap;
+  src: url("/fonts/bricolage-grotesque-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Bricolage Grotesque";
+  font-style: normal;
+  font-weight: 400 800;
+  font-display: swap;
+  src: url("/fonts/bricolage-grotesque-latin-ext.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: "Plus Jakarta Sans";
+  font-style: normal;
+  font-weight: 300 700;
+  font-display: swap;
+  src: url("/fonts/plus-jakarta-sans-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Plus Jakarta Sans";
+  font-style: normal;
+  font-weight: 300 700;
+  font-display: swap;
+  src: url("/fonts/plus-jakarta-sans-latin-ext.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
 /* Class-based dark mode for Tailwind dark: variant */
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
-  --font-display: "Playfair Display", Georgia, serif;
+  --font-display: "Bricolage Grotesque", "Plus Jakarta Sans", system-ui, sans-serif;
   --color-background-light: #fdfbf7;
 }
 
@@ -30,6 +67,13 @@
   --brand-soft: rgba(180, 83, 9, 0.08);
   --brand-border: rgba(180, 83, 9, 0.22);
   --brand-glow: rgba(180, 83, 9, 0.3);
+  /* Studio stage: the ground the portrait is photographed against.
+     Deliberately cool so warm skin tones separate from it, and dark in
+     BOTH themes so the white shirt never dissolves into the page. */
+  --stage-lift: #26404f;
+  --stage-deep: #0d1620;
+  --stage-fg: #f1f5f7;
+  --stage-mute: #93a8b4;
 }
 
 /* Semantic tokens: dark (warm premium) */
@@ -55,6 +99,10 @@
   --brand-soft: rgba(251, 191, 36, 0.1);
   --brand-border: rgba(251, 191, 36, 0.26);
   --brand-glow: rgba(251, 191, 36, 0.28);
+  --stage-lift: #243c4a;
+  --stage-deep: #090f16;
+  --stage-fg: #f1f5f7;
+  --stage-mute: #8ea3af;
 }
 
 @layer base {
@@ -82,22 +130,6 @@
     radial-gradient(at 40% 20%, hsla(28, 60%, 35%, 0.2) 0px, transparent 50%),
     radial-gradient(at 80% 0%, hsla(189, 50%, 25%, 0.12) 0px, transparent 50%),
     radial-gradient(at 0% 50%, hsla(340, 50%, 30%, 0.1) 0px, transparent 50%);
-}
-
-.hero-portrait-glow {
-  box-shadow:
-    0 0 0 1px rgba(0, 0, 0, 0.06),
-    0 25px 50px -12px rgba(0, 0, 0, 0.15),
-    0 0 80px -10px hsla(28, 60%, 70%, 0.25),
-    0 0 120px -20px hsla(28, 50%, 85%, 0.15);
-}
-
-.dark .hero-portrait-glow {
-  box-shadow:
-    0 0 0 1px rgba(255, 255, 255, 0.06),
-    0 25px 50px -12px rgba(0, 0, 0, 0.4),
-    0 0 80px -10px hsla(28, 40%, 25%, 0.35),
-    0 0 120px -20px hsla(28, 30%, 20%, 0.2);
 }
 
 /* ----- Dark mode overrides (no component edits): sections, cards, forms ----- */
@@ -183,20 +215,9 @@
   color: var(--text) !important;
 }
 
-/* Nav contact button: in dark mode force light pill + dark text + outline only in dark */
-.dark .nav-contact-btn,
-.dark .nav-contact-btn:hover {
-  background-color: var(--accent) !important;
-  color: var(--accent-foreground) !important;
-  border: 2px solid var(--accent-foreground) !important;
-}
-/* Override .dark a[href]:hover so nav contact button text stays dark on hover */
-.dark a.nav-contact-btn:hover {
-  color: var(--accent-foreground) !important;
-}
-/* Hero primary CTA: keep dark text on hover in dark mode (button stays light) */
-.dark a.hero-primary-cta:hover {
-  color: var(--accent-foreground) !important;
+.dark a.btn-primary,
+.dark a.btn-primary:hover {
+  color: #fff !important;
 }
 
 .dark a.rounded-full.bg-zinc-900,
@@ -293,16 +314,6 @@
   transform: translate3d(0, 0, 0) scale(1);
 }
 
-.hero-parallax {
-  transform: translate3d(0, var(--parallax-y, 0px), 0);
-  will-change: transform;
-}
-
-.hero-parallax-soft {
-  transform: translate3d(0, var(--parallax-soft-y, 0px), 0);
-  will-change: transform;
-}
-
 @media (prefers-reduced-motion: reduce) {
   .scroll-reveal,
   .scroll-reveal.is-visible {
@@ -310,22 +321,6 @@
     transform: none;
     transition: none;
   }
-
-  .hero-parallax,
-  .hero-parallax-soft {
-    transform: none;
-    will-change: auto;
-  }
-}
-
-/* Header: background and badge (exclude nav contact button so it keeps light pill + outline in dark) */
-.dark header [class*="bg-\[var\("]:not(.nav-contact-btn) {
-  background-color: var(--bg) !important;
-}
-
-/* Dark: blue cloud behind portrait – visible on dark bg (opacity tuned so cloud is perceptible) */
-.dark .hero-portrait-cloud {
-  background: radial-gradient(ellipse 75% 65% at 50% 38%, rgba(147, 197, 253, 0.5) 0%, rgba(96, 165, 250, 0.3) 35%, rgba(59, 130, 246, 0.12) 55%, transparent 75%) !important;
 }
 
 .dark header [class*="rounded-full"].border.border-zinc-200 {
@@ -494,26 +489,17 @@
   transform: translateX(3px);
 }
 
+/* One primary action across the whole page: the brand gradient pill. */
 .btn-primary {
-  background-color: var(--accent);
-  color: var(--accent-foreground);
+  background: var(--accent-grad);
+  color: #fff;
   border: 1px solid transparent;
-  box-shadow: 0 10px 24px -14px rgba(24, 24, 27, 0.65);
+  box-shadow: 0 10px 24px -14px rgba(234, 88, 12, 0.85);
 }
 
 .btn-primary:hover {
   transform: translateY(-2px);
-  box-shadow:
-    0 18px 34px -16px rgba(24, 24, 27, 0.6),
-    0 0 0 3px var(--brand-soft),
-    0 0 0 1px var(--brand-border);
-}
-
-.dark .btn-primary:hover {
-  box-shadow:
-    0 18px 34px -16px rgba(0, 0, 0, 0.7),
-    0 0 0 3px var(--brand-soft),
-    0 0 0 1px var(--brand-border);
+  box-shadow: 0 18px 34px -16px rgba(234, 88, 12, 0.95);
 }
 
 .btn-secondary {
@@ -616,4 +602,805 @@
   .card-hover:hover {
     transform: none;
   }
+}
+
+/* ============================================================
+ * HEAD SECTION — site header + hero
+ *
+ * Poster hero: the photograph is the ground, not an inset panel. The
+ * surname is set oversized behind the subject so his head occludes the
+ * middle of it, and he is masked out toward the bottom so the copy and
+ * the CTAs sit on clean ink rather than on a white shirt.
+ *
+ * The stage is dark in both themes — it is a lit photograph, not a
+ * surface that follows the page.
+ * ============================================================ */
+
+:root,
+.dark {
+  --hero-ink: #130e0b;
+  --hero-ink-lift: #241a14;
+  --hero-fg: #fdf6f0;
+  --hero-mute: #c9b8ad;
+  --hero-mute-soft: #9b897e;
+  --hero-line: rgba(253, 246, 240, 0.16);
+  --hero-glow: rgba(234, 88, 12, 0.62);
+  --hero-glow-soft: rgba(245, 158, 11, 0.3);
+  --accent-grad: linear-gradient(135deg, #f59e0b 0%, #ea580c 100%);
+}
+
+/* ---------- Header ---------- */
+.site-head {
+  position: sticky;
+  top: 0;
+  z-index: 60;
+  background-color: transparent;
+  border-bottom: 1px solid transparent;
+  transition:
+    background-color 260ms ease,
+    border-color 260ms ease;
+}
+
+/* Over the hero the header sits on ink, so it carries the hero palette
+   regardless of the page theme. */
+.site-head .head-logo,
+.site-head .head-nav a,
+.site-head .head-lang,
+.site-head .head-icon-btn {
+  color: var(--hero-fg);
+}
+
+.site-head .head-nav a,
+.site-head .head-lang a,
+.site-head .head-icon-btn {
+  color: var(--hero-mute);
+}
+
+.site-head .head-lang [aria-current] {
+  color: var(--hero-fg);
+}
+
+.site-head.is-stuck {
+  background-color: color-mix(in srgb, var(--bg) 86%, transparent);
+  border-bottom-color: var(--border);
+  backdrop-filter: blur(14px) saturate(1.4);
+}
+
+.site-head.is-stuck .head-logo {
+  color: var(--text);
+}
+
+.site-head.is-stuck .head-nav a,
+.site-head.is-stuck .head-lang,
+.site-head.is-stuck .head-lang a,
+.site-head.is-stuck .head-icon-btn {
+  color: var(--muted);
+}
+
+.site-head.is-stuck .head-lang [aria-current] {
+  color: var(--text);
+}
+
+.head-bar {
+  position: relative;
+  z-index: 2;
+  margin-inline: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  max-width: 80rem;
+  height: 4rem;
+  padding-inline: 1.125rem;
+}
+
+.head-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-display);
+  font-size: 1.0625rem;
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  border-radius: 0.25rem;
+  white-space: nowrap;
+}
+
+.head-logo-mark {
+  display: grid;
+  height: 1.75rem;
+  width: 1.75rem;
+  flex: none;
+  place-items: center;
+  border-radius: 9999px;
+  background: var(--accent-grad);
+  color: #fff;
+}
+
+.head-nav {
+  display: none;
+  align-items: center;
+  gap: 1.75rem;
+  font-size: 0.9375rem;
+  font-weight: 450;
+}
+
+.head-nav a {
+  position: relative;
+  padding-block: 0.25rem;
+  border-radius: 0.25rem;
+  transition: color 200ms ease;
+}
+
+.head-nav a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background: var(--accent-grad);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 240ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.head-nav a:hover::after {
+  transform: scaleX(1);
+}
+
+.head-side {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.head-lang {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-size: 0.8125rem;
+  font-weight: 500;
+}
+
+.head-lang-sep {
+  opacity: 0.4;
+}
+
+.head-icon-btn {
+  display: inline-flex;
+  height: 2.25rem;
+  width: 2.25rem;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.75rem;
+  border: 1px solid transparent;
+  transition:
+    color 200ms ease,
+    background-color 200ms ease,
+    border-color 200ms ease;
+}
+
+.head-icon-btn:hover {
+  background-color: color-mix(in srgb, currentColor 12%, transparent);
+}
+
+/* Pill CTA in the brand gradient — the same object as the hero's primary. */
+.head-cta {
+  display: none;
+  align-items: center;
+  gap: 0.4375rem;
+  border-radius: 9999px;
+  background: var(--accent-grad);
+  padding: 0.5625rem 1.0625rem;
+  font-size: 0.875rem;
+  font-weight: 550;
+  color: #fff;
+  box-shadow: 0 8px 22px -12px rgba(234, 88, 12, 0.9);
+  transition:
+    transform 220ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 220ms ease;
+}
+
+.head-cta:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 14px 28px -12px rgba(234, 88, 12, 0.95);
+}
+
+.head-cta .btn-arrow {
+  height: 0.875rem;
+  width: 0.875rem;
+}
+
+.head-menu {
+  display: inline-flex;
+}
+
+/* ---------- Full-screen menu overlay ---------- */
+.head-panel {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  padding: 5.25rem 1.25rem 2rem;
+  background:
+    radial-gradient(120% 70% at 70% 8%, var(--hero-glow) 0%, transparent 62%),
+    var(--hero-ink);
+  color: var(--hero-fg);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-0.75rem);
+  transition:
+    opacity 280ms ease,
+    transform 280ms cubic-bezier(0.22, 1, 0.36, 1),
+    visibility 0s linear 280ms;
+}
+
+.site-head.is-open .head-panel {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+  transition-delay: 0s;
+}
+
+/* While the overlay is up the header always uses the hero palette. */
+.site-head.is-open,
+.site-head.is-open.is-stuck {
+  background-color: transparent;
+  border-bottom-color: transparent;
+  backdrop-filter: none;
+}
+
+.site-head.is-open .head-logo {
+  color: var(--hero-fg);
+}
+
+.site-head.is-open .head-icon-btn,
+.site-head.is-open .head-lang a {
+  color: var(--hero-mute);
+}
+
+.site-head.is-open .head-lang [aria-current] {
+  color: var(--hero-fg);
+}
+
+html.menu-open,
+html.menu-open body {
+  overflow: hidden;
+}
+
+.head-panel-meta {
+  display: flex;
+  align-items: baseline;
+  gap: 0.625rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid var(--hero-line);
+}
+
+.head-panel-meta strong {
+  font-family: var(--font-display);
+  font-size: 1.75rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+
+.head-panel-meta span {
+  font-size: 0.8125rem;
+  color: var(--hero-mute);
+}
+
+.head-panel-nav {
+  display: flex;
+  flex-direction: column;
+}
+
+.head-panel-nav a {
+  padding: 0.9375rem 0;
+  border-bottom: 1px solid var(--hero-line);
+  font-size: 1.1875rem;
+  font-weight: 450;
+  color: var(--hero-fg);
+  transition: color 200ms ease;
+}
+
+.head-panel-nav a:hover {
+  color: #fdba74;
+}
+
+.head-panel-foot {
+  margin-top: auto;
+  padding-top: 1.75rem;
+}
+
+.head-panel-kicker {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #fdba74;
+}
+
+.head-panel-foot h2 {
+  margin-top: 0.5rem;
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: var(--hero-fg);
+}
+
+.head-panel-foot p {
+  margin-top: 0.5rem;
+  font-size: 0.875rem;
+  line-height: 1.55;
+  color: var(--hero-mute);
+}
+
+.head-panel-actions {
+  margin-top: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+}
+
+@media (min-width: 900px) {
+  .head-bar {
+    height: 4.5rem;
+    padding-inline: 1.5rem;
+  }
+  .head-logo {
+    font-size: 1.1875rem;
+  }
+  .head-nav,
+  .head-cta {
+    display: inline-flex;
+  }
+  .head-side {
+    gap: 0.75rem;
+  }
+  .head-menu,
+  .head-panel {
+    display: none;
+  }
+}
+
+/* ---------- Hero ---------- */
+.hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  margin-top: -4rem;
+  background-color: var(--hero-ink);
+  color: var(--hero-fg);
+}
+
+.hero-stage {
+  position: relative;
+  display: flex;
+  min-height: 100svh;
+  flex-direction: column;
+}
+
+/* Warm key light behind the subject. */
+.hero-glow {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background:
+    radial-gradient(78% 52% at 50% 30%, var(--hero-glow) 0%, transparent 68%),
+    radial-gradient(120% 80% at 50% 12%, var(--hero-glow-soft) 0%, transparent 70%),
+    linear-gradient(180deg, var(--hero-ink-lift) 0%, var(--hero-ink) 62%);
+}
+
+/* Oversized surname, occluded by the head. */
+.hero-wordmark {
+  display: none;
+  position: absolute;
+  z-index: 1;
+  top: 10.5%;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 19vw, 7.5rem);
+  font-weight: 800;
+  line-height: 0.86;
+  letter-spacing: 0.12em;
+  white-space: nowrap;
+  color: var(--hero-fg);
+  opacity: 0.96;
+  user-select: none;
+}
+
+.hero-portrait {
+  position: absolute;
+  z-index: 2;
+  top: 3%;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 62%;
+  width: auto;
+  max-width: none;
+  object-fit: contain;
+  object-position: center top;
+  /* Fade him into the ink so the copy never lands on the white shirt. */
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 46%, transparent 74%);
+  mask-image: linear-gradient(to bottom, #000 0%, #000 46%, transparent 74%);
+}
+
+.hero-grain {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  opacity: 0.42;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='140' height='140' filter='url(%23n)' opacity='0.34'/></svg>");
+}
+
+.hero-scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  pointer-events: none;
+  background: linear-gradient(to bottom, transparent 34%, var(--hero-ink) 82%);
+}
+
+.hero-shell {
+  position: relative;
+  z-index: 5;
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  width: 100%;
+  max-width: 80rem;
+  margin-inline: auto;
+  padding: 4.75rem 1.25rem 1.75rem;
+}
+
+.hero-meta {
+  order: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 1.125rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--hero-line);
+}
+
+.hero-chip {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 0.125rem;
+}
+
+.hero-chip strong {
+  font-family: var(--font-display);
+  font-size: 0.9375rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  color: var(--hero-fg);
+}
+
+.hero-chip span {
+  font-size: 0.6875rem;
+  line-height: 1.35;
+  color: var(--hero-mute);
+}
+
+.hero-tag {
+  flex: none;
+  text-align: right;
+  font-size: 0.625rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--hero-mute);
+}
+
+.hero-content {
+  order: 1;
+  margin-top: auto;
+  padding-top: 2rem;
+}
+
+.hero-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(2rem, 8.4vw, 2.75rem);
+  line-height: 1.05;
+  letter-spacing: -0.035em;
+  color: var(--hero-fg);
+  text-wrap: balance;
+  max-width: 16ch;
+}
+
+.hero-lead {
+  margin-top: 0.875rem;
+  max-width: 42ch;
+  font-size: 0.9375rem;
+  line-height: 1.55;
+  color: var(--hero-mute);
+  text-wrap: pretty;
+}
+
+.hero-actions {
+  margin-top: 1.375rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+}
+
+.hero-note {
+  margin-top: 0.875rem;
+  max-width: 40ch;
+  font-size: 0.75rem;
+  line-height: 1.5;
+  color: var(--hero-mute-soft);
+  text-wrap: balance;
+}
+
+/* Buttons that live on the hero ink */
+.btn-on-dark {
+  background-color: rgba(253, 246, 240, 0.07);
+  color: var(--hero-fg);
+  border: 1px solid var(--hero-line);
+  backdrop-filter: blur(6px);
+}
+
+.btn-on-dark:hover {
+  transform: translateY(-2px);
+  background-color: rgba(253, 246, 240, 0.12);
+  border-color: rgba(253, 246, 240, 0.3);
+  color: var(--hero-fg);
+}
+
+.hero-actions .btn,
+.head-panel-actions .btn {
+  width: 100%;
+  border-radius: 9999px;
+  min-height: 3.125rem;
+  font-size: 0.9375rem;
+}
+
+@media (max-width: 639px) and (max-height: 720px) {
+  .hero-portrait {
+    height: 46%;
+  }
+
+  .hero-shell {
+    padding-top: 4.25rem;
+  }
+
+  .hero-title {
+    font-size: 1.875rem;
+  }
+
+  .hero-lead {
+    margin-top: 0.75rem;
+    font-size: 0.875rem;
+  }
+
+  .hero-actions {
+    margin-top: 1.125rem;
+  }
+
+  .hero-actions .btn {
+    min-height: 2.875rem;
+  }
+
+  /* Repeated verbatim in the contact section, so it is the safe thing to
+     drop when the screen cannot hold everything. */
+  .hero-note {
+    display: none;
+  }
+}
+
+@media (min-width: 640px) {
+  .hero-shell {
+    padding: 5.5rem 2rem 2.5rem;
+  }
+
+  .hero-wordmark {
+    top: 12%;
+    font-size: clamp(3.5rem, 15vw, 9rem);
+  }
+
+  .hero-title {
+    font-size: clamp(2.75rem, 5.6vw, 3.5rem);
+  }
+
+  .hero-lead {
+    font-size: 1rem;
+  }
+
+  .hero-actions {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .hero-actions .btn {
+    width: auto;
+    padding-inline: 1.75rem;
+  }
+
+  .hero-chip strong {
+    font-size: 1rem;
+  }
+
+  .hero-chip span {
+    font-size: 0.75rem;
+  }
+
+  .hero-tag {
+    font-size: 0.6875rem;
+  }
+}
+
+/* Backdrop word appears from 768px up: any narrower and the head takes out two
+   letters, which is where the word stops being recoverable. */
+@media (min-width: 768px) {
+  .hero-wordmark {
+    display: block;
+  }
+}
+
+@media (min-width: 900px) {
+  .hero {
+    margin-top: -4.5rem;
+  }
+
+  .hero-stage {
+    min-height: min(100svh, 60rem);
+  }
+
+  .hero-shell {
+    padding: 7rem 2.5rem 3.5rem;
+  }
+
+  .hero-glow {
+    background:
+      radial-gradient(46% 62% at 58% 34%, var(--hero-glow) 0%, transparent 68%),
+      radial-gradient(90% 80% at 58% 10%, var(--hero-glow-soft) 0%, transparent 72%),
+      linear-gradient(180deg, var(--hero-ink-lift) 0%, var(--hero-ink) 60%);
+  }
+
+  .hero-wordmark {
+    top: 11.5%;
+    left: 0;
+    right: 0;
+    font-size: clamp(5.5rem, 11vw, 12.5rem);
+  }
+
+  /* Sized off the viewport height and set right of centre, so the copy
+     column below-left stays on clean ink. */
+  .hero-portrait {
+    left: 50%;
+    right: auto;
+    top: 6%;
+    height: 84%;
+    width: auto;
+    transform: translateX(-50%);
+    object-fit: contain;
+    object-position: center top;
+    -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 58%, transparent 88%);
+    mask-image: linear-gradient(to bottom, #000 0%, #000 58%, transparent 88%);
+  }
+
+  .hero-scrim {
+    background:
+      linear-gradient(to bottom, transparent 46%, var(--hero-ink) 92%),
+      radial-gradient(72% 62% at 4% 96%, var(--hero-ink) 0%, transparent 72%);
+  }
+
+  .hero-content {
+    max-width: 34rem;
+  }
+
+  .hero-title {
+    font-size: clamp(3rem, 4.4vw, 3.9rem);
+    max-width: 15ch;
+  }
+
+  .hero-lead {
+    margin-top: 1.125rem;
+    font-size: 1.0625rem;
+  }
+
+  .hero-note {
+    max-width: 52ch;
+  }
+}
+
+/* ---------- Head-section entrance: one orchestrated moment ---------- */
+.hero.is-anim [data-rise] {
+  opacity: 0;
+  transform: translate3d(0, 18px, 0);
+}
+
+.hero.is-anim .hero-portrait,
+.hero.is-anim .hero-wordmark {
+  opacity: 0;
+}
+
+.hero.is-anim.is-ready [data-rise],
+.hero.is-anim.is-ready .hero-portrait,
+.hero.is-anim.is-ready .hero-wordmark {
+  opacity: 1;
+  transition:
+    opacity 760ms cubic-bezier(0.22, 1, 0.36, 1) var(--rise-delay, 0ms),
+    transform 760ms cubic-bezier(0.22, 1, 0.36, 1) var(--rise-delay, 0ms);
+}
+
+.hero.is-anim.is-ready [data-rise] {
+  transform: none;
+}
+
+.hero.is-anim.is-ready .hero-wordmark {
+  opacity: 0.96;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero.is-anim [data-rise],
+  .hero.is-anim .hero-portrait,
+  .hero.is-anim .hero-wordmark {
+    opacity: 1;
+    transition: none;
+  }
+  .hero.is-anim [data-rise] {
+    transform: none;
+  }
+  .site-head,
+  .head-panel,
+  .head-cta:hover {
+    transition: none;
+  }
+}
+
+/* ---------- Overrides for the legacy blanket dark rules ---------- */
+.dark .hero,
+.dark section.hero {
+  background-color: var(--hero-ink) !important;
+}
+
+.dark .site-head.is-stuck {
+  background-color: color-mix(in srgb, var(--bg) 86%, transparent) !important;
+  border-bottom-color: var(--border) !important;
+}
+
+.dark .head-nav a:hover,
+.dark .head-logo:hover,
+.dark .head-panel-nav a:hover,
+.dark .head-lang a:hover {
+  color: inherit !important;
+}
+
+.dark .head-panel-nav a:hover {
+  color: #fdba74 !important;
+}
+
+.dark a.head-cta,
+.dark a.head-cta:hover {
+  background: var(--accent-grad) !important;
+  color: #fff !important;
+  border: 0 !important;
+}
+
+.dark .hero a.btn-on-dark,
+.dark .hero a.btn-on-dark:hover {
+  color: var(--hero-fg) !important;
+}
+
+/* Display type is a grotesque now — it needs negative tracking at size, and it
+   has no true italic, so nothing here should be slanted. */
+.font-display {
+  letter-spacing: -0.03em;
+  font-style: normal;
 }

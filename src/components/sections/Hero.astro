@@ -1,143 +1,105 @@
 ---
+// Poster hero.
+//
+// Layer order, back to front: warm key light, the oversized surname, the
+// portrait (which occludes the middle of that word), grain, a scrim that
+// fades his white shirt into the ink, then the copy. The photograph is the
+// ground here rather than an inset panel, so the stage stays dark in both
+// themes — it is a lit photograph, not a surface that follows the page.
 const { site } = Astro.props;
 const hero = site.hero ?? {};
-const headline = hero.headline ?? "Hey, there";
-const portraitSrc = (hero.portraitSrc && String(hero.portraitSrc).trim()) || "/hero/Nikolas_Maerker_hero.webp";
-const primaryCta = hero.primaryCta ?? { label: "Projekt anfragen", href: "#contact" };
-const secondaryCta = hero.secondaryCta ?? { label: "Projekte ansehen", href: "#work" };
-const primaryHref = typeof primaryCta === "object" && primaryCta.href ? primaryCta.href : "#contact";
-const primaryLabel = typeof primaryCta === "object" && primaryCta.label ? primaryCta.label : "Projekt anfragen";
-const secondaryHref = typeof secondaryCta === "object" && secondaryCta.href ? secondaryCta.href : "#work";
-const secondaryLabel = typeof secondaryCta === "object" && secondaryCta.label ? secondaryCta.label : "Projekte ansehen";
-const specialization = hero.specialization ?? "";
-const specializationCopy = specialization || (Array.isArray(hero.specializationLines) ? hero.specializationLines.join(" ") : "");
-const ctaNote = (hero.ctaNote && String(hero.ctaNote).trim()) || "";
-const decorativeHeadline = String(hero.decorativeHeadline ?? "Hey, there").trim();
-const nameLine = site.name ?? "";
-const roleLine = site.role ?? "";
-const roleSubline = (hero.roleSubline && String(hero.roleSubline).trim()) || "";
-const nameParts = nameLine.trim().split(/\s+/);
-const firstNameUpper = nameParts[0] ? nameParts[0].toUpperCase() : "";
-const lastNameUpper = nameParts.length > 1 ? nameParts.slice(1).join(" ").toUpperCase() : "";
-const roleSegments = roleLine.toUpperCase().split(/\s*·\s*/).filter(Boolean);
-const roleLines = Array.isArray(hero.roleLines) && hero.roleLines.length ? hero.roleLines.map((l) => String(l).toUpperCase()) : roleSegments;
-const rawHeadline = String(headline || "").trim();
-const headlineLinesSource = Array.isArray(hero.headlineLines) && hero.headlineLines.length
-  ? hero.headlineLines
-  : rawHeadline.split(/,\s*/);
-const headlineLines = headlineLinesSource.map((part) => String(part).trim()).filter(Boolean);
-const heroHeadlineLines = headlineLines.length ? headlineLines : [headline];
-const decorativeParts = decorativeHeadline.split(/,\s*/);
-const decorativeLeft = decorativeParts[0] ? `${decorativeParts[0]},` : "Hey,";
-const decorativeRight = decorativeParts[1] ?? "there";
-const eyebrow = (hero.eyebrow && String(hero.eyebrow).trim()) || roleLines[0] || "WEB DESIGNER";
+
+const headline = String(hero.headline ?? "").trim();
+const lead = String(hero.lead ?? "").trim();
+const ctaNote = String(hero.ctaNote ?? "").trim();
+const tag = String(hero.tag ?? "").trim();
+const portraitSrc = String(hero.portraitSrc ?? "").trim() || "/hero/Nikolas_Maerker_hero.webp";
+const portraitAlt = String(hero.portraitAlt ?? "").trim() || site.name || "";
+
+// Backdrop word. It gets partly hidden behind his head, so it has to be a word
+// the reader already knows and can complete from the visible letters — a
+// surname cannot be reconstructed, and says nothing to a first-time visitor.
+// Opt-in via content: no wordmark configured means no backdrop word.
+const wordmark = String(hero.wordmark ?? "").trim().toUpperCase();
+
+// Meta chip: a claim, not a count. A client tally in the first screen invites
+// the reader to weigh how small it is; both halves come from content.
+const metaValue = String(hero.metaValue ?? "").trim();
+const metaLabel = String(hero.metaLabel ?? "").trim();
+
+const primaryCta = hero.primaryCta ?? {};
+const secondaryCta = hero.secondaryCta ?? {};
+const primaryHref = primaryCta.href ?? "#contact";
+const primaryLabel = primaryCta.label ?? "Projekt anfragen";
+const secondaryHref = secondaryCta.href ?? "#work";
+const secondaryLabel = secondaryCta.label ?? "Projekte ansehen";
 ---
 
-<section class="relative overflow-hidden bg-[var(--bg)] text-[var(--text)]" aria-labelledby="hero-heading" data-hero-motion>
-  <!-- Warm ambient background -->
-  <div class="pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
-    <div class="absolute inset-0 dark:hidden" style="background: radial-gradient(ellipse 90% 70% at 70% 20%, hsla(38, 80%, 92%, 1) 0%, transparent 60%);"></div>
-    <div class="absolute inset-0 dark:hidden" style="background: radial-gradient(ellipse 60% 50% at 10% 90%, hsla(30, 60%, 94%, 0.8) 0%, transparent 60%);"></div>
-    <div class="absolute inset-0 hidden dark:block" style="background: radial-gradient(ellipse 90% 70% at 70% 20%, hsla(30, 40%, 18%, 0.8) 0%, transparent 60%);"></div>
-  </div>
+<section class="hero" id="hero" aria-labelledby="hero-heading">
+  <div class="hero-stage">
+    <div class="hero-glow" aria-hidden="true"></div>
+    {wordmark ? <span class="hero-wordmark" aria-hidden="true">{wordmark}</span> : null}
 
-  <div class="mx-auto grid w-full max-w-7xl grid-cols-1 items-center gap-y-2 px-4 pb-0 pt-10 sm:px-6 md:min-h-[calc(100svh-4.5rem)] md:grid-cols-[minmax(0,6fr)_minmax(0,5fr)] md:gap-x-10 md:pt-6 lg:gap-x-16">
+    <img
+      class="hero-portrait"
+      src={portraitSrc}
+      alt={portraitAlt}
+      width="2300"
+      height="2711"
+      loading="eager"
+      decoding="async"
+      fetchpriority="high"
+    />
 
-    <!-- ===== LEFT: copy ===== -->
-    <div class="relative z-10 order-2 flex flex-col items-center pb-10 text-center md:order-1 md:items-start md:pb-24 md:text-left lg:pb-28">
-      <p class="text-[0.7rem] font-semibold uppercase tracking-[0.22em] text-[var(--brand)] md:text-xs">{eyebrow}</p>
+    <div class="hero-grain" aria-hidden="true"></div>
+    <div class="hero-scrim" aria-hidden="true"></div>
 
-      <h1 id="hero-heading" class="mt-4 font-display text-[clamp(2.4rem,9vw,4.6rem)] font-medium italic leading-[1.02] tracking-[-0.02em] text-[var(--text)] [text-wrap:balance]">
-        {(hero.headlineTabletLines && Array.isArray(hero.headlineTabletLines) && hero.headlineTabletLines.length
-          ? (Array.isArray(hero.headlineTabletLines) ? hero.headlineTabletLines : heroHeadlineLines)
-          : heroHeadlineLines
-        ).map((line) => <span class="block">{line}</span>)}
-      </h1>
-
-      {specializationCopy ? (
-        <p class="mt-5 max-w-[34ch] text-[0.95rem] leading-relaxed text-[var(--muted)] md:max-w-[42ch] md:text-base [text-wrap:pretty]">
-          {specializationCopy}
-        </p>
-      ) : null}
-
-      <div class="mt-8 flex w-full max-w-[22rem] flex-col gap-3 md:max-w-none md:flex-row md:items-center">
-        <a href={primaryHref} class="btn btn-primary hero-primary-cta md:px-7 md:py-3">
-          {primaryLabel}
-          <svg class="btn-arrow h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
-        </a>
-        <a href={secondaryHref} class="btn btn-secondary md:px-7 md:py-3">{secondaryLabel}</a>
-      </div>
-      {ctaNote ? (
-        <p class="mt-3 text-xs leading-snug text-[var(--muted-soft)]">{ctaNote}</p>
-      ) : null}
-    </div>
-
-    <!-- ===== RIGHT: portrait ===== -->
-    <div class="relative order-1 md:order-2 md:self-end">
-      <!-- decorative watermark, tucked behind portrait -->
-      <div class="pointer-events-none absolute -left-8 top-6 z-0 hidden select-none items-baseline gap-4 lg:flex xl:-left-16" aria-hidden="true">
-        <span class="hero-parallax font-[Playfair_Display,Georgia,serif] text-[clamp(3rem,5vw,5.5rem)] font-medium italic leading-none tracking-[-0.02em] text-[color-mix(in_oklab,var(--text)_10%,transparent)] dark:text-[color-mix(in_oklab,var(--text)_7%,transparent)]" data-hero-layer="back">{decorativeLeft}</span>
-        <span class="hero-parallax -ml-6 font-[Playfair_Display,Georgia,serif] text-[clamp(3rem,5vw,5.5rem)] font-medium italic leading-none tracking-[-0.02em] text-[color-mix(in_oklab,var(--text)_6%,transparent)] dark:text-[color-mix(in_oklab,var(--text)_5%,transparent)]" data-hero-layer="back">{decorativeRight}</span>
+    <div class="hero-shell">
+      <div class="hero-meta" data-rise>
+        {metaValue && metaLabel ? (
+          <span class="hero-chip">
+            <strong>{metaValue}</strong>
+            <span>{metaLabel}</span>
+          </span>
+        ) : <span></span>}
+        {tag ? <p class="hero-tag">{tag}</p> : null}
       </div>
 
-      <div class="hero-parallax-soft relative z-10 mx-auto w-60 sm:w-72 md:w-auto md:max-w-none lg:translate-x-6" data-hero-layer="portrait">
-        <img
-          src={portraitSrc}
-          alt=""
-          class="mx-auto h-auto w-full object-contain object-bottom md:mx-0"
-          width="480"
-          height="640"
-          loading="eager"
-          decoding="async"
-          fetchpriority="high"
-        />
-      </div>
+      <div class="hero-content">
+        <h1 id="hero-heading" class="hero-title" data-rise style="--rise-delay:70ms">{headline}</h1>
 
-      <!-- name/role strip along portrait bottom, desktop only -->
-      <div class="pointer-events-none absolute bottom-6 right-2 z-20 hidden max-w-[calc(100%-1rem)] md:block lg:bottom-8 lg:right-6" aria-hidden="true">
-        <p class="font-display text-[clamp(1.4rem,2.2vw,2.1rem)] font-medium italic leading-none text-[var(--text)]">
-          {nameLine}
-        </p>
-        <p class="mt-2 text-[0.6rem] font-semibold uppercase tracking-[0.2em] text-[var(--muted)] [text-shadow:0_1px_8px_var(--bg)] md:text-[0.65rem] lg:mt-2.5 lg:whitespace-nowrap lg:text-xs dark:[text-shadow:0_1px_8px_#1c1917]">
-          {roleLines.join(" · ")}{roleSubline ? <span class="text-[var(--muted-soft)]"> · {roleSubline}</span> : null}
-        </p>
+        {lead ? (
+          <p class="hero-lead" data-rise style="--rise-delay:140ms">{lead}</p>
+        ) : null}
+
+        <div class="hero-actions" data-rise style="--rise-delay:210ms">
+          <a href={primaryHref} class="btn btn-primary">
+            {primaryLabel}
+            <svg class="btn-arrow h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+          </a>
+          <a href={secondaryHref} class="btn btn-on-dark">{secondaryLabel}</a>
+        </div>
+
+        {ctaNote ? (
+          <p class="hero-note" data-rise style="--rise-delay:270ms">{ctaNote}</p>
+        ) : null}
       </div>
     </div>
-
-    <!-- name/role strip, mobile only -->
-    <p class="order-3 pb-2 text-center text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-[var(--muted)] md:hidden" aria-hidden="true">
-      {nameLine} · {roleLines.join(" · ")}
-    </p>
   </div>
 </section>
 
-<script>
+<script is:inline>
+  // One orchestrated entrance, run once on load. The hidden start state is set
+  // from script so the hero is fully visible when JS is unavailable.
   (function () {
-    const section = document.querySelector("[data-hero-motion]");
-    if (!section || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-
-    const backLayers = section.querySelectorAll('[data-hero-layer="back"]');
-    const portrait = section.querySelector('[data-hero-layer="portrait"]');
-    let ticking = false;
-
-    function update() {
-      ticking = false;
-      const rect = section.getBoundingClientRect();
-      const viewport = window.innerHeight || 1;
-      const progress = Math.max(-1, Math.min(1, (viewport * 0.5 - rect.top) / viewport));
-
-      backLayers.forEach((el) => el.style.setProperty("--parallax-y", `${Math.round(progress * -18)}px`));
-      if (portrait) portrait.style.setProperty("--parallax-soft-y", `${Math.round(progress * 12)}px`);
-    }
-
-    function onScroll() {
-      if (ticking) return;
-      ticking = true;
-      window.requestAnimationFrame(update);
-    }
-
-    update();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll, { passive: true });
+    var hero = document.getElementById("hero");
+    if (!hero) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    hero.classList.add("is-anim");
+    requestAnimationFrame(function () {
+      requestAnimationFrame(function () {
+        hero.classList.add("is-ready");
+      });
+    });
   })();
 </script>

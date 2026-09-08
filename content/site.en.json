@@ -6,32 +6,31 @@
   "ogImage": "/og.png",
   "twitterHandle": "",
   "navCtaLabel": "Start a project",
+  "nav": {
+    "services": "Services",
+    "work": "Work",
+    "process": "Process",
+    "about": "About",
+    "contact": "Contact"
+  },
+  "menu": {
+    "kicker": "Let's build something",
+    "heading": "worth showing off.",
+    "text": "Got a project in mind? Tell me what you have in mind."
+  },
   "hero": {
     "headline": "Websites that turn visitors into clients",
-    "decorativeHeadline": "Hey, there",
-    "headlineLines": [
-      "Websites that",
-      "turn visitors",
-      "into clients"
-    ],
-    "headlineTabletLines": [
-      "Websites that turn",
-      "visitors into clients"
-    ],
+    "lead": "For mid-sized companies that would rather not look like everyone else. Design, development, photo and video all come from one person – me.",
     "badgeText": "",
-    "specialization": "For mid-sized companies and brands that want to stand out from the template crowd, build trust, and win measurably more inquiries.",
-    "specializationLines": [
-      "For mid-sized companies and brands",
-      "that want to stand out from the template crowd,",
-      "build trust, and win measurably",
-      "more inquiries."
-    ],
     "portraitSrc": "/hero/Nikolas_Maerker_hero.webp",
+    "portraitAlt": "Portrait of Nikolas Maerker",
     "primaryCta": { "label": "Start a project", "href": "#contact" },
     "secondaryCta": { "label": "View work", "href": "#work" },
-    "roleLines": ["WEB DESIGNER", "& DEVELOPER"],
-    "roleSubline": "PHOTO / VIDEO / DRONE",
-    "ctaNote": "Free intro call · Reply within 24 hours"
+    "tag": "Design. Code. Camera.",
+    "wordmark": "STANDOUT",
+    "metaValue": "One point of contact",
+    "metaLabel": "from brief to launch",
+    "ctaNote": "Free intro call. I reply within 24 hours."
   },
   "clients": {
     "label": "Trusted by",

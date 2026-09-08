@@ -1,0 +1,223 @@
+---
+// Shared site header for both language routes. Previously this markup lived
+// twice, inline in src/pages/index.astro and src/pages/en/index.astro, which
+// meant every nav change had to be made in two places.
+//
+// Over the hero it is transparent and carries the hero palette; past the hero
+// it becomes a solid themed bar.
+interface Props {
+  site: Record<string, any>;
+  lang?: "de" | "en";
+}
+
+const { site, lang = "de" } = Astro.props as Props;
+const en = lang === "en";
+const base = en ? "/en/" : "";
+const href = (hash: string) => `${base}${hash}`;
+
+const nav = site.nav ?? {};
+const navItems = [
+  { id: "services", label: nav.services ?? "Services" },
+  { id: "work", label: nav.work ?? (en ? "Work" : "Projekte") },
+  { id: "process", label: nav.process ?? (en ? "Process" : "Ablauf") },
+  { id: "about", label: nav.about ?? (en ? "About" : "Über mich") },
+  { id: "contact", label: nav.contact ?? (en ? "Contact" : "Kontakt") },
+];
+
+const ctaLabel = site.navCtaLabel ?? (en ? "Start a project" : "Projekt anfragen");
+const secondaryLabel = site.hero?.secondaryCta?.label ?? (en ? "View work" : "Projekte ansehen");
+const secondaryHref = site.hero?.secondaryCta?.href ?? "#work";
+const menuLabel = en ? "Menu" : "Menü";
+
+const menu = site.menu ?? {};
+const menuKicker = menu.kicker ?? (en ? "Let's build something" : "Lass uns etwas bauen");
+const menuHeading = menu.heading ?? (en ? "worth showing off." : "das sich sehen lässt.");
+const menuText = menu.text ?? site.hero?.lead ?? "";
+
+const metaValue = site.hero?.metaValue ?? "";
+const metaLabel = site.hero?.metaLabel ?? "";
+---
+
+<header class="site-head" id="site-head">
+  <div class="head-bar">
+    <a href={href("#top")} id="logo-link" class="head-logo">
+      <span class="head-logo-mark" aria-hidden="true">
+        <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18V6l12 12V6" /></svg>
+      </span>
+      {site.name}
+    </a>
+
+    <nav class="head-nav" aria-label={en ? "Sections" : "Bereiche"}>
+      {navItems.map((item) => <a href={href(`#${item.id}`)}>{item.label}</a>)}
+    </nav>
+
+    <div class="head-side">
+      <span class="head-lang">
+        {en ? <a href="/" class="lang-switch">DE</a> : <span aria-current="page">DE</span>}
+        <span class="head-lang-sep" aria-hidden="true">/</span>
+        {en ? <span aria-current="page">EN</span> : <a href="/en/" class="lang-switch">EN</a>}
+      </span>
+
+      <button type="button" id="theme-toggle" class="head-icon-btn" aria-label="Enable dark mode">
+        <svg class="theme-icon-moon h-[1.125rem] w-[1.125rem]" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" /></svg>
+        <svg class="theme-icon-sun hidden h-[1.125rem] w-[1.125rem]" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
+      </button>
+
+      <a href={href("#contact")} class="head-cta">
+        {ctaLabel}
+        <svg class="btn-arrow" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+      </a>
+
+      <button
+        type="button"
+        id="head-menu-btn"
+        class="head-icon-btn head-menu"
+        aria-label={menuLabel}
+        aria-expanded="false"
+        aria-controls="head-panel"
+      >
+        <svg class="menu-icon-open h-[1.125rem] w-[1.125rem]" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" d="M4 8h16M4 16h16" /></svg>
+        <svg class="menu-icon-close hidden h-[1.125rem] w-[1.125rem]" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" d="M6 6l12 12M18 6L6 18" /></svg>
+      </button>
+    </div>
+  </div>
+
+  <div class="head-panel" id="head-panel">
+    {metaValue && metaLabel ? (
+      <div class="head-panel-meta">
+        <strong>{metaValue}</strong>
+        <span>{metaLabel}</span>
+      </div>
+    ) : null}
+
+    <nav class="head-panel-nav" aria-label={en ? "Sections" : "Bereiche"}>
+      {navItems.map((item) => <a href={href(`#${item.id}`)} data-head-panel-link>{item.label}</a>)}
+    </nav>
+
+    <div class="head-panel-foot">
+      <p class="head-panel-kicker">{menuKicker}</p>
+      <h2>{menuHeading}</h2>
+      {menuText ? <p>{menuText}</p> : null}
+      <div class="head-panel-actions">
+        <a href={href("#contact")} class="btn btn-primary" data-head-panel-link>
+          {ctaLabel}
+          <svg class="btn-arrow h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+        </a>
+        <a href={href(secondaryHref)} class="btn btn-on-dark" data-head-panel-link>{secondaryLabel}</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<script is:inline>
+  (function () {
+    var head = document.getElementById("site-head");
+    var btn = document.getElementById("head-menu-btn");
+    var panel = document.getElementById("head-panel");
+
+    // Solid header only once the hero is behind us; over the hero it stays
+    // transparent so the header reads as part of the opening composition.
+    // The hero is looked up per call because this script runs before <main>
+    // has been parsed.
+    if (head) {
+      var ticking = false;
+      function sync() {
+        ticking = false;
+        var hero = document.getElementById("hero");
+        var past = hero
+          ? hero.getBoundingClientRect().bottom <= 72
+          : window.scrollY > 8;
+        head.classList.toggle("is-stuck", past);
+      }
+      sync();
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", sync);
+      }
+      window.addEventListener(
+        "scroll",
+        function () {
+          if (ticking) return;
+          ticking = true;
+          window.requestAnimationFrame(sync);
+        },
+        { passive: true }
+      );
+      window.addEventListener("resize", sync, { passive: true });
+    }
+
+    if (head && btn && panel) {
+      var openIcon = btn.querySelector(".menu-icon-open");
+      var closeIcon = btn.querySelector(".menu-icon-close");
+
+      function setOpen(open) {
+        head.classList.toggle("is-open", open);
+        btn.setAttribute("aria-expanded", open ? "true" : "false");
+        document.documentElement.classList.toggle("menu-open", open);
+        if (openIcon) openIcon.classList.toggle("hidden", open);
+        if (closeIcon) closeIcon.classList.toggle("hidden", !open);
+      }
+
+      btn.addEventListener("click", function () {
+        setOpen(btn.getAttribute("aria-expanded") !== "true");
+      });
+
+      panel.querySelectorAll("[data-head-panel-link]").forEach(function (a) {
+        a.addEventListener("click", function () {
+          setOpen(false);
+        });
+      });
+
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape") setOpen(false);
+      });
+
+      window.addEventListener("resize", function () {
+        if (window.innerWidth >= 900) setOpen(false);
+      });
+    }
+  })();
+</script>
+
+<script is:inline>
+  (function () {
+    var btn = document.getElementById("theme-toggle");
+    var moon = btn && btn.querySelector(".theme-icon-moon");
+    var sun = btn && btn.querySelector(".theme-icon-sun");
+    function applyDark(dark) {
+      document.documentElement.classList.toggle("dark", dark);
+      localStorage.setItem("theme", dark ? "dark" : "light");
+      if (moon) moon.classList.toggle("hidden", dark);
+      if (sun) sun.classList.toggle("hidden", !dark);
+      if (btn) btn.setAttribute("aria-label", dark ? "Enable light mode" : "Enable dark mode");
+    }
+    if (btn) {
+      btn.addEventListener("click", function () {
+        applyDark(!document.documentElement.classList.contains("dark"));
+      });
+      var isDark = document.documentElement.classList.contains("dark");
+      if (moon) moon.classList.toggle("hidden", isDark);
+      if (sun) sun.classList.toggle("hidden", !isDark);
+      btn.setAttribute("aria-label", isDark ? "Enable light mode" : "Enable dark mode");
+    }
+
+    var logo = document.getElementById("logo-link");
+    if (logo) {
+      logo.addEventListener("click", function (e) {
+        var h = logo.getAttribute("href");
+        if (h === "#top" || h === "/en/#top") {
+          e.preventDefault();
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        }
+      });
+    }
+
+    // Keep the scroll position when switching language.
+    document.querySelectorAll("a.lang-switch").forEach(function (a) {
+      a.addEventListener("click", function (e) {
+        e.preventDefault();
+        sessionStorage.setItem("langSwitchScroll", String(window.scrollY || 0));
+        window.location.href = a.getAttribute("href");
+      });
+    });
+  })();
+</script>

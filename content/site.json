@@ -6,47 +6,31 @@
   "ogImage": "/og.png",
   "twitterHandle": "",
   "navCtaLabel": "Projekt anfragen",
+  "nav": {
+    "services": "Leistungen",
+    "work": "Projekte",
+    "process": "Ablauf",
+    "about": "Über mich",
+    "contact": "Kontakt"
+  },
+  "menu": {
+    "kicker": "Lass uns etwas bauen",
+    "heading": "das sich sehen lässt.",
+    "text": "Projekt im Kopf? Schreib mir kurz, worum es geht."
+  },
   "hero": {
     "headline": "Websites, die aus Besuchern Kunden machen",
-    "decorativeHeadline": "Hey, there",
-    "headlineLines": [
-      "Websites, die",
-      "aus Besuchern",
-      "Kunden machen"
-    ],
-    "headlineMobileLines": [
-      "Websites, die",
-      "aus Besuchern",
-      "Kunden machen"
-    ],
-    "headlineTabletLines": [
-      "Websites, die aus Besuchern",
-      "Kunden machen"
-    ],
+    "lead": "Für mittelständische Unternehmen, die sich vom Standard abheben wollen. Design, Entwicklung, Foto und Video kommen aus einer Hand – meiner.",
     "badgeText": "",
-    "specialization": "Für mittelständische Unternehmen und Marken, die sich vom Standard abheben, Vertrauen aufbauen und messbar mehr Anfragen gewinnen wollen.",
-    "specializationLines": [
-      "Für mittelständische Unternehmen und Marken,",
-      "die sich vom Standard abheben, Vertrauen aufbauen",
-      "und messbar mehr Anfragen gewinnen wollen"
-    ],
-    "specializationDesktopLines": [
-      "Für mittelständische Unternehmen und Marken,",
-      "die sich vom Standard abheben, Vertrauen aufbauen",
-      "und messbar mehr Anfragen gewinnen wollen"
-    ],
-    "specializationDesktopCompactLines": [
-      "Für mittelständische Unternehmen",
-      "und Marken, die sich vom Standard",
-      "abheben, Vertrauen aufbauen und",
-      "messbar mehr Anfragen gewinnen"
-    ],
-    "roleLines": ["WEB DESIGNER", "& DEVELOPER"],
-    "roleSubline": "PHOTO / VIDEO / DRONE",
     "portraitSrc": "/hero/Nikolas_Maerker_hero.webp",
+    "portraitAlt": "Porträt von Nikolas Maerker",
     "primaryCta": { "label": "Projekt anfragen", "href": "#contact" },
     "secondaryCta": { "label": "Projekte ansehen", "href": "#work" },
-    "ctaNote": "Kostenloses Erstgespräch · Antwort in 24 Stunden"
+    "tag": "Design. Code. Kamera.",
+    "wordmark": "STANDOUT",
+    "metaValue": "Ein Ansprechpartner",
+    "metaLabel": "vom Briefing bis zum Launch",
+    "ctaNote": "Kostenloses Erstgespräch. Ich antworte innerhalb von 24 Stunden."
   },
   "clients": {
     "label": "Vertrauen von",

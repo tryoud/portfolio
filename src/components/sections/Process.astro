@@ -13,14 +13,14 @@ const stepList = Array.isArray(steps) && steps.length > 0
   <div class="mx-auto max-w-6xl px-6">
     <div class="scroll-reveal mb-12 text-center md:mb-14" data-reveal="fade">
       <span class="eyebrow eyebrow-center">{sectionLabel}</span>
-      <h2 id="process-heading" class="section-head-gap font-display text-4xl italic text-zinc-900 md:text-[3.25rem]">{heading}</h2>
+      <h2 id="process-heading" class="section-head-gap font-display text-4xl text-zinc-900 md:text-[3.25rem]">{heading}</h2>
     </div>
     <div class="relative grid grid-cols-1 gap-6 md:grid-cols-4 md:gap-7">
       <div class="process-line absolute left-0 top-10 hidden h-px w-full md:block" aria-hidden="true" />
       {stepList.map((step, i) => (
         <div class="scroll-reveal group relative z-10 rounded-2xl border border-zinc-200/70 bg-[#FDFBF7] p-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-zinc-300 hover:shadow-md md:border-none md:bg-transparent md:p-0 md:shadow-none md:hover:translate-y-0 md:hover:shadow-none" data-reveal="card" style={`--reveal-delay: ${Math.min(i * 120, 320)}ms;`}>
           <div class="process-step-num icon-well mx-auto mb-5 h-20 w-20 md:mx-0">
-            <span class="font-display text-2xl font-bold italic">{String(i + 1).padStart(2, "0")}</span>
+            <span class="font-display text-2xl font-bold ">{String(i + 1).padStart(2, "0")}</span>
           </div>
           <h4 class="mb-2 text-center text-lg font-bold text-zinc-900 md:text-left md:text-[1.2rem]">{step.title}</h4>
           <p class="text-center text-sm leading-relaxed text-zinc-600 md:text-left">{step.description}</p>

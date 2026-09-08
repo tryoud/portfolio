@@ -12,7 +12,7 @@ const workCta = site.workCta ?? null;
   <div class="mx-auto max-w-6xl px-6">
     <div class="scroll-reveal mb-12 md:mb-14" data-reveal="fade">
       <span class="eyebrow">{workSectionLabel}</span>
-      <h2 id="work-heading" class="section-head-gap font-display text-4xl italic text-zinc-900 md:text-[3.25rem]">{workHeading}</h2>
+      <h2 id="work-heading" class="section-head-gap font-display text-4xl text-zinc-900 md:text-[3.25rem]">{workHeading}</h2>
     </div>
     <div class="relative md:static">
       <p class="mb-3 text-xs font-medium text-zinc-400 sm:hidden" aria-hidden="true">{workSwipeHint}</p>
@@ -139,7 +139,7 @@ const workCta = site.workCta ?? null;
     {workCta?.label ? (
       <div class="scroll-reveal mt-12 flex flex-col items-center gap-5 text-center md:mt-14" data-reveal="fade" style="--reveal-delay: 160ms;">
         {workCta.text ? (
-          <p class="font-display text-2xl italic text-zinc-900 md:text-3xl">{workCta.text}</p>
+          <p class="font-display text-2xl text-zinc-900 md:text-3xl">{workCta.text}</p>
         ) : null}
         <a href={workCta.href ?? "#contact"} class="btn btn-primary">
           {workCta.label}
