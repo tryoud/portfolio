@@ -655,7 +655,12 @@
   inset: -0.5rem 0 -1.75rem;
   z-index: 0;
   pointer-events: none;
-  background: linear-gradient(to bottom, rgba(10, 7, 5, 0.72) 0%, rgba(10, 7, 5, 0.42) 45%, transparent 100%);
+  background: linear-gradient(
+    to bottom,
+    var(--hero-ink) 0%,
+    color-mix(in srgb, var(--hero-ink) 55%, transparent) 48%,
+    transparent 100%
+  );
   opacity: 1;
   transition: opacity 260ms ease;
 }
@@ -1048,11 +1053,15 @@ html.menu-open body {
 .hero-wordmark .wm-tail {
   display: inline-block;
   transform: translateY(0);
-  transition: transform 900ms cubic-bezier(0.34, 1.5, 0.5, 1);
+  transition: transform 1150ms cubic-bezier(0.2, 1.7, 0.4, 1);
+  transition-timing-function: linear(
+    0, 0.16 5%, 0.52 12%, 0.9 19%, 1.12 25%, 1.16 29%, 1.05 36%,
+    0.95 43%, 0.99 50%, 1.04 58%, 1.01 68%, 0.995 79%, 1
+  );
 }
 
 .hero.is-scrolled .hero-wordmark .wm-tail {
-  transform: translateY(0.3em);
+  transform: translateY(0.62em);
 }
 
 .hero-portrait {
@@ -1087,7 +1096,7 @@ html.menu-open body {
   z-index: 4;
   pointer-events: none;
   background:
-    linear-gradient(to bottom, var(--hero-ink) 0%, rgba(19, 14, 11, 0.55) 9%, transparent 22%),
+    linear-gradient(to bottom, var(--hero-ink) 0%, var(--hero-ink) 8%, color-mix(in srgb, var(--hero-ink) 45%, transparent) 16%, transparent 27%),
     linear-gradient(to bottom, transparent 26%, var(--hero-ink) 70%);
 }
 
@@ -1333,7 +1342,7 @@ html.menu-open body {
   /* Sized off the viewport height and set right of centre, so the copy
      column below-left stays on clean ink. */
   .hero-portrait {
-    left: 57%;
+    left: calc(57% - 20px);
     right: auto;
     top: 6%;
     height: 84%;
@@ -1367,6 +1376,71 @@ html.menu-open body {
 
   .hero-note {
     max-width: 52ch;
+  }
+}
+
+/* Phone held sideways: wide but very short. The word has no vertical room and
+   collided with the headline, and a centred figure sat under the copy. */
+@media (min-width: 640px) and (max-height: 560px) {
+  .hero-wordmark {
+    display: none;
+  }
+
+  /* Also has to beat the desktop rules, which apply from 900px wide. */
+  .hero {
+    height: auto;
+  }
+
+  .hero-stage {
+    position: relative;
+    height: auto;
+    min-height: 100svh;
+  }
+
+  .hero-portrait {
+    left: 78%;
+    top: 4%;
+    height: 94%;
+    object-position: center top;
+  }
+
+  .hero-scrim {
+    background:
+      linear-gradient(to bottom, var(--hero-ink) 0%, transparent 24%),
+      linear-gradient(to right, var(--hero-ink) 18%, transparent 62%),
+      linear-gradient(to bottom, transparent 52%, var(--hero-ink) 96%);
+  }
+
+  .hero-shell {
+    padding: 4.25rem 1.75rem 1.5rem;
+  }
+
+  .hero-content {
+    max-width: 30rem;
+    padding-top: 0.5rem;
+  }
+
+  .hero-title {
+    font-size: clamp(1.875rem, 3.6vw, 2.5rem);
+  }
+
+  .hero-lead {
+    margin-top: 0.75rem;
+    max-width: 38ch;
+    font-size: 0.9375rem;
+  }
+
+  .hero-actions {
+    margin-top: 1rem;
+  }
+
+  .hero-note {
+    margin-top: 0.625rem;
+  }
+
+  .hero-meta {
+    margin-top: 0.875rem;
+    padding-top: 0.75rem;
   }
 }
 
