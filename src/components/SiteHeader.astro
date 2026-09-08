@@ -128,6 +128,8 @@ const metaLabel = site.hero?.metaLabel ?? "";
           ? hero.getBoundingClientRect().bottom <= 72
           : window.scrollY > 8;
         head.classList.toggle("is-stuck", past);
+        // Keeps the overscroll canvas dark while the hero is on screen.
+        document.documentElement.classList.toggle("past-hero", past);
       }
       sync();
       if (document.readyState === "loading") {

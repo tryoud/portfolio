@@ -111,6 +111,15 @@
   .clip-x {
     overflow-x: clip;
   }
+  /* Overscroll shows the root background, so it follows whichever section the
+     viewport is parked against: the hero's ink at the top, the page colour
+     once the hero is behind us. */
+  html {
+    background-color: var(--hero-ink);
+  }
+  html.past-hero {
+    background-color: var(--bg);
+  }
   a {
     color: inherit;
   }
@@ -1047,7 +1056,7 @@ html.menu-open body {
 
 .hero-wordmark .wm-pivot {
   display: inline-block;
-  margin-left: 0.72em;
+  margin-left: 0.5em;
 }
 
 .hero-wordmark .wm-tail {
@@ -1311,7 +1320,7 @@ html.menu-open body {
      while the extra height below it scrolls past, so the tail finishes its
      drop before the picture starts moving. */
   .hero {
-    height: calc(min(100svh, 60rem) + 20rem);
+    height: calc(min(100svh, 60rem) + 34rem);
   }
 
   .hero-stage {
@@ -1336,6 +1345,7 @@ html.menu-open body {
     top: 11.5%;
     left: 0;
     right: 0;
+    transform: translateX(40px);
     font-size: clamp(5.5rem, 11vw, 12.5rem);
   }
 
