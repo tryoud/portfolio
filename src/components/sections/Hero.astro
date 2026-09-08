@@ -36,8 +36,9 @@ const eyebrow = (hero.eyebrow && String(hero.eyebrow).trim()) || roleLines[0] ||
 <section class="relative overflow-hidden bg-[var(--bg)] text-[var(--text)]" aria-labelledby="hero-heading" data-hero-motion>
   <!-- Warm ambient background -->
   <div class="pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
-    <div class="absolute inset-0" style="background: radial-gradient(ellipse 90% 70% at 70% 20%, hsla(38, 80%, 92%, 1) 0%, transparent 60%);"></div>
-    <div class="absolute inset-0" style="background: radial-gradient(ellipse 60% 50% at 10% 90%, hsla(30, 60%, 94%, 0.8) 0%, transparent 60%);"></div>
+    <div class="absolute inset-0 dark:hidden" style="background: radial-gradient(ellipse 90% 70% at 70% 20%, hsla(38, 80%, 92%, 1) 0%, transparent 60%);"></div>
+    <div class="absolute inset-0 dark:hidden" style="background: radial-gradient(ellipse 60% 50% at 10% 90%, hsla(30, 60%, 94%, 0.8) 0%, transparent 60%);"></div>
+    <div class="absolute inset-0 hidden dark:block" style="background: radial-gradient(ellipse 90% 70% at 70% 20%, hsla(30, 40%, 18%, 0.8) 0%, transparent 60%);"></div>
   </div>
 
   <div class="mx-auto grid w-full max-w-7xl grid-cols-1 items-center gap-y-2 px-4 pb-0 pt-10 sm:px-6 md:min-h-[calc(100svh-4.5rem)] md:grid-cols-[minmax(0,6fr)_minmax(0,5fr)] md:gap-x-10 md:pt-6 lg:gap-x-16">
@@ -75,8 +76,8 @@ const eyebrow = (hero.eyebrow && String(hero.eyebrow).trim()) || roleLines[0] ||
     <div class="relative order-1 md:order-2 md:self-end">
       <!-- decorative watermark, tucked behind portrait -->
       <div class="pointer-events-none absolute -left-8 top-6 z-0 hidden select-none items-baseline gap-4 lg:flex xl:-left-16" aria-hidden="true">
-        <span class="hero-parallax font-display text-[clamp(3rem,5vw,5.5rem)] font-medium italic leading-none tracking-[-0.02em] text-zinc-900/10" data-hero-layer="back">{decorativeLeft}</span>
-        <span class="hero-parallax -ml-6 font-display text-[clamp(3rem,5vw,5.5rem)] font-medium italic leading-none tracking-[-0.02em] text-zinc-900/[0.06]" data-hero-layer="back">{decorativeRight}</span>
+        <span class="hero-parallax font-[Playfair_Display,Georgia,serif] text-[clamp(3rem,5vw,5.5rem)] font-medium italic leading-none tracking-[-0.02em] text-[color-mix(in_oklab,var(--text)_10%,transparent)] dark:text-[color-mix(in_oklab,var(--text)_7%,transparent)]" data-hero-layer="back">{decorativeLeft}</span>
+        <span class="hero-parallax -ml-6 font-[Playfair_Display,Georgia,serif] text-[clamp(3rem,5vw,5.5rem)] font-medium italic leading-none tracking-[-0.02em] text-[color-mix(in_oklab,var(--text)_6%,transparent)] dark:text-[color-mix(in_oklab,var(--text)_5%,transparent)]" data-hero-layer="back">{decorativeRight}</span>
       </div>
 
       <div class="hero-parallax-soft relative z-10 mx-auto w-60 sm:w-72 md:w-auto md:max-w-none lg:translate-x-6" data-hero-layer="portrait">
@@ -97,7 +98,7 @@ const eyebrow = (hero.eyebrow && String(hero.eyebrow).trim()) || roleLines[0] ||
         <p class="font-display text-[clamp(1.4rem,2.2vw,2.1rem)] font-medium italic leading-none text-[var(--text)]">
           {nameLine}
         </p>
-        <p class="mt-2 text-[0.6rem] font-semibold uppercase tracking-[0.2em] text-[var(--muted)] md:text-[0.65rem] lg:mt-2.5 lg:whitespace-nowrap lg:text-xs">
+        <p class="mt-2 text-[0.6rem] font-semibold uppercase tracking-[0.2em] text-[var(--muted)] [text-shadow:0_1px_8px_var(--bg)] md:text-[0.65rem] lg:mt-2.5 lg:whitespace-nowrap lg:text-xs dark:[text-shadow:0_1px_8px_#1c1917]">
           {roleLines.join(" · ")}{roleSubline ? <span class="text-[var(--muted-soft)]"> · {roleSubline}</span> : null}
         </p>
       </div>
