@@ -16,10 +16,11 @@ const tag = String(hero.tag ?? "").trim();
 const portraitSrc = String(hero.portraitSrc ?? "").trim() || "/hero/Nikolas_Maerker_hero.webp";
 const portraitAlt = String(hero.portraitAlt ?? "").trim() || site.name || "";
 
-// Backdrop word: the surname, so the header logo and the hero read as one
-// identity. Falls back to the full name when there is only one word.
-const nameParts = String(site.name ?? "").trim().split(/\s+/).filter(Boolean);
-const wordmark = String(hero.wordmark ?? (nameParts.length > 1 ? nameParts[nameParts.length - 1] : nameParts[0] ?? "")).toUpperCase();
+// Backdrop word. It gets partly hidden behind his head, so it has to be a word
+// the reader already knows and can complete from the visible letters — a
+// surname cannot be reconstructed, and says nothing to a first-time visitor.
+// Opt-in via content: no wordmark configured means no backdrop word.
+const wordmark = String(hero.wordmark ?? "").trim().toUpperCase();
 
 // Trust chip counts the real client list rather than carrying a hardcoded
 // number, so it cannot drift from content/site.json.
