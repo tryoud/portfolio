@@ -1267,8 +1267,13 @@ html.menu-open body {
     padding: 5.5rem 2rem 2.5rem;
   }
 
+  /* Tied to the head band rather than a fixed offset. The portrait sits at
+     13% with a 60% height, so its head runs 13%–37% of the stage; centring the
+     word at 22% keeps it across the forehead at any tablet height. Lowering
+     the portrait for phones had left the word floating above the hair here,
+     which read as "STAN DOUT". */
   .hero-wordmark {
-    top: 12%;
+    top: calc(22% - 0.43em);
     font-size: clamp(3rem, 13.2vw, 8rem);
   }
 
