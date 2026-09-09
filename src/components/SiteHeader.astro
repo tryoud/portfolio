@@ -119,6 +119,27 @@ const metaLabel = site.hero?.metaLabel ?? "";
     // transparent so the header reads as part of the opening composition.
     // The hero is looked up per call because this script runs before <main>
     // has been parsed.
+    //
+    // window.__syncThemeColor also drives the <meta name="theme-color"> tag,
+    // which is what iOS Safari actually reads for its status bar / address
+    // bar fill. html/body background-color is only a fallback WebKit uses
+    // for the rubber-band bounce itself, and it turned out to be resampled
+    // at inconsistent moments (page settle / bounce), not live on every
+    // scroll frame — so a scroll-linked class toggle on <html> alone left the
+    // chrome showing a stale colour until the next bounce. The meta tag is
+    // the mechanism browsers keep in sync continuously; exposed on window so
+    // the theme-toggle script (below) can call it too.
+    window.__syncThemeColor = function (past) {
+      var meta = document.getElementById("theme-color-meta");
+      if (!meta) return;
+      if (!past) {
+        meta.setAttribute("content", "#130e0b"); // --hero-ink
+        return;
+      }
+      var dark = document.documentElement.classList.contains("dark");
+      meta.setAttribute("content", dark ? "#1c1917" : "#fdfbf7"); // --bg
+    };
+
     if (head) {
       var ticking = false;
       function sync() {
@@ -130,6 +151,7 @@ const metaLabel = site.hero?.metaLabel ?? "";
         head.classList.toggle("is-stuck", past);
         // Keeps the overscroll canvas dark while the hero is on screen.
         document.documentElement.classList.toggle("past-hero", past);
+        window.__syncThemeColor(past);
       }
       sync();
       if (document.readyState === "loading") {
@@ -191,6 +213,11 @@ const metaLabel = site.hero?.metaLabel ?? "";
       if (moon) moon.classList.toggle("hidden", dark);
       if (sun) sun.classList.toggle("hidden", !dark);
       if (btn) btn.setAttribute("aria-label", dark ? "Enable light mode" : "Enable dark mode");
+      // Re-run with the current scroll state so the status-bar colour picks
+      // up the new theme immediately if we're already past the hero.
+      if (window.__syncThemeColor) {
+        window.__syncThemeColor(document.documentElement.classList.contains("past-hero"));
+      }
     }
     if (btn) {
       btn.addEventListener("click", function () {
