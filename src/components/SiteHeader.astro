@@ -132,6 +132,16 @@ const metaLabel = site.hero?.metaLabel ?? "";
     window.__syncThemeColor = function (past) {
       var meta = document.getElementById("theme-color-meta");
       if (!meta) return;
+      // While any part of the hero is still on screen the chrome (status bar /
+      // address bar fill) stays hero-ink — switching only at the header
+      // threshold made it flip to the page colour too early when scrolling
+      // back up into the hero.
+      var hero = document.getElementById("hero");
+      var heroNear = hero ? hero.getBoundingClientRect().bottom > 0 : window.scrollY <= 8;
+      if (heroNear) {
+        meta.setAttribute("content", "#130e0b"); // --hero-ink
+        return;
+      }
       if (!past) {
         meta.setAttribute("content", "#130e0b"); // --hero-ink
         return;
