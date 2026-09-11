@@ -16,7 +16,7 @@ const workCta = site.workCta ?? null;
     </div>
     <div class="relative md:static">
       <p class="mb-3 text-xs font-medium text-zinc-400 sm:hidden" aria-hidden="true">{workSwipeHint}</p>
-      <div class="relative -mx-[10px] overflow-x-auto snap-x snap-mandatory scroll-smooth touch-pan-x px-[10px] scroll-pl-[10px] scroll-pr-[10px] md:mx-0 md:overflow-visible md:px-0" data-work-scroller>
+      <div class="relative -mx-[10px] overflow-x-auto snap-x snap-mandatory scroll-smooth px-[10px] scroll-pl-[10px] scroll-pr-[10px] md:mx-0 md:overflow-visible md:px-0" data-work-scroller>
         <div class="flex gap-6 pb-4 pr-0 md:flex-wrap md:justify-center md:gap-7 md:pr-0 lg:gap-8">
         {work.map((item, index) => {
           const imgSrc = (item.image && String(item.image).trim()) || "";
@@ -240,14 +240,17 @@ const workCta = site.workCta ?? null;
     object-position: unset;
   }
 
-  /* Mobile: don't make image area a scroll container so horizontal swipes on the image scroll the carousel */
+  /* Mobile: reset touch-action so the browser's native axis-lock decides —
+     horizontal swipe scrolls the carousel, vertical swipe scrolls the page.
+     pan-x/pan-y overrides here break that and swallow vertical gestures. */
   @media (max-width: 640px) {
     :global(#work) .work-preview-scroll {
       overflow: hidden;
-      touch-action: pan-x pan-y;
+      touch-action: auto;
     }
-    /* Hide horizontal scrollbar so only padding is visible, no grey bar before end of carousel */
     :global(#work) [data-work-scroller] {
+      touch-action: auto;
+      /* Hide horizontal scrollbar so only padding is visible, no grey bar before end of carousel */
       scrollbar-width: none;
       -ms-overflow-style: none;
     }
