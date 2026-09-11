@@ -120,6 +120,14 @@
   html.past-hero {
     background-color: var(--bg);
   }
+  /* While any part of the hero is still on screen, the document canvas stays
+     hero-ink: iOS Safari paints the rubber-band area above the page with the
+     html background, resampled at bounce time — a scroll-linked swap that only
+     fires at the 72px header threshold left a white flash when scrolling back
+     up into the hero. */
+  html.hero-near {
+    background-color: var(--hero-ink);
+  }
   a {
     color: inherit;
   }

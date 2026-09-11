@@ -150,6 +150,11 @@ const metaLabel = site.hero?.metaLabel ?? "";
           : window.scrollY > 8;
         head.classList.toggle("is-stuck", past);
         // Keeps the overscroll canvas dark while the hero is on screen.
+        // Two states: "hero-near" while any part of the hero is still visible
+        // (canvas must be hero-ink — otherwise iOS rubber-banding up shows the
+        // page colour above the hero), "past-hero" once the hero is behind us.
+        var heroNear = hero ? hero.getBoundingClientRect().bottom > 0 : window.scrollY <= 8;
+        document.documentElement.classList.toggle("hero-near", heroNear);
         document.documentElement.classList.toggle("past-hero", past);
         window.__syncThemeColor(past);
       }
