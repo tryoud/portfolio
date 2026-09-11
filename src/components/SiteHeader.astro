@@ -175,6 +175,24 @@ const metaLabel = site.hero?.metaLabel ?? "";
       window.addEventListener(
         "scroll",
         function () {
+          // Update the theme-color meta directly in the scroll event, without
+          // the rAF hop: iOS Safari skips/throttles rAF during momentum
+          // scrolling, which left the status-bar fill stale (dark over the
+          // light page). Only the attribute write lives here — the DOM class
+          // work stays in the rAF-coalesced sync().
+          var hero = document.getElementById("hero");
+          var heroNear = hero ? hero.getBoundingClientRect().bottom > 0 : window.scrollY <= 8;
+          var meta = document.getElementById("theme-color-meta");
+          if (meta) {
+            if (heroNear || !document.documentElement.classList.contains("past-hero")) {
+              meta.setAttribute("content", "#130e0b");
+            } else {
+              meta.setAttribute(
+                "content",
+                document.documentElement.classList.contains("dark") ? "#1c1917" : "#fdfbf7"
+              );
+            }
+          }
           if (ticking) return;
           ticking = true;
           window.requestAnimationFrame(sync);
