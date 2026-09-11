@@ -182,6 +182,19 @@ const metaLabel = site.hero?.metaLabel ?? "";
         { passive: true }
       );
       window.addEventListener("resize", sync, { passive: true });
+      // iOS Safari throttles scroll events (and skips rAF) during momentum
+      // scrolling, so the theme-color swap can land late and the status-bar
+      // fill flashes the wrong colour mid-flick. An IntersectionObserver on
+      // the hero fires reliably on iOS as the hero crosses the viewport edge.
+      if (window.IntersectionObserver) {
+        var heroEl = document.getElementById("hero");
+        if (heroEl) {
+          var io = new IntersectionObserver(function () { sync(); }, {
+            threshold: [0, 0.01, 0.99, 1]
+          });
+          io.observe(heroEl);
+        }
+      }
     }
 
     if (head && btn && panel) {
