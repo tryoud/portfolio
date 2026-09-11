@@ -117,10 +117,13 @@
   html {
     background-color: var(--hero-ink);
   }
-  /* Status-bar / address-bar fill and the overscroll canvas stay hero-ink on
-     ALL scroll positions: the page background lives on body, and a fixed
-     safe-area overlay guarantees the top gap is dark even mid-momentum-scroll
-     (scroll-linked html background swaps arrive late on iOS Safari). */
+  /* Status-bar / address-bar fill and the overscroll canvas follow the
+     hero/content boundary: hero-ink on the hero, the page colour once the
+     hero is behind us. The fixed safe-area overlay paints the strip above
+     the page (which iOS Safari keeps translucent over page content) and the
+     theme-color meta paints the browser chrome — both driven from the same
+     `past-hero` state the header uses, so all three always agree. Pure CSS
+     for the overlay: it follows the class toggle with no extra JS timing. */
   html::before {
     content: "";
     position: fixed;
@@ -131,6 +134,9 @@
     background: var(--hero-ink);
     z-index: 2147483647;
     pointer-events: none;
+  }
+  html.past-hero::before {
+    background: var(--bg);
   }
   html.past-hero {
     background-color: var(--bg);

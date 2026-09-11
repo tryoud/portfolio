@@ -125,22 +125,24 @@ const metaLabel = site.hero?.metaLabel ?? "";
     // bar fill. html/body background-color is only a fallback WebKit uses
     // for the rubber-band bounce itself, and it turned out to be resampled
     // at inconsistent moments (page settle / bounce), not live on every
-    // scroll frame — so a scroll-linked class toggle on <html> alone left the
-    // chrome showing a stale colour until the next bounce. The meta tag is
-    // the mechanism browsers keep in sync continuously; exposed on window so
-    // the theme-toggle script (below) can call it too.
+    // scroll frame. The meta tag is the mechanism browsers keep in sync
+    // continuously; exposed on window so the theme-toggle script (below)
+    // can call it too.
+    //
+    // Dynamic contract (user-confirmed 2026-09-11): dark (#130e0b) while on
+    // the hero, page background once the hero is behind us. Driven from the
+    // same `past` state as the header, synchronously in the scroll handler —
+    // rAF-throttled updates arrived late on iOS momentum scrolling and left
+    // the top strip showing the stale colour after scrolling back up.
     window.__syncThemeColor = function (past) {
-      // Status bar stays hero-ink permanently: iOS Safari applies scroll-
-      // linked theme-color updates too late (rAF/commit timing), which
-      // flashed the wrong colour mid-scroll. The static meta in the pages
-      // is always #130e0b; this no-op keeps the theme-toggle call sites
-      // working without flipping the chrome colour.
+      var meta = document.getElementById("theme-color-meta");
+      if (!meta) return;
+      var dark = document.documentElement.classList.contains("dark");
+      meta.setAttribute("content", past ? (dark ? "#1c1917" : "#fdfbf7") : "#130e0b");
     };
 
     if (head) {
-      var ticking = false;
       function sync() {
-        ticking = false;
         var hero = document.getElementById("hero");
         var past = hero
           ? hero.getBoundingClientRect().bottom <= 72
@@ -159,16 +161,13 @@ const metaLabel = site.hero?.metaLabel ?? "";
       if (document.readyState === "loading") {
         document.addEventListener("DOMContentLoaded", sync);
       }
-      window.addEventListener(
-        "scroll",
-        function () {
-          if (ticking) return;
-          ticking = true;
-          window.requestAnimationFrame(sync);
-        },
-        { passive: true }
-      );
+      // Synchronous: two class toggles + one meta write are cheap, and any
+      // rAF gate delays the swap past iOS Safari's momentum-scroll commit,
+      // leaving the stale colour visible after scrolling back into the hero.
+      window.addEventListener("scroll", sync, { passive: true });
       window.addEventListener("resize", sync, { passive: true });
+      // bfcache restores (back/forward) fire neither load nor scroll.
+      window.addEventListener("pageshow", sync);
       // iOS Safari throttles scroll events (and skips rAF) during momentum
       // scrolling, so the theme-color swap can land late and the status-bar
       // fill flashes the wrong colour mid-flick. An IntersectionObserver on
