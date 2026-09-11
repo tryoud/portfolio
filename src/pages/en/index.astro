@@ -65,12 +65,13 @@ const jsonLd = {
 <html lang="en" class="scroll-smooth">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
     <!-- Mirrors --hero-ink / --bg: iOS Safari colours its status bar and
          address bar from this tag (not from html/body background-color),
          and only theme-color updates reliably while the page is mid-scroll.
          Kept in sync with the hero/content boundary by SiteHeader.astro. -->
     <meta name="theme-color" id="theme-color-meta" content="#130e0b" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <script is:inline>
       (function () {
         const stored = localStorage.getItem("theme");
