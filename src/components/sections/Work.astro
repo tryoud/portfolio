@@ -244,7 +244,7 @@ const workCta = site.workCta ?? null;
   @media (max-width: 640px) {
     :global(#work) .work-preview-scroll {
       overflow: hidden;
-      touch-action: pan-x;
+      touch-action: pan-x pan-y;
     }
     /* Hide horizontal scrollbar so only padding is visible, no grey bar before end of carousel */
     :global(#work) [data-work-scroller] {
