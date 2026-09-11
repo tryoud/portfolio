@@ -130,24 +130,11 @@ const metaLabel = site.hero?.metaLabel ?? "";
     // the mechanism browsers keep in sync continuously; exposed on window so
     // the theme-toggle script (below) can call it too.
     window.__syncThemeColor = function (past) {
-      var meta = document.getElementById("theme-color-meta");
-      if (!meta) return;
-      // While any part of the hero is still on screen the chrome (status bar /
-      // address bar fill) stays hero-ink — switching only at the header
-      // threshold made it flip to the page colour too early when scrolling
-      // back up into the hero.
-      var hero = document.getElementById("hero");
-      var heroNear = hero ? hero.getBoundingClientRect().bottom > 0 : window.scrollY <= 8;
-      if (heroNear) {
-        meta.setAttribute("content", "#130e0b"); // --hero-ink
-        return;
-      }
-      if (!past) {
-        meta.setAttribute("content", "#130e0b"); // --hero-ink
-        return;
-      }
-      var dark = document.documentElement.classList.contains("dark");
-      meta.setAttribute("content", dark ? "#1c1917" : "#fdfbf7"); // --bg
+      // Status bar stays hero-ink permanently: iOS Safari applies scroll-
+      // linked theme-color updates too late (rAF/commit timing), which
+      // flashed the wrong colour mid-scroll. The static meta in the pages
+      // is always #130e0b; this no-op keeps the theme-toggle call sites
+      // working without flipping the chrome colour.
     };
 
     if (head) {
@@ -175,24 +162,6 @@ const metaLabel = site.hero?.metaLabel ?? "";
       window.addEventListener(
         "scroll",
         function () {
-          // Update the theme-color meta directly in the scroll event, without
-          // the rAF hop: iOS Safari skips/throttles rAF during momentum
-          // scrolling, which left the status-bar fill stale (dark over the
-          // light page). Only the attribute write lives here — the DOM class
-          // work stays in the rAF-coalesced sync().
-          var hero = document.getElementById("hero");
-          var heroNear = hero ? hero.getBoundingClientRect().bottom > 0 : window.scrollY <= 8;
-          var meta = document.getElementById("theme-color-meta");
-          if (meta) {
-            if (heroNear || !document.documentElement.classList.contains("past-hero")) {
-              meta.setAttribute("content", "#130e0b");
-            } else {
-              meta.setAttribute(
-                "content",
-                document.documentElement.classList.contains("dark") ? "#1c1917" : "#fdfbf7"
-              );
-            }
-          }
           if (ticking) return;
           ticking = true;
           window.requestAnimationFrame(sync);
