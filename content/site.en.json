@@ -123,6 +123,11 @@
       "tags": ["Astro", "Product", "Education", "TypeScript"]
     }
   ],
+  "testimonials": {
+    "sectionLabel": "Client feedback",
+    "heading": "What clients say.",
+    "items": []
+  },
   "process": {
     "sectionLabel": "How I work",
     "heading": "Seamless collaboration.",

@@ -286,6 +286,7 @@
 }
 
 .dark input,
+.dark select,
 .dark textarea {
   background-color: var(--surface-alt) !important;
   border-color: var(--border) !important;
@@ -302,6 +303,7 @@
 }
 
 .dark input:focus,
+.dark select:focus,
 .dark textarea:focus,
 .dark button:focus,
 .dark a:focus {
@@ -608,8 +610,13 @@
 }
 
 .dark #contact form input,
+.dark #contact form select,
 .dark #contact form textarea {
   background-color: var(--bg) !important;
+  /* The fields carry `placeholder:text-zinc-400`, which also matches the
+     blanket `[class*="text-zinc-400"]` rule above — that would mute the text
+     people actually type (~3.2:1). The id selector here wins it back. */
+  color: var(--text) !important;
 }
 
 /* --- Sticky mobile CTA bar --- */

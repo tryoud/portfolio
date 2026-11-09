@@ -22,28 +22,70 @@ const formCopy = lang === "en"
       namePlaceholder: "Your name",
       emailLabel: "Email",
       emailPlaceholder: "your@email.com",
-      subjectLabel: "Subject",
-      subjectPlaceholder: "What's it about?",
-      messageLabel: "Message",
-      messagePlaceholder: "Your message …",
-      submitLabel: "Send message",
+      projectLabel: "What do you need?",
+      projectPlaceholder: "Please choose …",
+      projectOptions: [
+        "New website",
+        "Relaunch of an existing site",
+        "Landing page / campaign",
+        "Photo & video production",
+        "Drone / aerial footage",
+        "Something else",
+      ],
+      budgetLabel: "Budget range",
+      budgetOptional: "optional",
+      budgetPlaceholder: "Not sure yet",
+      budgetOptions: [
+        "up to €2,500",
+        "€2,500 – €5,000",
+        "€5,000 – €10,000",
+        "more than €10,000",
+      ],
+      messageLabel: "About your project",
+      messagePlaceholder: "A few sentences about your company, your goal and your timeline …",
+      submitLabel: "Send request",
+      sendingLabel: "Sending …",
       privacyNote: "By submitting, you agree that your details are used to respond to your request.",
       directLabel: "Prefer email?",
       bookingLabel: "Book a call",
+      successHeading: "Thanks — your request is in.",
+      successBody: "I'll get back to you personally within 24 hours. If it's urgent, just email me directly.",
+      errorBody: "Something went wrong. Please try again or email me directly:",
     }
   : {
       nameLabel: "Name",
       namePlaceholder: "Dein Name",
       emailLabel: "E-Mail",
       emailPlaceholder: "deine@email.de",
-      subjectLabel: "Betreff",
-      subjectPlaceholder: "Worum geht's?",
-      messageLabel: "Nachricht",
-      messagePlaceholder: "Deine Nachricht …",
-      submitLabel: "Nachricht senden",
+      projectLabel: "Worum geht's?",
+      projectPlaceholder: "Bitte auswählen …",
+      projectOptions: [
+        "Neue Website",
+        "Relaunch einer bestehenden Website",
+        "Landing Page / Kampagne",
+        "Foto- & Videoproduktion",
+        "Drohnenaufnahmen",
+        "Etwas anderes",
+      ],
+      budgetLabel: "Budgetrahmen",
+      budgetOptional: "optional",
+      budgetPlaceholder: "Noch unklar",
+      budgetOptions: [
+        "bis 2.500 €",
+        "2.500 – 5.000 €",
+        "5.000 – 10.000 €",
+        "mehr als 10.000 €",
+      ],
+      messageLabel: "Zu deinem Projekt",
+      messagePlaceholder: "Ein paar Sätze zu deinem Unternehmen, deinem Ziel und deinem Zeitrahmen …",
+      submitLabel: "Anfrage senden",
+      sendingLabel: "Wird gesendet …",
       privacyNote: "Mit dem Absenden willigst du ein, dass deine Angaben zur Beantwortung deiner Anfrage genutzt werden.",
       directLabel: "Lieber per E-Mail?",
       bookingLabel: "Gespräch buchen",
+      successHeading: "Danke – deine Anfrage ist da.",
+      successBody: "Ich melde mich innerhalb von 24 Stunden persönlich bei dir. Wenn es eilt, schreib mir gerne direkt eine E-Mail.",
+      errorBody: "Das hat leider nicht geklappt. Versuch es bitte erneut oder schreib mir direkt:",
     };
 ---
 
@@ -94,14 +136,15 @@ const formCopy = lang === "en"
         </div>
       </div>
 
+      <div class="scroll-reveal w-full" data-reveal="card" style="--reveal-delay: 140ms;" data-contact>
       <form
+        id="contact-form"
         action="https://formspree.io/f/mzdakanj"
         method="POST"
-        class="scroll-reveal w-full space-y-5 rounded-2xl border border-zinc-200/70 bg-[#FDFBF7] p-5 text-left shadow-sm md:p-7"
-        data-reveal="card"
-        style="--reveal-delay: 140ms;"
+        class="w-full space-y-5 rounded-2xl border border-zinc-200/70 bg-[#FDFBF7] p-5 text-left shadow-sm md:p-7"
       >
         <input type="text" name="_gotcha" class="hidden" tabindex="-1" autocomplete="off" />
+        <input type="hidden" name="_subject" value={lang === "en" ? "New project request via nikolasmaerker.com" : "Neue Projektanfrage über nikolasmaerker.com"} />
         <div>
           <label for="name" class="mb-1.5 block text-sm font-medium text-zinc-700">{formCopy.nameLabel}</label>
           <input
@@ -126,16 +169,33 @@ const formCopy = lang === "en"
             placeholder={formCopy.emailPlaceholder}
           />
         </div>
-        <div>
-          <label for="subject" class="mb-1.5 block text-sm font-medium text-zinc-700">{formCopy.subjectLabel}</label>
-          <input
-            id="subject"
-            name="subject"
-            type="text"
-            autocomplete="off"
-            class="w-full rounded-xl border border-zinc-200/70 bg-white px-4 py-3 text-zinc-900 shadow-sm transition-all placeholder:text-zinc-400 hover:border-zinc-300 focus:border-[var(--brand-border)] focus:outline-none focus:ring-2 focus:ring-[var(--brand-border)] focus:ring-offset-2 focus:ring-offset-[var(--ring-offset)]"
-            placeholder={formCopy.subjectPlaceholder}
-          />
+        <div class="grid gap-5 sm:grid-cols-2">
+          <div>
+            <label for="projectType" class="mb-1.5 block text-sm font-medium text-zinc-700">{formCopy.projectLabel}</label>
+            <select
+              id="projectType"
+              name="projectType"
+              required
+              class="w-full rounded-xl border border-zinc-200/70 bg-white px-4 py-3 text-zinc-900 shadow-sm transition-all placeholder:text-zinc-400 hover:border-zinc-300 focus:border-[var(--brand-border)] focus:outline-none focus:ring-2 focus:ring-[var(--brand-border)] focus:ring-offset-2 focus:ring-offset-[var(--ring-offset)]"
+            >
+              <option value="" selected disabled>{formCopy.projectPlaceholder}</option>
+              {formCopy.projectOptions.map((option: string) => <option value={option}>{option}</option>)}
+            </select>
+          </div>
+          <div>
+            <label for="budget" class="mb-1.5 block text-sm font-medium text-zinc-700">
+              {formCopy.budgetLabel}
+              <span class="font-normal text-zinc-400">({formCopy.budgetOptional})</span>
+            </label>
+            <select
+              id="budget"
+              name="budget"
+              class="w-full rounded-xl border border-zinc-200/70 bg-white px-4 py-3 text-zinc-900 shadow-sm transition-all placeholder:text-zinc-400 hover:border-zinc-300 focus:border-[var(--brand-border)] focus:outline-none focus:ring-2 focus:ring-[var(--brand-border)] focus:ring-offset-2 focus:ring-offset-[var(--ring-offset)]"
+            >
+              <option value="" selected>{formCopy.budgetPlaceholder}</option>
+              {formCopy.budgetOptions.map((option: string) => <option value={option}>{option}</option>)}
+            </select>
+          </div>
         </div>
         <div>
           <label for="message" class="mb-1.5 block text-sm font-medium text-zinc-700">{formCopy.messageLabel}</label>
@@ -149,8 +209,8 @@ const formCopy = lang === "en"
           />
         </div>
         <div class="pt-1">
-          <button type="submit" class="btn btn-primary w-full">
-            {formCopy.submitLabel}
+          <button type="submit" class="btn btn-primary w-full" data-submit>
+            <span data-submit-label>{formCopy.submitLabel}</span>
             <svg class="btn-arrow h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
           </button>
           <p class="mt-3.5 text-xs leading-relaxed text-zinc-500">
@@ -158,6 +218,31 @@ const formCopy = lang === "en"
           </p>
         </div>
       </form>
+
+      <!-- Shown in place of the form after a successful send, so the visitor
+           stays on the page and gets an immediate confirmation. -->
+      <div
+        id="contact-success"
+        class="hidden rounded-2xl border border-zinc-200/70 bg-[#FDFBF7] p-7 text-left shadow-sm md:p-9"
+        role="status"
+        aria-live="polite"
+        tabindex="-1"
+      >
+        <span class="inline-flex h-11 w-11 items-center justify-center rounded-full bg-[var(--brand-soft)] text-[var(--brand)]" aria-hidden="true">
+          <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" /></svg>
+        </span>
+        <p class="font-display mt-5 text-2xl text-zinc-900 md:text-3xl">{formCopy.successHeading}</p>
+        <p class="mt-3 text-base leading-relaxed text-zinc-600">{formCopy.successBody}</p>
+        {emailHref ? (
+          <a href={emailHref} class="accent-link mt-5 inline-block font-medium text-[var(--text)] underline decoration-[var(--brand)] decoration-2 underline-offset-4 transition-colors hover:text-[var(--brand)]">{emailAddress}</a>
+        ) : null}
+      </div>
+
+      <p id="contact-error" class="mt-4 hidden text-sm leading-relaxed text-red-700" role="alert">
+        {formCopy.errorBody}{" "}
+        {emailHref ? <a href={emailHref} class="font-medium underline underline-offset-4">{emailAddress}</a> : null}
+      </p>
+      </div>
     </div>
     <div class="scroll-reveal mt-16 flex flex-col gap-6 border-t border-zinc-200/70 pt-10 text-sm text-zinc-500 md:flex-row md:justify-between md:items-center" data-reveal="fade" style="--reveal-delay: 260ms;">
       <p class="order-2 md:order-1">© {new Date().getFullYear()} {site.name}.</p>
@@ -178,6 +263,49 @@ const formCopy = lang === "en"
     </div>
   </div>
 </footer>
+<script is:inline define:vars={{ sendingLabel: formCopy.sendingLabel }}>
+  // Progressive enhancement: without JS the form still does a normal POST to
+  // Formspree. With JS the visitor stays on the page and sees a confirmation,
+  // which is what makes the difference between a sent form and a lost lead.
+  (function () {
+    var form = document.getElementById("contact-form");
+    var success = document.getElementById("contact-success");
+    var error = document.getElementById("contact-error");
+    if (!form || !success) return;
+
+    var button = form.querySelector("[data-submit]");
+    var label = form.querySelector("[data-submit-label]");
+    var idleLabel = label ? label.textContent : "";
+
+    form.addEventListener("submit", function (event) {
+      if (!window.fetch || !window.FormData) return; // let the browser submit
+      event.preventDefault();
+      error.classList.add("hidden");
+      if (button) button.disabled = true;
+      if (label) label.textContent = sendingLabel;
+
+      fetch(form.action, {
+        method: "POST",
+        body: new FormData(form),
+        headers: { Accept: "application/json" },
+      })
+        .then(function (response) {
+          if (!response.ok) throw new Error("submit failed");
+          form.classList.add("hidden");
+          success.classList.remove("hidden");
+          success.focus();
+        })
+        .catch(function () {
+          error.classList.remove("hidden");
+        })
+        .finally(function () {
+          if (button) button.disabled = false;
+          if (label) label.textContent = idleLabel;
+        });
+    });
+  })();
+</script>
+
 <script>
   (function () {
     const section = document.querySelector("#contact[data-reveal-group]");

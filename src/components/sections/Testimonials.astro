@@ -1,0 +1,79 @@
+---
+// Data-driven social proof. Renders nothing until `testimonials.items` in
+// site.json holds at least one real quote, so the section can never show
+// placeholder content.
+const { site } = Astro.props;
+const testimonials = site.testimonials ?? {};
+const sectionLabel = testimonials.sectionLabel ?? "";
+const heading = testimonials.heading ?? "";
+const items = Array.isArray(testimonials.items)
+  ? testimonials.items.filter((item: { quote?: string }) => item?.quote)
+  : [];
+---
+
+{items.length ? (
+  <section id="testimonials" class="border-t border-zinc-100 bg-white py-16 md:py-20" aria-labelledby="testimonials-heading" data-reveal-group>
+    <div class="mx-auto max-w-6xl px-6">
+      <div class="scroll-reveal" data-reveal="fade">
+        {sectionLabel ? <span class="eyebrow">{sectionLabel}</span> : null}
+        {heading ? (
+          <h2 id="testimonials-heading" class="section-head-gap font-display text-balance text-4xl text-zinc-900 md:text-[3.25rem]">{heading}</h2>
+        ) : null}
+      </div>
+
+      <ul class={`mt-12 grid gap-6 ${items.length > 1 ? "md:grid-cols-2" : ""} ${items.length > 2 ? "lg:grid-cols-3" : ""}`}>
+        {items.map((item: { quote: string; name?: string; role?: string; company?: string; companyHref?: string }, index: number) => {
+          const attribution = [item.role, item.company].filter(Boolean).join(" · ");
+          return (
+            <li
+              class="scroll-reveal flex h-full flex-col rounded-2xl border border-zinc-200/70 bg-[#FDFBF7] p-6 shadow-sm md:p-7"
+              data-reveal="card"
+              style={`--reveal-delay: ${index * 110}ms;`}
+            >
+              <svg class="h-7 w-7 shrink-0 text-[var(--brand)]" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M9.4 5.6c-3 1.7-4.7 4.3-4.7 7.6V18.4h5.6v-5.6H7.6c0-2 .8-3.4 2.6-4.5l-.8-2.7Zm9 0c-3 1.7-4.7 4.3-4.7 7.6V18.4h5.6v-5.6h-2.7c0-2 .8-3.4 2.6-4.5l-.8-2.7Z" />
+              </svg>
+              <blockquote class="mt-4 flex-1 text-base leading-relaxed text-zinc-700">{item.quote}</blockquote>
+              {item.name || attribution ? (
+                <footer class="mt-6 border-t border-zinc-200/70 pt-5">
+                  {item.name ? <p class="text-sm font-semibold text-zinc-900">{item.name}</p> : null}
+                  {attribution ? (
+                    <p class="mt-0.5 text-sm text-zinc-500">
+                      {item.companyHref && item.company ? (
+                        <>
+                          {item.role ? `${item.role} · ` : ""}
+                          <a href={item.companyHref} target="_blank" rel="noreferrer noopener" class="underline decoration-zinc-300 underline-offset-4 transition-colors hover:text-zinc-900">{item.company}</a>
+                        </>
+                      ) : attribution}
+                    </p>
+                  ) : null}
+                </footer>
+              ) : null}
+            </li>
+          );
+        })}
+      </ul>
+    </div>
+  </section>
+) : null}
+
+<script>
+  (function () {
+    const section = document.querySelector("#testimonials[data-reveal-group]");
+    if (!section || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    const items = section.querySelectorAll(".scroll-reveal");
+    if (!items.length) return;
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: "0px 0px -8% 0px" });
+
+    items.forEach((item) => observer.observe(item));
+  })();
+</script>
